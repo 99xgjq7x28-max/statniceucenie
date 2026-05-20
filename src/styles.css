@@ -94,12 +94,10 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .method-panel ol { margin: 0; padding: 0 16px 14px 34px; }
 .method-panel li { margin: 8px 0; font-size: 14px; }
 .study-disclaimer {
-  margin: 18px 0 0;
-  padding: 12px 2px 0;
-  border-top: 1px solid var(--line);
+  margin: 0;
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .workspace { width: min(1120px, 100%); margin: 0 auto; padding: 22px; }
@@ -116,6 +114,8 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .subject-line { color: var(--accent); font-size: 13px; font-weight: 900; text-transform: uppercase; }
 .question-head h2 { margin: 0; font-size: 24px; line-height: 1.22; }
 .cue { margin: 0; color: var(--muted); font-size: 15px; }
+.study-mode { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
+.study-mode .is-active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 900; }
 .study-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
 .timer { min-width: 86px; font-variant-numeric: tabular-nums; font-size: 30px; line-height: 1; font-weight: 900; }
 .answer-actions { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
@@ -127,6 +127,22 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .answer { display: none; padding: 16px 20px 22px; }
 .answer.is-visible { display: block; }
 .answer-inner { max-width: 860px; }
+.practice-panel { max-width: 760px; display: grid; gap: 12px; }
+.practice-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; }
+.practice-head strong { color: var(--ink); font-size: 17px; }
+.flashcard, .quiz-card { width: 100%; min-height: 230px; display: grid; align-content: center; gap: 12px; text-align: left; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 22px; }
+.flashcard { cursor: pointer; }
+.flashcard.is-flipped { background: #fbf8f0; }
+.flash-label { color: var(--accent); font-size: 12px; font-weight: 900; text-transform: uppercase; }
+.flash-text { font-size: 21px; line-height: 1.35; font-weight: 800; }
+.flash-text ul, .quiz-answer ul { margin: 0; padding-left: 20px; font-size: 16px; font-weight: 400; }
+.flash-text li, .quiz-answer li { margin: 6px 0; }
+.quiz-card h3 { margin: 0; font-size: 22px; line-height: 1.3; }
+.quiz-hint { margin: 0; color: var(--muted); }
+.practice-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.practice-actions button { flex: 1 1 auto; }
+.app-footer { margin-top: 18px; padding: 14px 2px 0; border-top: 1px solid var(--line); }
+
 .answer p { margin: 0; }
 .answer .para { padding: 5px 0; }
 .answer-heading { margin: 18px 0 6px; font-size: 17px; line-height: 1.32; font-weight: 900; }
@@ -164,8 +180,11 @@ th { background: #f1eee7; font-weight: 900; }
   .sidebar { padding: 14px; }
   .workspace { padding: 12px; }
   .question-head, .answer { padding-left: 14px; padding-right: 14px; }
+  .study-mode { grid-template-columns: 1fr; }
   .study-toolbar button { flex: 1 1 42%; }
   .timer { flex: 1 0 100%; }
+  .flashcard, .quiz-card { min-height: 210px; padding: 16px; }
+  .flash-text, .quiz-card h3 { font-size: 18px; }
   .grade-buttons { grid-template-columns: 1fr; }
   .topbar { align-items: flex-start; }
   .browser-head { display: flex; }

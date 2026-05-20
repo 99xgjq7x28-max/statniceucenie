@@ -11,6 +11,11 @@ const state = {
   mode: 'weak',
   query: '',
   answerOpen: false,
+  studyMode: 'answer',
+  cardIndex: 0,
+  cardFlipped: false,
+  quizIndex: 0,
+  quizOpen: false,
   timer: 300,
   timerId: null,
   progress: readJson(STORE_KEY, {}),
@@ -64,6 +69,9 @@ function bindEvents() {
   $('#resetProgress').addEventListener('click', resetProgress);
   $$('.grade-buttons button').forEach((button) => {
     button.addEventListener('click', () => gradeCurrent(button.dataset.grade));
+  });
+  $$('.study-mode button').forEach((button) => {
+    button.addEventListener('click', () => setStudyMode(button.dataset.studyMode));
   });
   document.addEventListener('keydown', handleKeys);
 }
@@ -127,6 +135,10 @@ function chooseFirstFiltered() {
 function setCurrent(id, shouldFocusStudy = false) {
   state.currentId = id;
   state.answerOpen = false;
+  state.cardIndex = 0;
+  state.cardFlipped = false;
+  state.quizIndex = 0;
+  state.quizOpen = false;
   resetTimer(false);
   renderQuestion();
   renderTopicList();
@@ -196,10 +208,126 @@ function renderQuestion() {
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
   $('#questionTitle').textContent = topic.title;
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
-  $('#answer').className = `answer${state.answerOpen ? ' is-visible' : ''}`;
-  $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}</div>`;
-  $('#toggleAnswer').textContent = state.answerOpen ? 'Skryť odpoveď' : 'Ukázať odpoveď';
+  renderStudyModeButtons();
+  renderStudyBody(topic);
   renderGradeButtons(topic);
+}
+
+function renderStudyBody(topic) {
+  if (state.studyMode === 'answer') {
+    $('#answer').className = `answer${state.answerOpen ? ' is-visible' : ''}`;
+    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}</div>`;
+    $('#toggleAnswer').style.display = '';
+    $('#toggleAnswer').textContent = state.answerOpen ? 'Skryť odpoveď' : 'Ukázať odpoveď';
+    return;
+  }
+  $('#answer').className = 'answer is-visible';
+  $('#toggleAnswer').style.display = 'none';
+  if (state.studyMode === 'cards') {
+    $('#answer').innerHTML = renderCards(topic);
+    bindCardEvents(topic);
+    return;
+  }
+  $('#answer').innerHTML = renderQuiz(topic);
+  bindQuizEvents(topic);
+}
+
+function setStudyMode(mode) {
+  state.studyMode = mode;
+  state.answerOpen = false;
+  state.cardIndex = 0;
+  state.cardFlipped = false;
+  state.quizIndex = 0;
+  state.quizOpen = false;
+  renderQuestion();
+}
+
+function renderStudyModeButtons() {
+  $$('.study-mode button').forEach((button) => {
+    button.classList.toggle('is-active', button.dataset.studyMode === state.studyMode);
+  });
+}
+
+function buildRecallItems(topic) {
+  const items = [];
+  let current = null;
+  for (const block of topic.blocks) {
+    if (block.type === 'heading') {
+      if (current && current.answer.length) items.push(current);
+      current = { prompt: block.text, answer: [] };
+      continue;
+    }
+    if (!current) continue;
+    if (block.type === 'p' || block.type === 'li') current.answer.push(block.text);
+    if (block.type === 'table') current.answer.push('Tabuľka v odpovedi: pozri úplnú odpoveď.');
+    if (block.type === 'image') current.answer.push('Obrázok v odpovedi: pozri úplnú odpoveď.');
+    if (current.answer.length >= 7) {
+      items.push(current);
+      current = null;
+    }
+  }
+  if (current && current.answer.length) items.push(current);
+  if (!items.length) {
+    items.push({ prompt: topic.title, answer: topic.blocks.filter((block) => block.text).slice(0, 8).map((block) => block.text) });
+  }
+  return items.slice(0, 40);
+}
+
+function renderCards(topic) {
+  const cards = buildRecallItems(topic);
+  const index = Math.min(state.cardIndex, cards.length - 1);
+  const card = cards[index];
+  const answer = card.answer.map((line) => `<li>${formatLearningText(line)}</li>`).join('');
+  return `<div class="practice-panel">
+    <div class="practice-head"><strong>Kartičky</strong><span>${index + 1} / ${cards.length}</span></div>
+    <button id="flashcard" class="flashcard ${state.cardFlipped ? 'is-flipped' : ''}" type="button">
+      <span class="flash-label">${state.cardFlipped ? 'Odpoveď' : 'Predná strana'}</span>
+      <span class="flash-text">${state.cardFlipped ? `<ul>${answer}</ul>` : escapeHtml(card.prompt)}</span>
+    </button>
+    <div class="practice-actions">
+      <button id="cardPrev" type="button">Predošlá</button>
+      <button id="cardFlip" type="button">Otočiť</button>
+      <button id="cardNext" type="button">Ďalšia</button>
+    </div>
+  </div>`;
+}
+
+function bindCardEvents(topic) {
+  const cards = buildRecallItems(topic);
+  $('#flashcard')?.addEventListener('click', () => { state.cardFlipped = !state.cardFlipped; renderQuestion(); });
+  $('#cardFlip')?.addEventListener('click', () => { state.cardFlipped = !state.cardFlipped; renderQuestion(); });
+  $('#cardPrev')?.addEventListener('click', () => { state.cardIndex = (state.cardIndex - 1 + cards.length) % cards.length; state.cardFlipped = false; renderQuestion(); });
+  $('#cardNext')?.addEventListener('click', () => { state.cardIndex = (state.cardIndex + 1) % cards.length; state.cardFlipped = false; renderQuestion(); });
+}
+
+function renderQuiz(topic) {
+  const items = buildRecallItems(topic);
+  const index = Math.min(state.quizIndex, items.length - 1);
+  const item = items[index];
+  const answer = item.answer.map((line) => `<li>${formatLearningText(line)}</li>`).join('');
+  return `<div class="practice-panel">
+    <div class="practice-head"><strong>Kvíz</strong><span>${index + 1} / ${items.length}</span></div>
+    <div class="quiz-card">
+      <span class="flash-label">Povedz nahlas</span>
+      <h3>${escapeHtml(item.prompt)}</h3>
+      ${state.quizOpen ? `<div class="quiz-answer"><ul>${answer}</ul></div>` : '<p class="quiz-hint">Najprv odpovedz spamäti, potom odkry kontrolu.</p>'}
+    </div>
+    <div class="practice-actions">
+      <button id="quizReveal" type="button">${state.quizOpen ? 'Skryť' : 'Ukázať'}</button>
+      <button id="quizNo" type="button">Nevedel</button>
+      <button id="quizPart" type="button">Čiastočne</button>
+      <button id="quizYes" type="button">Vedel</button>
+    </div>
+  </div>`;
+}
+
+function bindQuizEvents(topic) {
+  const items = buildRecallItems(topic);
+  const next = () => { state.quizIndex = (state.quizIndex + 1) % items.length; state.quizOpen = false; renderQuestion(); };
+  $('#quizReveal')?.addEventListener('click', () => { state.quizOpen = !state.quizOpen; renderQuestion(); });
+  $('#quizNo')?.addEventListener('click', next);
+  $('#quizPart')?.addEventListener('click', next);
+  $('#quizYes')?.addEventListener('click', next);
 }
 
 function renderBlock(block) {
@@ -338,7 +466,9 @@ function handleKeys(event) {
   if (event.target.matches('input, select, textarea')) return;
   if (event.key === ' ') {
     event.preventDefault();
-    state.answerOpen = !state.answerOpen;
+    if (state.studyMode === 'answer') state.answerOpen = !state.answerOpen;
+    if (state.studyMode === 'cards') state.cardFlipped = !state.cardFlipped;
+    if (state.studyMode === 'quiz') state.quizOpen = !state.quizOpen;
     renderQuestion();
   }
   if (event.key.toLowerCase() === 'n') pickNext();
