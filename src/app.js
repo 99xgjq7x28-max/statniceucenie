@@ -237,6 +237,8 @@ function renderGradeButtons(topic) {
 function renderTopicList() {
   const topics = filteredTopics();
   $('#resultCount').textContent = `${topics.length} tém`;
+  const topCount = $('#currentTopicCount');
+  if (topCount) topCount.textContent = `${topics.length} tém`;
   $('#topicList').innerHTML = topics.map((topic) => `
     <button class="topic-item ${topic.id === state.currentId ? 'is-active' : ''}" data-id="${escapeAttr(topic.id)}" type="button">
       <strong>${escapeHtml(topic.number + '. ' + compactTitle(topic.title))}</strong>

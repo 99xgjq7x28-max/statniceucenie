@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3efe7">
   <title>Štátnice učenie</title>
-  <link rel="stylesheet" href="src/styles.css?v=3">
+  <link rel="stylesheet" href="src/styles.css?v=4">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -23,6 +23,10 @@
         <div class="metric"><span>Denne</span><strong id="metricDaily">0</strong></div>
       </section>
 
+      <section class="panel subject-panel" aria-label="Výber predmetu">
+        <label>Predmet<select id="subjectFilter"></select></label>
+      </section>
+
       <section class="panel topic-browser" aria-label="Zoznam otázok">
         <div class="browser-head">
           <h2>Otázky</h2>
@@ -31,8 +35,7 @@
         <div id="topicList" class="topic-list"></div>
       </section>
 
-      <section class="panel controls" aria-label="Filtre">
-        <label>Predmet<select id="subjectFilter"></select></label>
+      <section class="panel controls" aria-label="Ďalšie filtre">
         <label>Stav<select id="gradeFilter">
           <option value="all">Všetky</option>
           <option value="C">C - neviem</option>
@@ -71,7 +74,7 @@
     <main class="workspace">
       <nav class="topbar" aria-label="Akcie">
         <div>
-          <span id="resultCount" class="pill">0 tém</span>
+          <span id="currentTopicCount" class="pill">60 tém</span>
           <span id="currentMedia" class="pill muted-pill"></span>
         </div>
         <div class="top-actions">
@@ -109,6 +112,6 @@
     </main>
   </div>
 
-  <script src="src/app.js?v=3" defer></script>
+  <script src="src/app.js?v=4" defer></script>
 </body>
 </html>

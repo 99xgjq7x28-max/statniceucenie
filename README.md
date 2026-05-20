@@ -35,3 +35,16 @@ statnice-ucenie.html    presmerovanie zo starej URL na index.html
 - `N`: ďalšia otázka
 - `R`: náhodná slabá otázka
 - `?reset=1`: vymaže lokálny progres v aktuálnom prehliadači
+
+
+## Keď GitHub Pages ukazuje 404
+
+Ak URL typu `https://99xgjq7x28-max.github.io/statniceucenie/` ukazuje 404, skontroluj v repozitári:
+
+1. `Settings` → `Pages`.
+2. V časti `Build and deployment` nastav `Source` na `Deploy from a branch`.
+3. Vyber branch `main` a folder `/ (root)`.
+4. Klikni `Save` a počkaj pár minút.
+5. V repozitári musí byť `index.html` priamo v koreňovej zložke, nie v podpriečinku.
+
+Táto appka používa relatívne cesty (`src/app.js`, `data/topics.json`, `assets/images`), takže na GitHub Pages pod `/statniceucenie/` nepotrebuje žiadne špeciálne nastavenie base path.
