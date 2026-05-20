@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3efe7">
+  <title>Štátnice učenie</title>
+  <link rel="stylesheet" href="src/styles.css?v=3">
+</head>
+<body>
+  <div id="app" class="app-shell" aria-live="polite">
+    <aside class="sidebar">
+      <header class="brand-block">
+        <div class="brand-kicker">Štátnice</div>
+        <h1>Učenie</h1>
+        <p>Tvoje otázky, slabé miesta a denný rytmus do 8. júna.</p>
+      </header>
+
+      <section class="metric-grid" aria-label="Prehľad progresu">
+        <div class="metric"><span>Hotové</span><strong id="metricDone">0/60</strong></div>
+        <div class="metric"><span>Slabé/nové</span><strong id="metricWeak">60</strong></div>
+        <div class="metric"><span>Dní</span><strong id="metricDays">0</strong></div>
+        <div class="metric"><span>Denne</span><strong id="metricDaily">0</strong></div>
+      </section>
+
+      <section class="panel topic-browser" aria-label="Zoznam otázok">
+        <div class="browser-head">
+          <h2>Otázky</h2>
+          <p id="resultCount">0 tém</p>
+        </div>
+        <div id="topicList" class="topic-list"></div>
+      </section>
+
+      <section class="panel controls" aria-label="Filtre">
+        <label>Predmet<select id="subjectFilter"></select></label>
+        <label>Stav<select id="gradeFilter">
+          <option value="all">Všetky</option>
+          <option value="C">C - neviem</option>
+          <option value="B">B - slabé</option>
+          <option value="A">A - viem</option>
+          <option value="none">Neoznačené</option>
+        </select></label>
+        <label>Hľadať<input id="searchInput" type="search" placeholder="HDP, Agenda 2030, motivácia..."></label>
+        <div class="segmented" role="group" aria-label="Poradie tém">
+          <button id="modeWeak" class="is-active" type="button">Slabé prvé</button>
+          <button id="modeOrder" type="button">Poradie</button>
+        </div>
+      </section>
+
+      <section class="panel today-panel">
+        <div class="panel-title-row">
+          <h2>Dnešný balík</h2>
+          <button id="buildToday" type="button">Vybrať</button>
+        </div>
+        <div id="todayList" class="today-list"></div>
+      </section>
+
+      <section class="panel method-panel">
+        <h2>Ako sa učiť</h2>
+        <ol>
+          <li><strong>Najprv odpovedz bez pozerania.</strong> Daj si 3 až 5 minút a hovor nahlas.</li>
+          <li><strong>Potom odkry odpoveď.</strong> Dopĺňaj len chýbajúce body.</li>
+          <li><strong>Označ A/B/C.</strong> A = viem, B = slabé, C = neviem spustiť.</li>
+          <li><strong>Priorita:</strong> C, potom B, potom nové, A iba krátko.</li>
+          <li><strong>Minimum denne:</strong> 1 manažment, 1 ekonómia, 1 staršia otázka.</li>
+        </ol>
+        <p class="study-disclaimer"><strong>Upozornenie:</strong> Táto appka je len doplnok k učeniu. Uč sa na vlastnú zodpovednosť, pripravuj si aj vlastné poznámky a overuj si správnosť materiálov. Autor appky nezodpovedá za úplnosť ani správnosť poznámok.</p>
+      </section>
+    </aside>
+
+    <main class="workspace">
+      <nav class="topbar" aria-label="Akcie">
+        <div>
+          <span id="resultCount" class="pill">0 tém</span>
+          <span id="currentMedia" class="pill muted-pill"></span>
+        </div>
+        <div class="top-actions">
+          <button id="resetProgress" class="text-danger" type="button">Vymazať progres</button>
+        </div>
+      </nav>
+
+      <section class="study-card">
+        <header class="question-head">
+          <div id="subjectLine" class="subject-line"></div>
+          <h2 id="questionTitle"></h2>
+          <p id="questionCue" class="cue"></p>
+
+          <div class="study-toolbar">
+            <div class="timer" id="timer">05:00</div>
+            <button id="timerToggle" type="button">Štart</button>
+            <button id="timerReset" type="button">Reset</button>
+            <button id="randomQuestion" type="button">Náhodná slabá</button>
+            <button id="nextQuestion" type="button">Ďalšia</button>
+          </div>
+
+          <div class="answer-actions">
+            <button id="toggleAnswer" class="primary-button" type="button">Ukázať odpoveď</button>
+            <div class="grade-buttons" role="group" aria-label="Hodnotenie otázky">
+              <button data-grade="C" type="button">C neviem</button>
+              <button data-grade="B" type="button">B slabé</button>
+              <button data-grade="A" type="button">A viem</button>
+            </div>
+          </div>
+        </header>
+
+        <article id="answer" class="answer"></article>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="src/app.js?v=3" defer></script>
+</body>
+</html>
