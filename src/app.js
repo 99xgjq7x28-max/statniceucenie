@@ -124,12 +124,15 @@ function chooseFirstFiltered() {
   renderTopicList();
 }
 
-function setCurrent(id) {
+function setCurrent(id, shouldFocusStudy = false) {
   state.currentId = id;
   state.answerOpen = false;
   resetTimer(false);
   renderQuestion();
   renderTopicList();
+  if (shouldFocusStudy && window.matchMedia('(max-width: 900px)').matches) {
+    document.querySelector('.study-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 function renderMetrics() {
@@ -152,7 +155,7 @@ function renderToday() {
     </button>
   `).join('');
   $$('#todayList .today-item').forEach((button) => {
-    button.addEventListener('click', () => setCurrent(button.dataset.id));
+    button.addEventListener('click', () => setCurrent(button.dataset.id, true));
   });
 }
 
@@ -246,7 +249,7 @@ function renderTopicList() {
     </button>
   `).join('');
   $$('#topicList .topic-item').forEach((button) => {
-    button.addEventListener('click', () => setCurrent(button.dataset.id));
+    button.addEventListener('click', () => setCurrent(button.dataset.id, true));
   });
 }
 

@@ -68,24 +68,38 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 700; }
 .metric strong { display: block; margin-top: 2px; font-size: 20px; line-height: 1.1; }
 .panel { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; margin-top: 12px; }
-.subject-panel { margin-top: 12px; }
 .controls { display: grid; gap: 10px; }
 .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .segmented .is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .panel-title-row { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
-.panel h2 { margin: 0 0 10px; font-size: 17px; }
-.today-list { display: grid; gap: 7px; max-height: 260px; overflow: auto; padding-right: 2px; }
+.panel h2 { margin: 0 0 4px; font-size: 17px; }
+.panel-title-row p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.3; }
+.today-list { display: grid; gap: 7px; max-height: 220px; overflow: auto; padding-right: 2px; }
 .today-item { width: 100%; text-align: left; display: grid; gap: 2px; background: #fbf8f0; padding: 10px; }
 .today-item strong { font-size: 13px; }
 .today-item span { color: var(--muted); font-size: 12px; }
-.method-panel ol { margin: 0; padding-left: 20px; }
+.method-panel { padding: 0; overflow: hidden; }
+.method-panel summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 900;
+}
+.method-panel summary::after { content: "+"; color: var(--muted); font-size: 20px; line-height: 1; }
+.method-panel[open] summary::after { content: "-"; }
+.method-panel ol { margin: 0; padding: 0 16px 14px 34px; }
 .method-panel li { margin: 8px 0; font-size: 14px; }
 .study-disclaimer {
-  margin: 12px 0 0;
-  padding-top: 10px;
+  margin: 18px 0 0;
+  padding: 12px 2px 0;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .workspace { width: min(1120px, 100%); margin: 0 auto; padding: 22px; }
@@ -132,7 +146,7 @@ th { background: #f1eee7; font-weight: 900; }
 .browser-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 10px; }
 .browser-head h2 { margin: 0; font-size: 17px; }
 .browser-head p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 800; white-space: nowrap; }
-.topic-list { display: grid; gap: 7px; max-height: 38vh; overflow: auto; padding-right: 2px; }
+.topic-list { display: grid; gap: 7px; max-height: 34vh; overflow: auto; padding-right: 2px; }
 .topic-item { width: 100%; display: grid; gap: 4px; text-align: left; background: #fbf8f0; padding: 10px; }
 .topic-item.is-active { border-color: var(--accent); outline: 2px solid rgba(15,118,110,.15); }
 .topic-item strong { font-size: 13px; line-height: 1.32; }
@@ -144,7 +158,7 @@ th { background: #f1eee7; font-weight: 900; }
   .workspace { padding: 14px; }
   .answer-actions { grid-template-columns: 1fr; }
   .question-head h2 { font-size: 21px; }
-  .topic-list { max-height: 360px; }
+  .topic-list { max-height: 320px; }
 }
 @media (max-width: 520px) {
   .sidebar { padding: 14px; }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3efe7">
   <title>Štátnice učenie</title>
-  <link rel="stylesheet" href="src/styles.css?v=4">
+  <link rel="stylesheet" href="src/styles.css?v=5">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -23,19 +23,19 @@
         <div class="metric"><span>Denne</span><strong id="metricDaily">0</strong></div>
       </section>
 
-      <section class="panel subject-panel" aria-label="Výber predmetu">
+      <details class="panel method-panel">
+        <summary>Ako sa učiť</summary>
+        <ol>
+          <li><strong>Najprv odpovedz bez pozerania.</strong> Daj si 3 až 5 minút a hovor nahlas.</li>
+          <li><strong>Potom odkry odpoveď.</strong> Dopĺňaj len chýbajúce body.</li>
+          <li><strong>Označ A/B/C.</strong> A = viem, B = slabé, C = neviem spustiť.</li>
+          <li><strong>Priorita:</strong> C, potom B, potom nové, A iba krátko.</li>
+          <li><strong>Minimum denne:</strong> 1 manažment, 1 ekonómia, 1 staršia otázka.</li>
+        </ol>
+      </details>
+
+      <section class="panel controls" aria-label="Filtre">
         <label>Predmet<select id="subjectFilter"></select></label>
-      </section>
-
-      <section class="panel topic-browser" aria-label="Zoznam otázok">
-        <div class="browser-head">
-          <h2>Otázky</h2>
-          <p id="resultCount">0 tém</p>
-        </div>
-        <div id="topicList" class="topic-list"></div>
-      </section>
-
-      <section class="panel controls" aria-label="Ďalšie filtre">
         <label>Stav<select id="gradeFilter">
           <option value="all">Všetky</option>
           <option value="C">C - neviem</option>
@@ -50,25 +50,26 @@
         </div>
       </section>
 
+      <section class="panel topic-browser" aria-label="Zoznam otázok">
+        <div class="browser-head">
+          <h2>Otázky</h2>
+          <p id="resultCount">0 tém</p>
+        </div>
+        <div id="topicList" class="topic-list"></div>
+      </section>
+
       <section class="panel today-panel">
         <div class="panel-title-row">
-          <h2>Dnešný balík</h2>
+          <div>
+            <h2>Dnešný výber</h2>
+            <p>Automatický mix slabých a nových otázok na krátke učenie.</p>
+          </div>
           <button id="buildToday" type="button">Vybrať</button>
         </div>
         <div id="todayList" class="today-list"></div>
       </section>
 
-      <section class="panel method-panel">
-        <h2>Ako sa učiť</h2>
-        <ol>
-          <li><strong>Najprv odpovedz bez pozerania.</strong> Daj si 3 až 5 minút a hovor nahlas.</li>
-          <li><strong>Potom odkry odpoveď.</strong> Dopĺňaj len chýbajúce body.</li>
-          <li><strong>Označ A/B/C.</strong> A = viem, B = slabé, C = neviem spustiť.</li>
-          <li><strong>Priorita:</strong> C, potom B, potom nové, A iba krátko.</li>
-          <li><strong>Minimum denne:</strong> 1 manažment, 1 ekonómia, 1 staršia otázka.</li>
-        </ol>
-        <p class="study-disclaimer"><strong>Upozornenie:</strong> Táto appka je len doplnok k učeniu. Uč sa na vlastnú zodpovednosť, pripravuj si aj vlastné poznámky a overuj si správnosť materiálov. Autor appky nezodpovedá za úplnosť ani správnosť poznámok.</p>
-      </section>
+      <p class="study-disclaimer"><strong>Upozornenie:</strong> Táto appka je len doplnok k učeniu. Uč sa na vlastnú zodpovednosť, pripravuj si aj vlastné poznámky a overuj si správnosť materiálov. Autor appky nezodpovedá za úplnosť ani správnosť poznámok.</p>
     </aside>
 
     <main class="workspace">
@@ -112,6 +113,6 @@
     </main>
   </div>
 
-  <script src="src/app.js?v=4" defer></script>
+  <script src="src/app.js?v=5" defer></script>
 </body>
 </html>
