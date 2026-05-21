@@ -16,6 +16,10 @@ const state = {
   cardFlipped: false,
   quizIndex: 0,
   quizOpen: false,
+  readerIndex: 0,
+  readerPlaying: false,
+  readerWpm: 300,
+  readerId: null,
   timer: 300,
   timerId: null,
   progress: readJson(STORE_KEY, {}),
@@ -28,6 +32,10 @@ const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 boot();
 
 async function boot() {
+  if (location.protocol === 'file:' && !window.__TOPICS__) {
+    showFileModeMessage();
+    return;
+  }
   if (new URLSearchParams(location.search).has('reset')) {
     try { localStorage.removeItem(STORE_KEY); localStorage.removeItem(TODAY_KEY); } catch {}
     history.replaceState(null, '', location.pathname);
@@ -40,6 +48,24 @@ async function boot() {
   bindEvents();
   if (!state.today.length) buildToday(false);
   renderAll();
+}
+
+function showFileModeMessage() {
+  const message = `
+    <div class="file-warning">
+      <h2>Učivo sa nenačítalo</h2>
+      <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
+      <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
+      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=9</code>.</p>
+    </div>
+  `;
+  const topicList = $('#topicList');
+  if (topicList) topicList.innerHTML = message;
+  const answer = $('#answer');
+  if (answer) {
+    answer.className = 'answer is-visible';
+    answer.innerHTML = message;
+  }
 }
 
 function bindEvents() {
@@ -139,6 +165,7 @@ function setCurrent(id, shouldFocusStudy = false) {
   state.cardFlipped = false;
   state.quizIndex = 0;
   state.quizOpen = false;
+  resetReader();
   resetTimer(false);
   renderQuestion();
   renderTopicList();
@@ -228,6 +255,11 @@ function renderStudyBody(topic) {
     bindCardEvents(topic);
     return;
   }
+  if (state.studyMode === 'reader') {
+    $('#answer').innerHTML = renderReader(topic);
+    bindReaderEvents(topic);
+    return;
+  }
   $('#answer').innerHTML = renderQuiz(topic);
   bindQuizEvents(topic);
 }
@@ -239,6 +271,7 @@ function setStudyMode(mode) {
   state.cardFlipped = false;
   state.quizIndex = 0;
   state.quizOpen = false;
+  resetReader();
   renderQuestion();
 }
 
@@ -328,6 +361,114 @@ function bindQuizEvents(topic) {
   $('#quizNo')?.addEventListener('click', next);
   $('#quizPart')?.addEventListener('click', next);
   $('#quizYes')?.addEventListener('click', next);
+}
+
+function buildReaderWords(topic) {
+  const parts = [topic.title];
+  for (const block of topic.blocks) {
+    if (block.type === 'heading' || block.type === 'p' || block.type === 'li') {
+      parts.push(block.text);
+    }
+  }
+  return parts
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+}
+
+function currentReaderContext(topic, wordIndex) {
+  let count = topic.title.split(/\s+/).filter(Boolean).length;
+  let context = 'Otázka';
+  for (const block of topic.blocks) {
+    if (block.type === 'heading') context = block.text;
+    if (block.type === 'heading' || block.type === 'p' || block.type === 'li') {
+      count += String(block.text || '').split(/\s+/).filter(Boolean).length;
+      if (count >= wordIndex) return context;
+    }
+  }
+  return context;
+}
+
+function renderReader(topic) {
+  const words = buildReaderWords(topic);
+  const index = Math.min(state.readerIndex, Math.max(words.length - 1, 0));
+  const progress = words.length ? Math.round(((index + 1) / words.length) * 100) : 0;
+  const word = words[index] || 'Hotovo';
+  return `<div class="reader-panel">
+    <div class="practice-head"><strong>Rýchle opakovanie</strong><span>${index + 1} / ${words.length || 1}</span></div>
+    <div class="reader-context">${escapeHtml(currentReaderContext(topic, index + 1))}</div>
+    <div class="reader-word">${escapeHtml(word)}</div>
+    <div class="reader-progress" aria-label="Postup"><span style="width:${progress}%"></span></div>
+    <div class="reader-controls">
+      <label>Rýchlosť
+        <select id="readerSpeed">
+          ${[180, 240, 300, 360, 420, 500].map((wpm) => `<option value="${wpm}" ${wpm === state.readerWpm ? 'selected' : ''}>${wpm} slov/min</option>`).join('')}
+        </select>
+      </label>
+      <button id="readerPrev" type="button">Späť</button>
+      <button id="readerPlay" type="button">${state.readerPlaying ? 'Pauza' : 'Spustiť'}</button>
+      <button id="readerNext" type="button">Ďalej</button>
+      <button id="readerStart" type="button">Od začiatku</button>
+    </div>
+    <p class="reader-note">Používaj to na rýchle opakovanie už známej témy. Na nové veci je lepšia Odpoveď alebo Kvíz.</p>
+  </div>`;
+}
+
+function bindReaderEvents(topic) {
+  const words = buildReaderWords(topic);
+  $('#readerSpeed')?.addEventListener('change', (event) => {
+    state.readerWpm = Number(event.target.value);
+    if (state.readerPlaying) startReader(topic);
+  });
+  $('#readerPrev')?.addEventListener('click', () => {
+    state.readerIndex = Math.max(0, state.readerIndex - 1);
+    renderQuestion();
+  });
+  $('#readerNext')?.addEventListener('click', () => {
+    state.readerIndex = Math.min(Math.max(words.length - 1, 0), state.readerIndex + 1);
+    renderQuestion();
+  });
+  $('#readerStart')?.addEventListener('click', () => {
+    state.readerIndex = 0;
+    renderQuestion();
+  });
+  $('#readerPlay')?.addEventListener('click', () => {
+    if (state.readerPlaying) {
+      stopReader();
+      renderQuestion();
+    } else {
+      startReader(topic);
+    }
+  });
+}
+
+function startReader(topic) {
+  stopReader(false);
+  state.readerPlaying = true;
+  const words = buildReaderWords(topic);
+  const delay = Math.max(80, Math.round(60000 / state.readerWpm));
+  state.readerId = setInterval(() => {
+    if (state.readerIndex >= words.length - 1) {
+      stopReader();
+    } else {
+      state.readerIndex += 1;
+    }
+    renderQuestion();
+  }, delay);
+  renderQuestion();
+}
+
+function stopReader(shouldKeepPlaying = false) {
+  if (state.readerId) clearInterval(state.readerId);
+  state.readerId = null;
+  state.readerPlaying = shouldKeepPlaying;
+}
+
+function resetReader() {
+  stopReader();
+  state.readerIndex = 0;
 }
 
 function renderBlock(block) {
@@ -469,6 +610,11 @@ function handleKeys(event) {
     if (state.studyMode === 'answer') state.answerOpen = !state.answerOpen;
     if (state.studyMode === 'cards') state.cardFlipped = !state.cardFlipped;
     if (state.studyMode === 'quiz') state.quizOpen = !state.quizOpen;
+    if (state.studyMode === 'reader') {
+      const topic = currentTopic();
+      state.readerPlaying ? stopReader() : startReader(topic);
+      return;
+    }
     renderQuestion();
   }
   if (event.key.toLowerCase() === 'n') pickNext();

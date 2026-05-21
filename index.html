@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3efe7">
   <title>Štátnice učenie</title>
-  <link rel="stylesheet" href="src/styles.css?v=8">
+  <script>
+    if (location.protocol === 'file:' && !location.pathname.endsWith('/offline.html')) {
+      location.replace('offline.html');
+    }
+  </script>
+  <link rel="stylesheet" href="src/styles.css?v=9">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -93,6 +98,7 @@
             <button id="modeAnswer" class="is-active" data-study-mode="answer" type="button">Odpoveď</button>
             <button id="modeCards" data-study-mode="cards" type="button">Kartičky</button>
             <button id="modeQuiz" data-study-mode="quiz" type="button">Kvíz</button>
+            <button id="modeReader" data-study-mode="reader" type="button">Rýchle opakovanie</button>
           </div>
 
           <div class="study-toolbar">
@@ -123,6 +129,6 @@
     </main>
   </div>
 
-  <script src="src/app.js?v=8" defer></script>
+  <script src="src/app.js?v=9" defer></script>
 </body>
 </html>
