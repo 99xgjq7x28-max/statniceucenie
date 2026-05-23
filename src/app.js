@@ -235,9 +235,24 @@ function renderQuestion() {
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
   $('#questionTitle').textContent = topic.title;
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
+  renderEmergencyStart(topic);
   renderStudyModeButtons();
   renderStudyBody(topic);
   renderGradeButtons(topic);
+}
+
+function renderEmergencyStart(topic) {
+  const lines = topic.emergencyStart || [];
+  const box = $('#emergencyStart');
+  const body = $('#emergencyStartBody');
+  if (!box || !body) return;
+  if (!lines.length) {
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = '';
+  box.open = false;
+  body.innerHTML = `<ol>${lines.map((line) => `<li>${escapeHtml(line)}</li>`).join('')}</ol>`;
 }
 
 function renderStudyBody(topic) {

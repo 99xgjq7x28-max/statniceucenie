@@ -136,6 +136,30 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .subject-line { color: var(--accent); font-size: 13px; font-weight: 900; text-transform: uppercase; }
 .question-head h2 { margin: 0; font-size: 24px; line-height: 1.22; }
 .cue { margin: 0; color: var(--muted); font-size: 15px; }
+.emergency-start {
+  border: 1px solid #e7c889;
+  border-radius: 8px;
+  background: #fff8e8;
+  overflow: hidden;
+}
+.emergency-start summary {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  cursor: pointer;
+  color: #7a4d00;
+  font-weight: 900;
+}
+.emergency-start summary::after { content: "+"; color: #9a6700; font-size: 18px; }
+.emergency-start[open] summary::after { content: "-"; }
+.emergency-start ol {
+  margin: 0;
+  padding: 0 14px 12px 34px;
+  color: #3b2b12;
+}
+.emergency-start li { margin: 7px 0; }
 .study-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
 .study-mode .is-active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 900; }
 .study-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
