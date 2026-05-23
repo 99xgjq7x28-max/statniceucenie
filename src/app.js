@@ -149,7 +149,7 @@ function filteredTopics() {
 }
 
 function searchableText(topic) {
-  return `${topic.title} ${topic.blocks.map((block) => block.text || '').join(' ')}`;
+  return `${titleWithNumber(topic)} ${topic.blocks.map((block) => block.text || '').join(' ')}`;
 }
 
 function chooseFirstFiltered() {
@@ -233,7 +233,7 @@ function renderQuestion() {
   $('#subjectLine').textContent = `${topic.subject} • otázka ${topic.number} • ${topic.wordCount} slov`;
   $('#currentMedia').textContent = media.join(' • ');
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
-  $('#questionTitle').textContent = topic.title;
+  $('#questionTitle').textContent = titleWithNumber(topic);
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
   renderEmergencyStart(topic);
   renderStudyModeButtons();
@@ -316,7 +316,7 @@ function buildRecallItems(topic) {
   }
   if (current && current.answer.length) items.push(current);
   if (!items.length) {
-    items.push({ prompt: topic.title, answer: topic.blocks.filter((block) => block.text).slice(0, 8).map((block) => block.text) });
+    items.push({ prompt: titleWithNumber(topic), answer: topic.blocks.filter((block) => block.text).slice(0, 8).map((block) => block.text) });
   }
   return items.slice(0, 40);
 }
@@ -379,7 +379,7 @@ function bindQuizEvents(topic) {
 }
 
 function buildReaderWords(topic) {
-  const parts = [topic.title];
+  const parts = [titleWithNumber(topic)];
   for (const block of topic.blocks) {
     if (block.type === 'heading' || block.type === 'p' || block.type === 'li') {
       parts.push(block.text);
@@ -394,7 +394,7 @@ function buildReaderWords(topic) {
 }
 
 function currentReaderContext(topic, wordIndex) {
-  let count = topic.title.split(/\s+/).filter(Boolean).length;
+  let count = titleWithNumber(topic).split(/\s+/).filter(Boolean).length;
   let context = 'Otázka';
   for (const block of topic.blocks) {
     if (block.type === 'heading') context = block.text;
@@ -539,6 +539,10 @@ function renderTopicList() {
 
 function compactTitle(title) {
   return String(title || '').replace(/^\d+\s*[.\-]\s*/, '');
+}
+
+function titleWithNumber(topic) {
+  return `${topic.number}. ${compactTitle(topic.title)}`;
 }
 
 function setMode(mode) {
