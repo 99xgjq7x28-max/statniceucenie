@@ -251,7 +251,7 @@ function renderEmergencyStart(topic) {
     return;
   }
   box.style.display = '';
-  box.open = true;
+  box.open = false;
   body.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join('');
 }
 

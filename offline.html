@@ -395,7 +395,7 @@ th { background: #f1eee7; font-weight: 900; }
           <div id="subjectLine" class="subject-line"></div>
           <h2 id="questionTitle"></h2>
           <p id="questionCue" class="cue"></p>
-          <details id="emergencyStart" class="emergency-start" open>
+          <details id="emergencyStart" class="emergency-start">
             <summary>Núdzový štart - nauč sa naspamäť</summary>
             <div id="emergencyStartBody"></div>
           </details>
@@ -19605,7 +19605,7 @@ function renderEmergencyStart(topic) {
     return;
   }
   box.style.display = '';
-  box.open = true;
+  box.open = false;
   body.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join('');
 }
 
