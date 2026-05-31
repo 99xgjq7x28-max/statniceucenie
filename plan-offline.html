@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3efe7">
-  <title>Štátnice učenie</title>
+  <title>Štátnice plán do 12.6.</title>
   <style>
 
 :root {
@@ -417,130 +417,73 @@ th { background: #f1eee7; font-weight: 900; }
 </style>
 </head>
 <body>
-  <div id="app" class="app-shell" aria-live="polite">
-    <aside class="sidebar">
-      <header class="brand-block">
+  <div id="planApp" class="plan-shell">
+    <header class="plan-hero">
+      <div>
         <div class="brand-kicker">Štátnice</div>
-        <h1>Učenie</h1>
-        <p>Tvoje otázky, slabé miesta a denný rytmus do 12. júna.</p>
-      </header>
-
-      <section class="metric-grid" aria-label="Prehľad progresu">
-        <div class="metric"><span>Hotové</span><strong id="metricDone">0/60</strong></div>
-        <div class="metric"><span>Slabé/nové</span><strong id="metricWeak">60</strong></div>
-        <div class="metric"><span>Dní</span><strong id="metricDays">0</strong></div>
-        <div class="metric"><span>Denne</span><strong id="metricDaily">0</strong></div>
-      </section>
-
-      <details class="panel method-panel">
-        <summary>Ako sa učiť</summary>
-        <ol>
-          <li><strong>Vyber si tému z otázok.</strong> Začni tou, ktorá je C, B alebo ešte neoznačená.</li>
-          <li><strong>Zapni časovač a hovor nahlas.</strong> Skús 3 až 5 minút odpovedať bez pozerania.</li>
-          <li><strong>Potom odkry odpoveď.</strong> Dopĺňaj len chýbajúce body.</li>
-          <li><strong>Označ A/B/C.</strong> A = viem, B = slabé, C = neviem spustiť.</li>
-          <li><strong>Priorita:</strong> C, potom B, potom nové, A iba krátko.</li>
-          <li><strong>Minimum denne:</strong> 1 manažment, 1 ekonómia, 1 staršia otázka.</li>
-        </ol>
-        <figure class="method-guide">
-          <a href="assets/images/app-functions-guide.png" target="_blank" rel="noopener">
-            <img src="assets/images/app-functions-guide.png" alt="Prehľad funkcií appky Štátnice učenie">
-          </a>
-          <figcaption>Klikni pre väčší náhľad.</figcaption>
-        </figure>
-      </details>
-
-      <section class="panel controls" aria-label="Filtre">
-        <label>Predmet<select id="subjectFilter"></select></label>
-        <label>Stav<select id="gradeFilter">
-          <option value="all">Všetky</option>
-          <option value="C">C - neviem</option>
-          <option value="B">B - slabé</option>
-          <option value="A">A - viem</option>
-          <option value="none">Neoznačené</option>
-        </select></label>
-        <label>Hľadať<input id="searchInput" type="search" placeholder="HDP, Agenda 2030, motivácia..."></label>
-        <div class="segmented" role="group" aria-label="Poradie tém">
-          <button id="modeWeak" class="is-active" type="button">Slabé prvé</button>
-          <button id="modeOrder" type="button">Poradie</button>
-        </div>
-      </section>
-
-      <section class="panel topic-browser" aria-label="Zoznam otázok">
-        <div class="browser-head">
-          <h2>Otázky</h2>
-          <p id="resultCount">0 tém</p>
-        </div>
-        <div id="topicList" class="topic-list"></div>
-      </section>
-
-      <section class="panel today-panel">
-        <div class="panel-title-row">
-          <div>
-            <h2>Dnešný výber</h2>
-            <p>Automatický mix slabých a nových otázok na krátke učenie.</p>
-          </div>
-          <button id="buildToday" type="button">Vybrať</button>
-        </div>
-        <div id="todayList" class="today-list"></div>
-      </section>
-
-    </aside>
-
-    <main class="workspace">
-      <nav class="topbar" aria-label="Akcie">
-        <div>
-          <span id="currentTopicCount" class="pill">60 tém</span>
-          <span id="currentMedia" class="pill muted-pill"></span>
-        </div>
-        <div class="top-actions">
-          <a class="button-link" href="plan.html">Plán do 12.6.</a>
-          <button id="resetProgress" class="text-danger" type="button">Vymazať progres</button>
-        </div>
+        <h1>Plán do 12. júna</h1>
+        <p>Tu sleduješ, čo máš dnes prejsť, koľko otázok už máš označených a ktoré dni sú kritické.</p>
+      </div>
+      <nav class="plan-nav" aria-label="Navigácia">
+        <a class="button-link" href="index.html">Učenie</a>
+        <button id="resetPlan" class="text-danger" type="button">Reset plánu</button>
       </nav>
+    </header>
 
-      <section class="study-card">
-        <header class="question-head">
-          <div id="subjectLine" class="subject-line"></div>
-          <h2 id="questionTitle"></h2>
-          <p id="questionCue" class="cue"></p>
-          <details id="emergencyStart" class="emergency-start">
-            <summary>Núdzový štart - 30 sekúnd</summary>
-            <div id="emergencyStartBody"></div>
-          </details>
+    <section class="plan-metrics" aria-label="Prehľad plánu">
+      <div class="metric"><span>Dní do skúšky</span><strong id="planDays">0</strong></div>
+      <div class="metric"><span>Označené</span><strong id="planDone">0/60</strong></div>
+      <div class="metric"><span>A viem</span><strong id="planA">0</strong></div>
+      <div class="metric"><span>B/C riešiť</span><strong id="planWeak">0</strong></div>
+    </section>
 
-          <div class="study-mode" role="group" aria-label="Režim učenia">
-            <button id="modeAnswer" class="is-active" data-study-mode="answer" type="button">Odpoveď</button>
-            <button id="modeCards" data-study-mode="cards" type="button">Kartičky</button>
-            <button id="modeQuiz" data-study-mode="quiz" type="button">Kvíz</button>
-            <button id="modeReader" data-study-mode="reader" type="button">Rýchle opakovanie</button>
+    <main class="plan-layout">
+      <section class="plan-main-band">
+        <div class="section-head">
+          <div>
+            <h2>Dnes</h2>
+            <p id="todayPlanLabel">Načítavam...</p>
           </div>
-
-          <div class="study-toolbar">
-            <div class="timer" id="timer">05:00</div>
-            <button id="timerToggle" type="button">Štart</button>
-            <button id="timerReset" type="button">Reset</button>
-            <button id="randomQuestion" type="button">Náhodná slabá</button>
-            <button id="nextQuestion" type="button">Ďalšia</button>
-          </div>
-
-          <div class="answer-actions">
-            <button id="toggleAnswer" class="primary-button" type="button">Ukázať odpoveď</button>
-            <div class="grade-buttons" role="group" aria-label="Hodnotenie otázky">
-              <button data-grade="C" type="button">C neviem</button>
-              <button data-grade="B" type="button">B slabé</button>
-              <button data-grade="A" type="button">A viem</button>
-            </div>
-          </div>
-        </header>
-
-        <article id="answer" class="answer"></article>
+          <button id="markTodayDone" type="button">Označiť deň hotový</button>
+        </div>
+        <div id="todayTopics" class="plan-topic-grid"></div>
       </section>
 
-      <footer class="app-footer">
-        <p class="study-disclaimer"><strong>Upozornenie:</strong> Táto appka je len doplnok k učeniu. Uč sa na vlastnú zodpovednosť, pripravuj si aj vlastné poznámky a overuj si správnosť materiálov. Autor appky nezodpovedá za úplnosť ani správnosť poznámok.</p>
-      </footer>
+      <section class="plan-main-band">
+        <div class="section-head">
+          <div>
+            <h2>Monitoring</h2>
+            <p>Známkuj otázky priamo tu alebo v hlavnej appke. Obe stránky používajú rovnaký progres.</p>
+          </div>
+        </div>
+        <div id="gradeSummary" class="grade-summary"></div>
+      </section>
 
+      <section class="plan-main-band">
+        <div class="section-head">
+          <div>
+            <h2>Kalendár</h2>
+            <p>Prvé kolo do 7.6., potom slabé otázky a simulácia.</p>
+          </div>
+        </div>
+        <div id="planDaysList" class="plan-days-list"></div>
+      </section>
+
+      <aside class="plan-side">
+        <section class="panel">
+          <h2>Pravidlo dňa</h2>
+          <p class="compact-copy">Nerieš dokonalosť. Každá otázka má mať aspoň: 30 sekúnd štart, 5 kľúčových slov, 1 príklad a označenie A/B/C.</p>
+        </section>
+        <section class="panel">
+          <h2>Poznámka</h2>
+          <label for="planNotes">Čo dnes nesmie ujsť</label>
+          <textarea id="planNotes" placeholder="Napr. dnes prejdem Ekonómiu 4-6 a Manažment 4-6..."></textarea>
+        </section>
+        <section class="panel">
+          <h2>Najbližší cieľ</h2>
+          <p id="nextMilestone" class="compact-copy"></p>
+        </section>
+      </aside>
     </main>
   </div>
 
@@ -19401,647 +19344,241 @@ th { background: #f1eee7; font-weight: 900; }
 ]
 ;</script>
 <script>
-
 const EXAM_DATE = new Date('2026-06-12T09:00:00');
 const STORE_KEY = 'statnice-progress-v2';
-const TODAY_KEY = 'statnice-today-v1';
+const PLAN_KEY = 'statnice-plan-v1';
 
-const state = {
+const planState = {
   topics: [],
-  currentId: null,
-  subject: 'all',
-  grade: 'all',
-  mode: 'weak',
-  query: '',
-  answerOpen: false,
-  studyMode: 'answer',
-  cardIndex: 0,
-  cardFlipped: false,
-  quizIndex: 0,
-  quizOpen: false,
-  readerIndex: 0,
-  readerPlaying: false,
-  readerWpm: 300,
-  readerId: null,
-  timer: 300,
-  timerId: null,
   progress: readJson(STORE_KEY, {}),
-  today: readJson(TODAY_KEY, [])
+  plan: readJson(PLAN_KEY, { completedDays: {}, notes: '' })
 };
+
+const planDays = [
+  { date: '2026-05-31', label: '31.5.', goal: 'Štart bez nuly', ranges: [['Ekonómia a financie', 1, 3], ['Manažment', 1, 3]] },
+  { date: '2026-06-01', label: '1.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 4, 6], ['Manažment', 4, 6]] },
+  { date: '2026-06-02', label: '2.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 7, 9], ['Manažment', 7, 9]] },
+  { date: '2026-06-03', label: '3.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 10, 12], ['Manažment', 10, 12]] },
+  { date: '2026-06-04', label: '4.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 13, 15], ['Manažment', 13, 15]] },
+  { date: '2026-06-05', label: '5.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 16, 18], ['Manažment', 16, 18]] },
+  { date: '2026-06-06', label: '6.6.', goal: 'Silný víkend', ranges: [['Ekonómia a financie', 19, 23], ['Manažment', 19, 23]] },
+  { date: '2026-06-07', label: '7.6.', goal: 'Dokonči prvé kolo', ranges: [['Ekonómia a financie', 24, 30], ['Manažment', 24, 30]] },
+  { date: '2026-06-08', label: '8.6.', goal: 'C otázky', mode: 'C' },
+  { date: '2026-06-09', label: '9.6.', goal: 'B otázky', mode: 'B' },
+  { date: '2026-06-10', label: '10.6.', goal: 'Simulácia', mode: 'simulation' },
+  { date: '2026-06-11', label: '11.6.', goal: 'Najhorších 10', mode: 'worst' },
+  { date: '2026-06-12', label: '12.6.', goal: 'Skúška', mode: 'warmup' }
+];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
-boot();
+bootPlan();
 
-async function boot() {
+async function bootPlan() {
   if (location.protocol === 'file:' && !window.__TOPICS__) {
-    showFileModeMessage();
+    $('#todayTopics').innerHTML = '<p class="file-warning">Plán sa nenačítal. Otvor <strong>plan-offline.html</strong>.</p>';
     return;
   }
-  if (new URLSearchParams(location.search).has('reset')) {
-    try { localStorage.removeItem(STORE_KEY); localStorage.removeItem(TODAY_KEY); } catch {}
-    history.replaceState(null, '', location.pathname);
-    state.progress = {};
-    state.today = [];
-  }
-  state.topics = window.__TOPICS__ || await fetch('data/topics.json').then((res) => res.json());
-  const requestedTopic = new URLSearchParams(location.search).get('topic');
-  state.currentId = state.topics.find((topic) => topic.id === requestedTopic)?.id || state.topics[0]?.id;
-  hydrateFilters();
-  bindEvents();
-  if (!state.today.length) buildToday(false);
-  renderAll();
+  planState.topics = window.__TOPICS__ || await fetch('data/topics.json').then((res) => res.json());
+  bindPlanEvents();
+  renderPlan();
 }
 
-function showFileModeMessage() {
-  const message = `
-    <div class="file-warning">
-      <h2>Učivo sa nenačítalo</h2>
-      <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
-      <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
-      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=16</code>.</p>
-    </div>
+function bindPlanEvents() {
+  $('#markTodayDone')?.addEventListener('click', () => {
+    const today = currentPlanDay();
+    planState.plan.completedDays[today.date] = !planState.plan.completedDays[today.date];
+    writeJson(PLAN_KEY, planState.plan);
+    renderPlan();
+  });
+  $('#resetPlan')?.addEventListener('click', () => {
+    if (!confirm('Naozaj vymazať iba plánové poznámky a hotové dni? A/B/C progres ostane.')) return;
+    planState.plan = { completedDays: {}, notes: '' };
+    writeJson(PLAN_KEY, planState.plan);
+    renderPlan();
+  });
+  $('#planNotes')?.addEventListener('input', (event) => {
+    planState.plan.notes = event.target.value;
+    writeJson(PLAN_KEY, planState.plan);
+  });
+}
+
+function renderPlan() {
+  planState.progress = readJson(STORE_KEY, {});
+  renderPlanMetrics();
+  renderTodayPlan();
+  renderGradeSummary();
+  renderCalendar();
+  $('#planNotes').value = planState.plan.notes || '';
+  $('#nextMilestone').textContent = nextMilestoneText();
+}
+
+function renderPlanMetrics() {
+  const grades = gradeCounts();
+  const days = Math.max(0, Math.ceil((EXAM_DATE - new Date()) / 86400000));
+  $('#planDays').textContent = String(days);
+  $('#planDone').textContent = `${grades.done}/${planState.topics.length}`;
+  $('#planA').textContent = String(grades.A);
+  $('#planWeak').textContent = String(grades.B + grades.C + grades.none);
+}
+
+function renderTodayPlan() {
+  const day = currentPlanDay();
+  const topics = topicsForDay(day);
+  $('#todayPlanLabel').textContent = `${day.label} - ${day.goal} (${topics.length || 'podľa progresu'} otázok)`;
+  $('#markTodayDone').textContent = planState.plan.completedDays[day.date] ? 'Deň hotový' : 'Označiť deň hotový';
+  $('#markTodayDone').classList.toggle('is-done', Boolean(planState.plan.completedDays[day.date]));
+  $('#todayTopics').innerHTML = topics.length
+    ? topics.map(renderTopicTask).join('')
+    : `<p class="compact-copy">${fallbackForMode(day.mode)}</p>`;
+  bindGradeButtons();
+}
+
+function renderTopicTask(topic) {
+  const grade = gradeOf(topic);
+  return `
+    <article class="plan-topic">
+      <div>
+        <strong>${escapeHtml(topic.number + '. ' + topic.title)}</strong>
+        <span>${escapeHtml(topic.subject)} • ${grade || 'neoznačené'} • ${topic.wordCount} slov</span>
+      </div>
+      <div class="plan-topic-actions">
+        <a class="button-link" href="${studyHref(topic)}">Otvoriť</a>
+        <button data-grade-topic="${escapeAttr(topic.id)}" data-grade="C" class="${grade === 'C' ? 'is-active danger' : ''}" type="button">C</button>
+        <button data-grade-topic="${escapeAttr(topic.id)}" data-grade="B" class="${grade === 'B' ? 'is-active warning' : ''}" type="button">B</button>
+        <button data-grade-topic="${escapeAttr(topic.id)}" data-grade="A" class="${grade === 'A' ? 'is-active success' : ''}" type="button">A</button>
+      </div>
+    </article>
   `;
-  const topicList = $('#topicList');
-  if (topicList) topicList.innerHTML = message;
-  const answer = $('#answer');
-  if (answer) {
-    answer.className = 'answer is-visible';
-    answer.innerHTML = message;
+}
+
+function renderGradeSummary() {
+  const grades = gradeCounts();
+  $('#gradeSummary').innerHTML = `
+    <div><span>A viem</span><strong>${grades.A}</strong></div>
+    <div><span>B slabé</span><strong>${grades.B}</strong></div>
+    <div><span>C neviem</span><strong>${grades.C}</strong></div>
+    <div><span>Nové</span><strong>${grades.none}</strong></div>
+  `;
+}
+
+function renderCalendar() {
+  $('#planDaysList').innerHTML = planDays.map((day) => {
+    const topics = topicsForDay(day);
+    const done = Boolean(planState.plan.completedDays[day.date]);
+    const today = day.date === todayKey();
+    const counts = countGrades(topics);
+    return `
+      <article class="plan-day ${today ? 'is-today' : ''} ${done ? 'is-complete' : ''}">
+        <div class="plan-day-head">
+          <strong>${day.label}</strong>
+          <span>${escapeHtml(day.goal)}</span>
+        </div>
+        <p>${dayDescription(day, topics)}</p>
+        <small>${topics.length ? `A ${counts.A} • B ${counts.B} • C ${counts.C} • nové ${counts.none}` : fallbackForMode(day.mode)}</small>
+      </article>
+    `;
+  }).join('');
+}
+
+function topicsForDay(day) {
+  if (day.ranges) {
+    return day.ranges.flatMap(([subject, from, to]) =>
+      planState.topics.filter((topic) => topic.subject === subject && topic.number >= from && topic.number <= to)
+    );
   }
+  if (day.mode === 'C') return byWeakness(['C']).slice(0, 14);
+  if (day.mode === 'B') return byWeakness(['B']).slice(0, 14);
+  if (day.mode === 'simulation') return byWeakness(['C', '', 'B']).slice(0, 12);
+  if (day.mode === 'worst') return byWeakness(['C', 'B', '']).slice(0, 10);
+  if (day.mode === 'warmup') return byWeakness(['C', 'B']).slice(0, 8);
+  return [];
 }
 
-function bindEvents() {
-  $('#subjectFilter').addEventListener('change', (event) => {
-    state.subject = event.target.value;
-    chooseFirstFiltered();
-  });
-  $('#gradeFilter').addEventListener('change', (event) => {
-    state.grade = event.target.value;
-    renderTopicList();
-  });
-  $('#searchInput').addEventListener('input', (event) => {
-    state.query = event.target.value.trim();
-    renderTopicList();
-  });
-  $('#modeWeak').addEventListener('click', () => setMode('weak'));
-  $('#modeOrder').addEventListener('click', () => setMode('order'));
-  $('#buildToday').addEventListener('click', () => buildToday(true));
-  $('#toggleAnswer').addEventListener('click', () => {
-    state.answerOpen = !state.answerOpen;
-    renderQuestion();
-  });
-  $('#randomQuestion').addEventListener('click', pickRandomWeak);
-  $('#nextQuestion').addEventListener('click', pickNext);
-  $('#timerToggle').addEventListener('click', toggleTimer);
-  $('#timerReset').addEventListener('click', resetTimer);
-  $('#resetProgress').addEventListener('click', resetProgress);
-  $$('.grade-buttons button').forEach((button) => {
-    button.addEventListener('click', () => gradeCurrent(button.dataset.grade));
-  });
-  $$('.study-mode button').forEach((button) => {
-    button.addEventListener('click', () => setStudyMode(button.dataset.studyMode));
-  });
-  document.addEventListener('keydown', handleKeys);
+function byWeakness(order) {
+  const rank = new Map(order.map((grade, index) => [grade, index]));
+  return [...planState.topics]
+    .filter((topic) => rank.has(gradeOf(topic)))
+    .sort((a, b) => rank.get(gradeOf(a)) - rank.get(gradeOf(b)) || a.subject.localeCompare(b.subject) || a.number - b.number);
 }
 
-function hydrateFilters() {
-  const subjects = [...new Set(state.topics.map((topic) => topic.subject))];
-  $('#subjectFilter').innerHTML = '<option value="all">Všetko</option>' + subjects.map((subject) => `<option value="${escapeAttr(subject)}">${escapeHtml(subject)}</option>`).join('');
+function dayDescription(day, topics) {
+  if (day.ranges) {
+    return day.ranges.map(([subject, from, to]) => `${shortSubject(subject)} ${from}-${to}`).join(' + ');
+  }
+  if (topics.length) return topics.map((topic) => `${shortSubject(topic.subject)} ${topic.number}`).join(', ');
+  return fallbackForMode(day.mode);
 }
 
-function renderAll() {
-  renderMetrics();
-  renderToday();
-  renderQuestion();
-  renderTopicList();
-  renderTimer();
+function fallbackForMode(mode) {
+  if (mode === 'C') return 'Prejdi všetky C otázky: núdzový štart, 5 slov, 1 príklad.';
+  if (mode === 'B') return 'Prejdi B otázky a doplň príklady.';
+  if (mode === 'simulation') return 'Náhodne 12 otázok, každú povedz 2-3 minúty.';
+  if (mode === 'worst') return 'Najhorších 10 otázok, bez nového prepisovania.';
+  if (mode === 'warmup') return 'Ráno iba ľahké zahriatie a núdzové štarty.';
+  return 'Oddych alebo dobiehanie.';
 }
 
-function currentTopic() {
-  return state.topics.find((topic) => topic.id === state.currentId) || state.topics[0];
+function nextMilestoneText() {
+  const firstUnfinished = planDays.find((day) => !planState.plan.completedDays[day.date]);
+  if (!firstUnfinished) return 'Plán je odškrtnutý. Teraz už len opakovanie a pokoj.';
+  return `${firstUnfinished.label}: ${firstUnfinished.goal}. ${dayDescription(firstUnfinished, topicsForDay(firstUnfinished))}`;
+}
+
+function currentPlanDay() {
+  const key = todayKey();
+  return planDays.find((day) => day.date === key) || planDays.find((day) => day.date > key) || planDays[planDays.length - 1];
+}
+
+function bindGradeButtons() {
+  $$('[data-grade-topic]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.gradeTopic;
+      const grade = button.dataset.grade;
+      planState.progress[id] = { ...(planState.progress[id] || {}), grade, updatedAt: new Date().toISOString() };
+      writeJson(STORE_KEY, planState.progress);
+      renderPlan();
+    });
+  });
+}
+
+function gradeCounts() {
+  return countGrades(planState.topics);
+}
+
+function countGrades(topics) {
+  const counts = { A: 0, B: 0, C: 0, none: 0, done: 0 };
+  topics.forEach((topic) => {
+    const grade = gradeOf(topic);
+    if (grade) counts.done += 1;
+    if (grade === 'A') counts.A += 1;
+    else if (grade === 'B') counts.B += 1;
+    else if (grade === 'C') counts.C += 1;
+    else counts.none += 1;
+  });
+  return counts;
 }
 
 function gradeOf(topic) {
-  return state.progress[topic.id]?.grade || '';
+  return planState.progress[topic.id]?.grade || '';
 }
 
-function weight(topic) {
-  const grade = gradeOf(topic);
-  if (grade === 'C') return 0;
-  if (grade === '') return 1;
-  if (grade === 'B') return 2;
-  return 3;
+function studyHref(topic) {
+  const page = location.protocol === 'file:' ? 'offline.html' : 'index.html';
+  return `${page}?topic=${encodeURIComponent(topic.id)}`;
 }
 
-function filteredTopics() {
-  const query = state.query.toLowerCase();
-  let list = state.topics.filter((topic) => {
-    const grade = gradeOf(topic);
-    const gradeOk = state.grade === 'all' || grade === state.grade || (state.grade === 'none' && !grade);
-    const subjectOk = state.subject === 'all' || topic.subject === state.subject;
-    const queryOk = !query || searchableText(topic).toLowerCase().includes(query);
-    return gradeOk && subjectOk && queryOk;
-  });
-  if (state.mode === 'weak') {
-    list = list.sort((a, b) => weight(a) - weight(b) || a.subject.localeCompare(b.subject) || a.number - b.number);
-  } else {
-    list = list.sort((a, b) => a.subject.localeCompare(b.subject) || a.number - b.number);
-  }
-  return list;
+function shortSubject(subject) {
+  return subject === 'Manažment' ? 'M' : 'E';
 }
 
-function searchableText(topic) {
-  return `${titleWithNumber(topic)} ${topic.blocks.map((block) => block.text || '').join(' ')}`;
-}
-
-function chooseFirstFiltered() {
-  const first = filteredTopics()[0];
-  if (first) setCurrent(first.id);
-  renderTopicList();
-}
-
-function setCurrent(id, shouldFocusStudy = false) {
-  state.currentId = id;
-  state.answerOpen = false;
-  state.cardIndex = 0;
-  state.cardFlipped = false;
-  state.quizIndex = 0;
-  state.quizOpen = false;
-  resetReader();
-  resetTimer(false);
-  renderQuestion();
-  renderTopicList();
-  if (shouldFocusStudy && window.matchMedia('(max-width: 900px)').matches) {
-    document.querySelector('.study-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-function renderMetrics() {
-  const done = state.topics.filter((topic) => gradeOf(topic)).length;
-  const mastered = state.topics.filter((topic) => gradeOf(topic) === 'A').length;
-  const weak = state.topics.length - mastered;
-  const days = Math.max(1, Math.ceil((EXAM_DATE - new Date()) / 86400000));
-  $('#metricDone').textContent = `${done}/${state.topics.length}`;
-  $('#metricWeak').textContent = String(weak);
-  $('#metricDays').textContent = String(days);
-  $('#metricDaily').textContent = String(Math.ceil(weak / days));
-}
-
-function renderToday() {
-  const list = state.today.map((id) => state.topics.find((topic) => topic.id === id)).filter(Boolean);
-  $('#todayList').innerHTML = list.map((topic) => `
-    <button class="today-item" data-id="${escapeAttr(topic.id)}" type="button">
-      <strong>${escapeHtml(topic.number + '. ' + compactTitle(topic.title))}</strong>
-      <span>${escapeHtml(topic.subject)} • ${gradeOf(topic) || 'neoznačené'}</span>
-    </button>
-  `).join('');
-  $$('#todayList .today-item').forEach((button) => {
-    button.addEventListener('click', () => setCurrent(button.dataset.id, true));
-  });
-}
-
-function buildToday(shouldRender) {
-  const c = state.topics.filter((topic) => gradeOf(topic) === 'C');
-  const b = state.topics.filter((topic) => gradeOf(topic) === 'B');
-  const none = state.topics.filter((topic) => !gradeOf(topic));
-  const eko = state.topics.filter((topic) => topic.subject === 'Ekonómia a financie' && gradeOf(topic) !== 'A');
-  const man = state.topics.filter((topic) => topic.subject === 'Manažment' && gradeOf(topic) !== 'A');
-  const picked = uniqueTopics([...c, ...b, sample(man), sample(eko), ...none]).slice(0, 6);
-  state.today = picked.map((topic) => topic.id);
-  writeJson(TODAY_KEY, state.today);
-  if (shouldRender) renderToday();
-}
-
-function uniqueTopics(items) {
-  const seen = new Set();
-  return items.filter(Boolean).filter((topic) => {
-    if (seen.has(topic.id)) return false;
-    seen.add(topic.id);
-    return true;
-  });
-}
-
-function sample(items) {
-  if (!items.length) return null;
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-function renderQuestion() {
-  const topic = currentTopic();
-  if (!topic) return;
-  const media = [];
-  if (topic.tableCount) media.push(`${topic.tableCount} tab.`);
-  if (topic.imageCount) media.push(`${topic.imageCount} obr.`);
-  $('#subjectLine').textContent = `${topic.subject} • otázka ${topic.number} • ${topic.wordCount} slov`;
-  $('#currentMedia').textContent = media.join(' • ');
-  $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
-  $('#questionTitle').textContent = titleWithNumber(topic);
-  $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
-  renderEmergencyStart(topic);
-  renderStudyModeButtons();
-  renderStudyBody(topic);
-  renderGradeButtons(topic);
-}
-
-function renderEmergencyStart(topic) {
-  const lines = topic.emergencyStart || [];
-  const box = $('#emergencyStart');
-  const body = $('#emergencyStartBody');
-  if (!box || !body) return;
-  if (!lines.length) {
-    box.style.display = 'none';
-    return;
-  }
-  box.style.display = '';
-  box.open = false;
-  body.innerHTML = lines.slice(0, 3).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
-}
-
-function renderStudyBody(topic) {
-  if (state.studyMode === 'answer') {
-    $('#answer').className = `answer${state.answerOpen ? ' is-visible' : ''}`;
-    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}</div>`;
-    $('#toggleAnswer').style.display = '';
-    $('#toggleAnswer').textContent = state.answerOpen ? 'Skryť odpoveď' : 'Ukázať odpoveď';
-    return;
-  }
-  $('#answer').className = 'answer is-visible';
-  $('#toggleAnswer').style.display = 'none';
-  if (state.studyMode === 'cards') {
-    $('#answer').innerHTML = renderCards(topic);
-    bindCardEvents(topic);
-    return;
-  }
-  if (state.studyMode === 'reader') {
-    $('#answer').innerHTML = renderReader(topic);
-    bindReaderEvents(topic);
-    return;
-  }
-  $('#answer').innerHTML = renderQuiz(topic);
-  bindQuizEvents(topic);
-}
-
-function setStudyMode(mode) {
-  state.studyMode = mode;
-  state.answerOpen = false;
-  state.cardIndex = 0;
-  state.cardFlipped = false;
-  state.quizIndex = 0;
-  state.quizOpen = false;
-  resetReader();
-  renderQuestion();
-}
-
-function renderStudyModeButtons() {
-  $$('.study-mode button').forEach((button) => {
-    button.classList.toggle('is-active', button.dataset.studyMode === state.studyMode);
-  });
-}
-
-function buildRecallItems(topic) {
-  const items = [];
-  let current = null;
-  for (const block of topic.blocks) {
-    if (block.type === 'heading') {
-      if (current && current.answer.length) items.push(current);
-      current = { prompt: block.text, answer: [] };
-      continue;
-    }
-    if (!current) continue;
-    if (block.type === 'p' || block.type === 'li') current.answer.push(block.text);
-    if (block.type === 'table') current.answer.push('Tabuľka v odpovedi: pozri úplnú odpoveď.');
-    if (block.type === 'image') current.answer.push('Obrázok v odpovedi: pozri úplnú odpoveď.');
-    if (current.answer.length >= 7) {
-      items.push(current);
-      current = null;
-    }
-  }
-  if (current && current.answer.length) items.push(current);
-  if (!items.length) {
-    items.push({ prompt: titleWithNumber(topic), answer: topic.blocks.filter((block) => block.text).slice(0, 8).map((block) => block.text) });
-  }
-  return items.slice(0, 40);
-}
-
-function renderCards(topic) {
-  const cards = buildRecallItems(topic);
-  const index = Math.min(state.cardIndex, cards.length - 1);
-  const card = cards[index];
-  const answer = card.answer.map((line) => `<li>${formatLearningText(line)}</li>`).join('');
-  return `<div class="practice-panel">
-    <div class="practice-head"><strong>Kartičky</strong><span>${index + 1} / ${cards.length}</span></div>
-    <button id="flashcard" class="flashcard ${state.cardFlipped ? 'is-flipped' : ''}" type="button">
-      <span class="flash-label">${state.cardFlipped ? 'Odpoveď' : 'Predná strana'}</span>
-      <span class="flash-text">${state.cardFlipped ? `<ul>${answer}</ul>` : escapeHtml(card.prompt)}</span>
-    </button>
-    <div class="practice-actions">
-      <button id="cardPrev" type="button">Predošlá</button>
-      <button id="cardFlip" type="button">Otočiť</button>
-      <button id="cardNext" type="button">Ďalšia</button>
-    </div>
-  </div>`;
-}
-
-function bindCardEvents(topic) {
-  const cards = buildRecallItems(topic);
-  $('#flashcard')?.addEventListener('click', () => { state.cardFlipped = !state.cardFlipped; renderQuestion(); });
-  $('#cardFlip')?.addEventListener('click', () => { state.cardFlipped = !state.cardFlipped; renderQuestion(); });
-  $('#cardPrev')?.addEventListener('click', () => { state.cardIndex = (state.cardIndex - 1 + cards.length) % cards.length; state.cardFlipped = false; renderQuestion(); });
-  $('#cardNext')?.addEventListener('click', () => { state.cardIndex = (state.cardIndex + 1) % cards.length; state.cardFlipped = false; renderQuestion(); });
-}
-
-function renderQuiz(topic) {
-  const items = buildRecallItems(topic);
-  const index = Math.min(state.quizIndex, items.length - 1);
-  const item = items[index];
-  const answer = item.answer.map((line) => `<li>${formatLearningText(line)}</li>`).join('');
-  return `<div class="practice-panel">
-    <div class="practice-head"><strong>Kvíz</strong><span>${index + 1} / ${items.length}</span></div>
-    <div class="quiz-card">
-      <span class="flash-label">Povedz nahlas</span>
-      <h3>${escapeHtml(item.prompt)}</h3>
-      ${state.quizOpen ? `<div class="quiz-answer"><ul>${answer}</ul></div>` : '<p class="quiz-hint">Najprv odpovedz spamäti, potom odkry kontrolu.</p>'}
-    </div>
-    <div class="practice-actions">
-      <button id="quizReveal" type="button">${state.quizOpen ? 'Skryť' : 'Ukázať'}</button>
-      <button id="quizNo" type="button">Nevedel</button>
-      <button id="quizPart" type="button">Čiastočne</button>
-      <button id="quizYes" type="button">Vedel</button>
-    </div>
-  </div>`;
-}
-
-function bindQuizEvents(topic) {
-  const items = buildRecallItems(topic);
-  const next = () => { state.quizIndex = (state.quizIndex + 1) % items.length; state.quizOpen = false; renderQuestion(); };
-  $('#quizReveal')?.addEventListener('click', () => { state.quizOpen = !state.quizOpen; renderQuestion(); });
-  $('#quizNo')?.addEventListener('click', next);
-  $('#quizPart')?.addEventListener('click', next);
-  $('#quizYes')?.addEventListener('click', next);
-}
-
-function buildReaderWords(topic) {
-  const parts = [titleWithNumber(topic)];
-  for (const block of topic.blocks) {
-    if (block.type === 'heading' || block.type === 'p' || block.type === 'li') {
-      parts.push(block.text);
-    }
-  }
-  return parts
-    .join(' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .filter(Boolean);
-}
-
-function currentReaderContext(topic, wordIndex) {
-  let count = titleWithNumber(topic).split(/\s+/).filter(Boolean).length;
-  let context = 'Otázka';
-  for (const block of topic.blocks) {
-    if (block.type === 'heading') context = block.text;
-    if (block.type === 'heading' || block.type === 'p' || block.type === 'li') {
-      count += String(block.text || '').split(/\s+/).filter(Boolean).length;
-      if (count >= wordIndex) return context;
-    }
-  }
-  return context;
-}
-
-function renderReader(topic) {
-  const words = buildReaderWords(topic);
-  const index = Math.min(state.readerIndex, Math.max(words.length - 1, 0));
-  const progress = words.length ? Math.round(((index + 1) / words.length) * 100) : 0;
-  const word = words[index] || 'Hotovo';
-  return `<div class="reader-panel">
-    <div class="practice-head"><strong>Rýchle opakovanie</strong><span>${index + 1} / ${words.length || 1}</span></div>
-    <div class="reader-context">${escapeHtml(currentReaderContext(topic, index + 1))}</div>
-    <div class="reader-word">${escapeHtml(word)}</div>
-    <div class="reader-progress" aria-label="Postup"><span style="width:${progress}%"></span></div>
-    <div class="reader-controls">
-      <label>Rýchlosť
-        <select id="readerSpeed">
-          ${[180, 240, 300, 360, 420, 500].map((wpm) => `<option value="${wpm}" ${wpm === state.readerWpm ? 'selected' : ''}>${wpm} slov/min</option>`).join('')}
-        </select>
-      </label>
-      <button id="readerPrev" type="button">Späť</button>
-      <button id="readerPlay" type="button">${state.readerPlaying ? 'Pauza' : 'Spustiť'}</button>
-      <button id="readerNext" type="button">Ďalej</button>
-      <button id="readerStart" type="button">Od začiatku</button>
-    </div>
-    <p class="reader-note">Používaj to na rýchle opakovanie už známej témy. Na nové veci je lepšia Odpoveď alebo Kvíz.</p>
-  </div>`;
-}
-
-function bindReaderEvents(topic) {
-  const words = buildReaderWords(topic);
-  $('#readerSpeed')?.addEventListener('change', (event) => {
-    state.readerWpm = Number(event.target.value);
-    if (state.readerPlaying) startReader(topic);
-  });
-  $('#readerPrev')?.addEventListener('click', () => {
-    state.readerIndex = Math.max(0, state.readerIndex - 1);
-    renderQuestion();
-  });
-  $('#readerNext')?.addEventListener('click', () => {
-    state.readerIndex = Math.min(Math.max(words.length - 1, 0), state.readerIndex + 1);
-    renderQuestion();
-  });
-  $('#readerStart')?.addEventListener('click', () => {
-    state.readerIndex = 0;
-    renderQuestion();
-  });
-  $('#readerPlay')?.addEventListener('click', () => {
-    if (state.readerPlaying) {
-      stopReader();
-      renderQuestion();
-    } else {
-      startReader(topic);
-    }
-  });
-}
-
-function startReader(topic) {
-  stopReader(false);
-  state.readerPlaying = true;
-  const words = buildReaderWords(topic);
-  const delay = Math.max(80, Math.round(60000 / state.readerWpm));
-  state.readerId = setInterval(() => {
-    if (state.readerIndex >= words.length - 1) {
-      stopReader();
-    } else {
-      state.readerIndex += 1;
-    }
-    renderQuestion();
-  }, delay);
-  renderQuestion();
-}
-
-function stopReader(shouldKeepPlaying = false) {
-  if (state.readerId) clearInterval(state.readerId);
-  state.readerId = null;
-  state.readerPlaying = shouldKeepPlaying;
-}
-
-function resetReader() {
-  stopReader();
-  state.readerIndex = 0;
-}
-
-function renderBlock(block) {
-  if (block.type === 'table') return renderTable(block.rows || []);
-  if (block.type === 'image') {
-    return `<figure class="figure"><img src="${escapeAttr(block.src)}" alt="${escapeAttr(block.alt || 'Obrázok')}"><figcaption class="figcap">${escapeHtml(block.alt || 'Obrázok')}</figcaption></figure>`;
-  }
-  if (block.type === 'heading') return `<h3 class="answer-heading">${escapeHtml(block.text)}</h3>`;
-  if (block.type === 'li') return `<p class="listitem">${formatLearningText(cleanBullet(block.text))}</p>`;
-  return `<p class="para">${formatLearningText(block.text)}</p>`;
-}
-
-function renderTable(rows) {
-  if (!rows.length) return '';
-  return `<div class="table-wrap"><table>${rows.map((row, index) => `<tr>${row.map((cell) => index === 0 ? `<th>${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</table></div>`;
-}
-
-function formatLearningText(text) {
-  const value = String(text || '');
-  let match = value.match(/^([^=]{2,90})=\s*(.+)$/);
-  if (match) return `<strong>${escapeHtml(match[1].trim())}</strong> ${escapeHtml(match[2].trim())}`;
-  match = value.match(/^(\d+\.\s+.{3,90}?)(\s+(je|predstavuje|vyjadruje|znamená|obsahuje|zahŕňa|môže|má)\s+.+)$/i);
-  if (match) return `<strong>${escapeHtml(match[1].trim())}</strong>${escapeHtml(match[2])}`;
-  return escapeHtml(value);
-}
-
-function cleanBullet(text) {
-  return String(text || '').replace(/^[•\-–]\s+/, '');
-}
-
-function renderGradeButtons(topic) {
-  const grade = gradeOf(topic);
-  $$('.grade-buttons button').forEach((button) => {
-    button.classList.toggle('is-active', button.dataset.grade === grade);
-  });
-}
-
-function renderTopicList() {
-  const topics = filteredTopics();
-  $('#resultCount').textContent = `${topics.length} tém`;
-  const topCount = $('#currentTopicCount');
-  if (topCount) topCount.textContent = `${topics.length} tém`;
-  $('#topicList').innerHTML = topics.map((topic) => `
-    <button class="topic-item ${topic.id === state.currentId ? 'is-active' : ''}" data-id="${escapeAttr(topic.id)}" type="button">
-      <strong>${escapeHtml(topic.number + '. ' + compactTitle(topic.title))}</strong>
-      <span>${escapeHtml(topic.subject)} • ${gradeOf(topic) || 'neoznačené'} • ${topic.wordCount} slov${topic.tableCount ? ' • ' + topic.tableCount + ' tab.' : ''}${topic.imageCount ? ' • ' + topic.imageCount + ' obr.' : ''}</span>
-    </button>
-  `).join('');
-  $$('#topicList .topic-item').forEach((button) => {
-    button.addEventListener('click', () => setCurrent(button.dataset.id, true));
-  });
-}
-
-function compactTitle(title) {
-  return String(title || '').replace(/^\d+\s*[.\-]\s*/, '');
-}
-
-function titleWithNumber(topic) {
-  return `${topic.number}. ${compactTitle(topic.title)}`;
-}
-
-function setMode(mode) {
-  state.mode = mode;
-  $('#modeWeak').classList.toggle('is-active', mode === 'weak');
-  $('#modeOrder').classList.toggle('is-active', mode === 'order');
-  renderTopicList();
-}
-
-function pickRandomWeak() {
-  const candidates = filteredTopics();
-  const weak = candidates.filter((topic) => gradeOf(topic) !== 'A');
-  const pool = weak.length ? weak : candidates;
-  const topic = sample(pool);
-  if (topic) setCurrent(topic.id);
-}
-
-function pickNext() {
-  const topics = filteredTopics();
-  const index = topics.findIndex((topic) => topic.id === state.currentId);
-  const next = topics[(index + 1 + topics.length) % topics.length] || topics[0];
-  if (next) setCurrent(next.id);
-}
-
-function gradeCurrent(grade) {
-  const topic = currentTopic();
-  if (!topic) return;
-  state.progress[topic.id] = { ...(state.progress[topic.id] || {}), grade, seenAt: Date.now(), seenCount: (state.progress[topic.id]?.seenCount || 0) + 1 };
-  writeJson(STORE_KEY, state.progress);
-  renderMetrics();
-  renderGradeButtons(topic);
-  renderTopicList();
-  renderToday();
-}
-
-function toggleTimer() {
-  if (state.timerId) {
-    clearInterval(state.timerId);
-    state.timerId = null;
-    $('#timerToggle').textContent = 'Štart';
-    return;
-  }
-  state.timerId = setInterval(() => {
-    state.timer -= 1;
-    if (state.timer <= 0) {
-      state.timer = 0;
-      clearInterval(state.timerId);
-      state.timerId = null;
-      $('#timerToggle').textContent = 'Štart';
-    }
-    renderTimer();
-  }, 1000);
-  $('#timerToggle').textContent = 'Pauza';
-}
-
-function resetTimer(render = true) {
-  if (state.timerId) clearInterval(state.timerId);
-  state.timerId = null;
-  state.timer = 300;
-  $('#timerToggle').textContent = 'Štart';
-  if (render) renderTimer();
-}
-
-function renderTimer() {
-  const minutes = String(Math.floor(state.timer / 60)).padStart(2, '0');
-  const seconds = String(state.timer % 60).padStart(2, '0');
-  $('#timer').textContent = `${minutes}:${seconds}`;
-}
-
-function resetProgress() {
-  if (!confirm('Vymazať všetky A/B/C označenia v tejto appke?')) return;
-  state.progress = {};
-  state.today = [];
-  writeJson(STORE_KEY, state.progress);
-  writeJson(TODAY_KEY, state.today);
-  buildToday(false);
-  renderAll();
-}
-
-function handleKeys(event) {
-  if (event.target.matches('input, select, textarea')) return;
-  if (event.key === ' ') {
-    event.preventDefault();
-    if (state.studyMode === 'answer') state.answerOpen = !state.answerOpen;
-    if (state.studyMode === 'cards') state.cardFlipped = !state.cardFlipped;
-    if (state.studyMode === 'quiz') state.quizOpen = !state.quizOpen;
-    if (state.studyMode === 'reader') {
-      const topic = currentTopic();
-      state.readerPlaying ? stopReader() : startReader(topic);
-      return;
-    }
-    renderQuestion();
-  }
-  if (event.key.toLowerCase() === 'n') pickNext();
-  if (event.key.toLowerCase() === 'r') pickRandomWeak();
+function todayKey() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
 }
 
 function readJson(key, fallback) {

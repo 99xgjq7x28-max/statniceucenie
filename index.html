@@ -7,10 +7,10 @@
   <title>Štátnice učenie</title>
   <script>
     if (location.protocol === 'file:' && !location.pathname.endsWith('/offline.html')) {
-      location.replace('offline.html');
+      location.replace(`offline.html${location.search}`);
     }
   </script>
-  <link rel="stylesheet" href="src/styles.css?v=15">
+  <link rel="stylesheet" href="src/styles.css?v=16">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -18,7 +18,7 @@
       <header class="brand-block">
         <div class="brand-kicker">Štátnice</div>
         <h1>Učenie</h1>
-        <p>Tvoje otázky, slabé miesta a denný rytmus do 8. júna.</p>
+        <p>Tvoje otázky, slabé miesta a denný rytmus do 12. júna.</p>
       </header>
 
       <section class="metric-grid" aria-label="Prehľad progresu">
@@ -90,6 +90,7 @@
           <span id="currentMedia" class="pill muted-pill"></span>
         </div>
         <div class="top-actions">
+          <a class="button-link" href="plan.html">Plán do 12.6.</a>
           <button id="resetProgress" class="text-danger" type="button">Vymazať progres</button>
         </div>
       </nav>
@@ -100,7 +101,7 @@
           <h2 id="questionTitle"></h2>
           <p id="questionCue" class="cue"></p>
           <details id="emergencyStart" class="emergency-start">
-            <summary>Núdzový štart - nauč sa naspamäť</summary>
+            <summary>Núdzový štart - 30 sekúnd</summary>
             <div id="emergencyStartBody"></div>
           </details>
 
@@ -139,6 +140,6 @@
     </main>
   </div>
 
-  <script src="src/app.js?v=15" defer></script>
+  <script src="src/app.js?v=16" defer></script>
 </body>
 </html>

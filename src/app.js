@@ -1,5 +1,5 @@
 
-const EXAM_DATE = new Date('2026-06-08T09:00:00');
+const EXAM_DATE = new Date('2026-06-12T09:00:00');
 const STORE_KEY = 'statnice-progress-v2';
 const TODAY_KEY = 'statnice-today-v1';
 
@@ -43,7 +43,8 @@ async function boot() {
     state.today = [];
   }
   state.topics = await fetch('data/topics.json').then((res) => res.json());
-  state.currentId = state.topics[0]?.id;
+  const requestedTopic = new URLSearchParams(location.search).get('topic');
+  state.currentId = state.topics.find((topic) => topic.id === requestedTopic)?.id || state.topics[0]?.id;
   hydrateFilters();
   bindEvents();
   if (!state.today.length) buildToday(false);
@@ -56,7 +57,7 @@ function showFileModeMessage() {
       <h2>Učivo sa nenačítalo</h2>
       <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
       <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
-      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=9</code>.</p>
+      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=16</code>.</p>
     </div>
   `;
   const topicList = $('#topicList');
@@ -252,7 +253,7 @@ function renderEmergencyStart(topic) {
   }
   box.style.display = '';
   box.open = false;
-  body.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join('');
+  body.innerHTML = lines.slice(0, 3).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
 }
 
 function renderStudyBody(topic) {
