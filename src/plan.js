@@ -9,14 +9,13 @@ const planState = {
 };
 
 const planDays = [
-  { date: '2026-05-31', label: '31.5.', goal: 'Štart bez nuly', ranges: [['Ekonómia a financie', 1, 3], ['Manažment', 1, 3]] },
-  { date: '2026-06-01', label: '1.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 4, 6], ['Manažment', 4, 6]] },
-  { date: '2026-06-02', label: '2.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 7, 9], ['Manažment', 7, 9]] },
-  { date: '2026-06-03', label: '3.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 10, 12], ['Manažment', 10, 12]] },
-  { date: '2026-06-04', label: '4.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 13, 15], ['Manažment', 13, 15]] },
-  { date: '2026-06-05', label: '5.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 16, 18], ['Manažment', 16, 18]] },
-  { date: '2026-06-06', label: '6.6.', goal: 'Silný víkend', ranges: [['Ekonómia a financie', 19, 23], ['Manažment', 19, 23]] },
-  { date: '2026-06-07', label: '7.6.', goal: 'Dokonči prvé kolo', ranges: [['Ekonómia a financie', 24, 30], ['Manažment', 24, 30]] },
+  { date: '2026-06-01', label: '1.6.', goal: 'Štart prvého kola', ranges: [['Ekonómia a financie', 1, 4], ['Manažment', 1, 4]] },
+  { date: '2026-06-02', label: '2.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 5, 8], ['Manažment', 5, 8]] },
+  { date: '2026-06-03', label: '3.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 9, 12], ['Manažment', 9, 12]] },
+  { date: '2026-06-04', label: '4.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 13, 16], ['Manažment', 13, 16]] },
+  { date: '2026-06-05', label: '5.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 17, 20], ['Manažment', 17, 20]] },
+  { date: '2026-06-06', label: '6.6.', goal: 'Silný víkend', ranges: [['Ekonómia a financie', 21, 25], ['Manažment', 21, 25]] },
+  { date: '2026-06-07', label: '7.6.', goal: 'Dokonči prvé kolo', ranges: [['Ekonómia a financie', 26, 30], ['Manažment', 26, 30]] },
   { date: '2026-06-08', label: '8.6.', goal: 'C otázky', mode: 'C' },
   { date: '2026-06-09', label: '9.6.', goal: 'B otázky', mode: 'B' },
   { date: '2026-06-10', label: '10.6.', goal: 'Simulácia', mode: 'simulation' },
