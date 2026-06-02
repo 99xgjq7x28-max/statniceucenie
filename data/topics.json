@@ -11197,7 +11197,11 @@
       },
       {
         "type": "heading",
-        "text": "Líder aktivizuje, inšpiruje, koordinuje, vyjednáva, radí, kontroluje, koučuje, vzdeláva, podporuje a pomáha . Tieto činnosti vykonáva voči:"
+        "text": "Líder aktivizuje, inšpiruje, koordinuje, vyjednáva, radí, kontroluje, koučuje, vzdeláva, podporuje a pomáha."
+      },
+      {
+        "type": "p",
+        "text": "Tieto činnosti vykonáva voči:"
       },
       {
         "type": "li",
