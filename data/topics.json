@@ -2185,6 +2185,14 @@
       },
       {
         "type": "li",
+        "text": "IS = Investment–Saving/investície a úspory"
+      },
+       {
+        "type": "li",
+        "text": "LM = Liquidity preference–Money supply/preferencia likvidity a ponuka peňazí"
+      },
+      {
+        "type": "p",
         "text": "IS–LM model vysvetľuje rovnováhu:"
       },
       {
