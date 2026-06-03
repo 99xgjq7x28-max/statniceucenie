@@ -7839,15 +7839,15 @@
       },
       {
         "type": "li",
-        "text": "ROA,"
+        "text": "ROA (Return on Assets - Rentabilita aktív) = čistý zisk / aktíva - Ukazuje, ako efektívne podnik využíva celý majetok na tvorbu zisku. (ROA vyjadruje, koľko zisku podnik vytvorí z celkových aktív. Čím je ROA vyššia, tým efektívnejšie podnik využíva svoj majetok.)"
       },
       {
         "type": "li",
-        "text": "ROE,"
+        "text": "ROE (Return on Equity - Rentabilita vlastného kapitálu) = čistý zisk / vlastný kapitál - Ukazuje, aký výnos prináša kapitál vlastníkom. (ROE je dôležitý najmä pre vlastníkov a investorov, pretože ukazuje, ako sa zhodnocuje vlastný kapitál vložený do podniku.)"
       },
       {
         "type": "li",
-        "text": "ROS."
+        "text": "ROS (Return on Sales - Rentabilita tržieb) = čistý zisk / tržby - Ukazuje, aká časť tržieb zostane podniku ako zisk. (ROS vyjadruje ziskovú maržu. Ak má podnik ROS napríklad 10 %, znamená to, že z každého eura tržieb mu zostáva 10 centov zisku.)"
       },
       {
         "type": "p",
