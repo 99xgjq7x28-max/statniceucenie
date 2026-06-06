@@ -57,7 +57,7 @@ function showFileModeMessage() {
       <h2>Učivo sa nenačítalo</h2>
       <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
       <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
-      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=18</code>.</p>
+      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=19</code>.</p>
     </div>
   `;
   const topicList = $('#topicList');
