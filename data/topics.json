@@ -2185,14 +2185,6 @@
       },
       {
         "type": "li",
-        "text": "IS = Investment–Saving/investície a úspory"
-      },
-       {
-        "type": "li",
-        "text": "LM = Liquidity preference–Money supply/preferencia likvidity a ponuka peňazí"
-      },
-      {
-        "type": "p",
         "text": "IS–LM model vysvetľuje rovnováhu:"
       },
       {
@@ -2204,7 +2196,7 @@
         "text": "a na trhu peňazí."
       },
       {
-        "type": "p",
+        "type": "li",
         "text": "Výsledkom je určenie:"
       },
       {
@@ -7839,15 +7831,15 @@
       },
       {
         "type": "li",
-        "text": "ROA (Return on Assets - Rentabilita aktív) = čistý zisk / aktíva - Ukazuje, ako efektívne podnik využíva celý majetok na tvorbu zisku. (ROA vyjadruje, koľko zisku podnik vytvorí z celkových aktív. Čím je ROA vyššia, tým efektívnejšie podnik využíva svoj majetok.)"
+        "text": "ROA,"
       },
       {
         "type": "li",
-        "text": "ROE (Return on Equity - Rentabilita vlastného kapitálu) = čistý zisk / vlastný kapitál - Ukazuje, aký výnos prináša kapitál vlastníkom. (ROE je dôležitý najmä pre vlastníkov a investorov, pretože ukazuje, ako sa zhodnocuje vlastný kapitál vložený do podniku.)"
+        "text": "ROE,"
       },
       {
         "type": "li",
-        "text": "ROS (Return on Sales - Rentabilita tržieb) = čistý zisk / tržby - Ukazuje, aká časť tržieb zostane podniku ako zisk. (ROS vyjadruje ziskovú maržu. Ak má podnik ROS napríklad 10 %, znamená to, že z každého eura tržieb mu zostáva 10 centov zisku.)"
+        "text": "ROS."
       },
       {
         "type": "p",
@@ -11197,11 +11189,7 @@
       },
       {
         "type": "heading",
-        "text": "Líder aktivizuje, inšpiruje, koordinuje, vyjednáva, radí, kontroluje, koučuje, vzdeláva, podporuje a pomáha."
-      },
-      {
-        "type": "p",
-        "text": "Tieto činnosti vykonáva voči:"
+        "text": "Líder aktivizuje, inšpiruje, koordinuje, vyjednáva, radí, kontroluje, koučuje, vzdeláva, podporuje a pomáha . Tieto činnosti vykonáva voči:"
       },
       {
         "type": "li",
@@ -11221,43 +11209,15 @@
       },
       {
         "type": "li",
-        "text": "Sám sebe."
+        "text": "Sám sebe. To všetko pre splnenie rôznych typov cieľov, ako sú vlastné ciele lídra, ciele tímu, ciele organizácie a celospoločenské ciele ."
       },
       {
         "type": "p",
-        "text": "To všetko pre splnenie rôznych typov cieľov, ako sú vlastné ciele lídra, ciele tímu, ciele organizácie a celospoločenské ciele."
-      },
-      {
-        "type": "heading",
-        "text": "Vedecká reflexia a teoretické prístupy k vedeniu ľudí"
+        "text": "Vedecká reflexia a teoretické prístupy k vedeniu ľudí -Vedecká reflexia (prehľad vývoja) vedenia ľudí určuje rôzne teoretické prístupy a koncepcie. Medzi hlavné teoretické prístupy, ktorými sa táto oblasť zaoberá, patria:"
       },
       {
         "type": "li",
-        "text": "Vedecká reflexia (prehľad vývoja) vedenia ľudí určuje rôzne teoretické prístupy a koncepcie."
-      },
-      {
-        "type": "heading",
-        "text": "Medzi hlavné teoretické prístupy, ktorými sa táto oblasť zaoberá, patria:"
-      },
-      {
-        "type": "heading",
-        "text": "1. Teórie povahových čŕt lídra (Trait theories)"
-      },
-       {
-        "type": "li",
-        "text": "Základ: Lídri majú vrodené alebo pevne dané osobnostné črty, ktoré ich odlišujú od ostatných."
-      },
-       {
-        "type": "li",
-        "text": "Kľúčové črty: inteligencia, sebavedomie, rozhodnosť, integrita, motivácia."
-      },
-      {
-        "type": "li",
-        "text": "Predpoklad: „Veľkí lídri sa rodia, nevyrobia sa.“"
-      },
-      {
-        "type": "li",
-        "text": "Kritika: Neberú do úvahy situáciu ani interakciu s tímom."
+        "text": "Teórie povahových čŕt lídra (Trait theories) Základ: Lídri majú vrodené alebo pevne dané osobnostné črty, ktoré ich odlišujú od ostatných. Kľúčové črty: inteligencia, sebavedomie, rozhodnosť, integrita, motivácia. Predpoklad: „Veľkí lídri sa rodia, nevyrobia sa.“ Kritika: Neberú do úvahy situáciu ani interakciu s tímom."
       },
       {
         "type": "heading",
@@ -11268,7 +11228,7 @@
         "text": "Základ: Lídri nie sú len tí, ktorí majú črty, ale tí, ktorí sa správajú určitým spôsobom."
       },
       {
-        "type": "p",
+        "type": "li",
         "text": "Hlavné štýly vedenia:"
       },
       {
@@ -11296,7 +11256,7 @@
         "text": "Základ: Efektívny štýl vedenia závisí od situácie, typu úlohy a skúseností tímu."
       },
       {
-        "type": "p",
+        "type": "li",
         "text": "Modely:"
       },
       {

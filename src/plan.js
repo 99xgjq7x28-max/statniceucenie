@@ -9,18 +9,12 @@ const planState = {
 };
 
 const planDays = [
-  { date: '2026-06-01', label: '1.6.', goal: 'Štart prvého kola', ranges: [['Ekonómia a financie', 1, 4], ['Manažment', 1, 4]] },
-  { date: '2026-06-02', label: '2.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 5, 8], ['Manažment', 5, 8]] },
-  { date: '2026-06-03', label: '3.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 9, 12], ['Manažment', 9, 12]] },
-  { date: '2026-06-04', label: '4.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 13, 16], ['Manažment', 13, 16]] },
-  { date: '2026-06-05', label: '5.6.', goal: 'Prvé kolo', ranges: [['Ekonómia a financie', 17, 20], ['Manažment', 17, 20]] },
-  { date: '2026-06-06', label: '6.6.', goal: 'Silný víkend', ranges: [['Ekonómia a financie', 21, 25], ['Manažment', 21, 25]] },
-  { date: '2026-06-07', label: '7.6.', goal: 'Dokonči prvé kolo', ranges: [['Ekonómia a financie', 26, 30], ['Manažment', 26, 30]] },
-  { date: '2026-06-08', label: '8.6.', goal: 'C otázky', mode: 'C' },
-  { date: '2026-06-09', label: '9.6.', goal: 'B otázky', mode: 'B' },
-  { date: '2026-06-10', label: '10.6.', goal: 'Simulácia', mode: 'simulation' },
-  { date: '2026-06-11', label: '11.6.', goal: 'Najhorších 10', mode: 'worst' },
-  { date: '2026-06-12', label: '12.6.', goal: 'Skúška', mode: 'warmup' }
+  { date: '2026-06-07', label: '7.6.', goal: 'Prvý kontakt 1/3', ranges: [['Ekonómia a financie', 1, 10], ['Manažment', 1, 10]] },
+  { date: '2026-06-08', label: '8.6.', goal: 'Prvý kontakt 2/3', ranges: [['Ekonómia a financie', 11, 20], ['Manažment', 11, 20]] },
+  { date: '2026-06-09', label: '9.6.', goal: 'Dokonči prvý kontakt', ranges: [['Ekonómia a financie', 21, 30], ['Manažment', 21, 30]] },
+  { date: '2026-06-10', label: '10.6.', goal: 'Slabé otázky + simulácia', mode: 'review' },
+  { date: '2026-06-11', label: '11.6.', goal: 'Iba dopoludnia', mode: 'limited' },
+  { date: '2026-06-12', label: '12.6.', goal: 'Štátnice - bez učenia', mode: 'exam' }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -79,7 +73,11 @@ function renderPlanMetrics() {
 function renderTodayPlan() {
   const day = currentPlanDay();
   const topics = topicsForDay(day);
-  $('#todayPlanLabel').textContent = `${day.label} - ${day.goal} (${topics.length || 'podľa progresu'} otázok)`;
+  const isExamDay = day.mode === 'exam';
+  $('#todayPlanLabel').textContent = isExamDay
+    ? `${day.label} - ${day.goal}`
+    : `${day.label} - ${day.goal} (${topics.length || 'podľa progresu'} otázok)`;
+  $('#markTodayDone').style.display = isExamDay ? 'none' : '';
   $('#markTodayDone').textContent = planState.plan.completedDays[day.date] ? 'Deň hotový' : 'Označiť deň hotový';
   $('#markTodayDone').classList.toggle('is-done', Boolean(planState.plan.completedDays[day.date]));
   $('#todayTopics').innerHTML = topics.length
@@ -141,11 +139,9 @@ function topicsForDay(day) {
       planState.topics.filter((topic) => topic.subject === subject && topic.number >= from && topic.number <= to)
     );
   }
-  if (day.mode === 'C') return byWeakness(['C']).slice(0, 14);
-  if (day.mode === 'B') return byWeakness(['B']).slice(0, 14);
-  if (day.mode === 'simulation') return byWeakness(['C', '', 'B']).slice(0, 12);
-  if (day.mode === 'worst') return byWeakness(['C', 'B', '']).slice(0, 10);
-  if (day.mode === 'warmup') return byWeakness(['C', 'B']).slice(0, 8);
+  if (day.mode === 'review') return byWeakness(['C', '', 'B']).slice(0, 16);
+  if (day.mode === 'limited') return byWeakness(['C', 'B', '']).slice(0, 8);
+  if (day.mode === 'exam') return [];
   return [];
 }
 
@@ -165,11 +161,9 @@ function dayDescription(day, topics) {
 }
 
 function fallbackForMode(mode) {
-  if (mode === 'C') return 'Prejdi všetky C otázky: núdzový štart, 5 slov, 1 príklad.';
-  if (mode === 'B') return 'Prejdi B otázky a doplň príklady.';
-  if (mode === 'simulation') return 'Náhodne 12 otázok, každú povedz 2-3 minúty.';
-  if (mode === 'worst') return 'Najhorších 10 otázok, bez nového prepisovania.';
-  if (mode === 'warmup') return 'Ráno iba ľahké zahriatie a núdzové štarty.';
+  if (mode === 'review') return 'Prejdi 16 najslabších otázok a aspoň 8 z nich povedz nahlas ako na skúške.';
+  if (mode === 'limited') return 'Dopoludnia najviac 8 slabých otázok. Po obede už iba povinnosti, pokoj a skorší spánok.';
+  if (mode === 'exam') return 'Dnes sa už neuč. Jedlo, voda, doklady, presun a pokoj pred štátnicami.';
   return 'Oddych alebo dobiehanie.';
 }
 
