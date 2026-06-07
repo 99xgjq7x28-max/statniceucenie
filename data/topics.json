@@ -322,8 +322,28 @@
         "text": "Pri tvorbe ceny musí manažér sledovať najmä:"
       },
       {
-        "type": "p",
+        "type": "li",
         "text": "Dopyt zákazníkov – koľko sú zákazníci ochotní kúpiť a ako reagujú na zmenu ceny. Náklady – cena musí pokryť fixné a variabilné náklady a ideálne priniesť zisk. Konkurenciu – cena môže byť rovnaká, nižšia alebo vyššia než u konkurencie. Ciele podniku – napr. rast predaja, maximalizácia zisku alebo prémiové postavenie. Trhové prostredie – príjmy obyvateľstva, inflácia, kúpyschopnosť, regulácia. Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
+      },
+       {
+        "type": "li",
+        "text": "Náklady – cena musí pokryť fixné a variabilné náklady a ideálne priniesť zisk. Konkurenciu – cena môže byť rovnaká, nižšia alebo vyššia než u konkurencie. Ciele podniku – napr. rast predaja, maximalizácia zisku alebo prémiové postavenie. Trhové prostredie – príjmy obyvateľstva, inflácia, kúpyschopnosť, regulácia. Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
+      },
+       {
+        "type": "li",
+        "text": "Konkurenciu – cena môže byť rovnaká, nižšia alebo vyššia než u konkurencie. Ciele podniku – napr. rast predaja, maximalizácia zisku alebo prémiové postavenie. Trhové prostredie – príjmy obyvateľstva, inflácia, kúpyschopnosť, regulácia. Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
+      },
+      {
+        "type": "li",
+        "text": "Ciele podniku – napr. rast predaja, maximalizácia zisku alebo prémiové postavenie. Trhové prostredie – príjmy obyvateľstva, inflácia, kúpyschopnosť, regulácia. Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
+      },
+      {
+        "type": "li",
+        "text": "Trhové prostredie – príjmy obyvateľstva, inflácia, kúpyschopnosť, regulácia. Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
+      },
+      {
+        "type": "li",
+        "text": "Výrobnú kapacitu – ak firma nevie pokryť vyšší dopyt, ani dobrá cena nepomôže."
       },
       {
         "type": "heading",
