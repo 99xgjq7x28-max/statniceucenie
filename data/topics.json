@@ -6055,15 +6055,15 @@
       },
       {
         "type": "li",
-        "text": "zásoby,"
+        "text": "Zásoby - materiál, nedokončená výroba, hotové výrobky, tovar."
       },
       {
         "type": "li",
-        "text": "pohľadávky,"
+        "text": "Pohľadávky - faktúry vystavené odberateľom, ktoré ešte neboli uhradené."
       },
       {
         "type": "li",
-        "text": "krátkodobý finančný majetok a peniaze."
+        "text": "Finančný majetok - hotovosť v pokladni, peniaze na účtoch, krátkodobé cenne papiere"
       },
       {
         "type": "p",
