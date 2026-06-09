@@ -6636,8 +6636,12 @@
         "text": "poznámky."
       },
       {
+        "type": "heading",
+        "text": "Súvaha"
+      },
+      {
         "type": "p",
-        "text": "Súvaha= Súvaha zachytáva stav majetku a zdrojov jeho krytia k určitému dňu."
+        "text": "Súvaha zachytáva stav majetku a zdrojov jeho krytia k určitému dňu."
       },
       {
         "type": "li",
@@ -6669,11 +6673,23 @@
       },
       {
         "type": "heading",
-        "text": "Výkaz ziskov a strát= Zobrazuje:"
+        "text": "Výkaz ziskov a strát zobrazuje:"
       },
       {
         "type": "li",
         "text": "N,V, a z nich vypočítaný výsledok hospodárenia za určité obdobie."
+      },
+      {
+        "type": "li",
+        "text": "Náklady: Peňažné vyjadrenie spotreby výrobných faktorov (materiál, mzdy, energie, odpisy) vynaložených na dosiahnutie výnosov."
+      },
+      {
+        "type": "li",
+        "text": "Výnosy: Peňažné vyjadrenie celkových výstupov podniku (tržby za výrobky a služby, aktivácia majetku, finančné výnosy)."
+      },
+      {
+        "type": "li",
+        "text": "Výsledok hospodárenia (VH): Rozdiel medzi výnosmi a nákladmi. Zisk: Výnosy > Náklady, Strata: Výnosy < Náklady"
       },
       {
         "type": "p",
