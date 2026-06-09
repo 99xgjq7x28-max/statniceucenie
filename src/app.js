@@ -428,7 +428,7 @@ function renderReader(topic) {
       <button id="readerNext" type="button">Ďalej</button>
       <button id="readerStart" type="button">Od začiatku</button>
     </div>
-    <p class="reader-note">Používaj to na rýchle opakovanie už známej témy. Na nové veci je lepšia Odpoveď alebo Kvíz.</p>
+    <p class="reader-note">Používaj to na rýchle opakovanie už známej témy. Na nové veci je lepšia Odpoveď alebo stránka Kostry.</p>
   </div>`;
 }
 

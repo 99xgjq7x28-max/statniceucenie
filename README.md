@@ -25,6 +25,7 @@ index.html              hlavná stránka
 src/app.js              logika aplikácie
 src/styles.css          vizuál a responzívne layouty
 data/topics.json        všetky otázky, odpovede, tabuľky a referencie na obrázky
+kostry/                 stručné hovorené kostry všetkých 60 otázok
 assets/images/          obrázky extrahované z Word dokumentov
 statnice-ucenie.html    presmerovanie zo starej URL na index.html
 ```

@@ -262,6 +262,19 @@ button.is-done,
 .emergency-start p:last-child { padding-bottom: 14px; }
 .study-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
 .study-mode .is-active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 900; }
+.study-mode-link {
+  min-height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: 800;
+}
+.study-mode-link:hover { border-color: var(--accent); color: var(--accent); }
 .study-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
 .timer { min-width: 86px; font-variant-numeric: tabular-nums; font-size: 30px; line-height: 1; font-weight: 900; }
 .answer-actions { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
