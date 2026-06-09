@@ -5745,12 +5745,27 @@
         "text": "Náklady sú peňažné vyjadrenie spotreby výrobných faktorov na činnosť podniku."
       },
       {
+        "type": "p",
+        "text": "podľa vzťahu k výkonu na:"
+      },
+       {
         "type": "li",
-        "text": "podľa vzťahu k výkonu na priame – dajú sa priradiť konkrétnemu výrobku, nepriame – režijné, nemožno ich priamo priradiť,"
+        "text": "priame – dajú sa priradiť konkrétnemu výrobku"
+      },
+        "type": "li",
+        "text": "nepriame – režijné, nemožno ich priamo priradiť"
       },
       {
+        "type": "p",
+        "text": "podľa správania pri zmene objemu výroby na:"
+      },
+  {
         "type": "li",
-        "text": "podľa správania pri zmene objemu výroby na fixné – nemenia sa s objemom výroby, variabilné – menia sa podľa objemu výroby."
+        "text": "fixné – nemenia sa s objemom výroby"
+      },
+   {
+        "type": "li",
+        "text": "variabilné – menia sa podľa objemu výroby"
       },
       {
         "type": "p",
