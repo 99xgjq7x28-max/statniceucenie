@@ -5750,11 +5750,11 @@
       },
        {
         "type": "li",
-        "text": "priame – dajú sa priradiť konkrétnemu výrobku"
+        "text": "priame – dajú sa priradiť konkrétnemu výrobku spotrebovaný materiál, mzda pracovníka vyrábajúceho výrobok)"
       },
       {
         "type": "li",
-        "text": "nepriame – režijné, nemožno ich priamo priradiť"
+        "text": "nepriame – režijné, nemožno ich priamo priradiť (nájom výrobnej haly, mzda účtovníka, osvetlenie)"
       },
       {
         "type": "p",
@@ -5762,11 +5762,31 @@
       },
   {
         "type": "li",
-        "text": "fixné – nemenia sa s objemom výroby"
+        "text": "fixné – nemenia sa s objemom výroby (nájom, poistné, odpisy stroja)"
       },
    {
         "type": "li",
-        "text": "variabilné – menia sa podľa objemu výroby"
+        "text": "variabilné – menia sa podľa objemu výroby materiál, obaly, spotreba energie na výrobu, úkolová mzda)"
+      },
+      {
+        "type": "p",
+        "text": "Pozor: jeden náklad môže byť súčasne priamy aj variabilný, napríklad materiál použitý na konkrétny výrobok. Napríklad pekáreň vyrábajúca chlieb:"
+      },
+      {
+        "type": "li",
+        "text": "Priamy náklad: múka použitá na konkrétny chlieb"
+      },
+{
+        "type": "li",
+        "text": "Nepriamy náklad: nájom celej pekárne."
+      },
+{
+        "type": "li",
+        "text": "Fixný náklad: mesačný nájom pekárne bez ohľadu na počet chlebov."
+      },
+      {
+        "type": "li",
+        "text": "Variabilný náklad: múka, ktorej spotreba rastie s počtom vyrobených chlebov."
       },
       {
         "type": "p",
