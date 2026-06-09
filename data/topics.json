@@ -7057,524 +7057,100 @@
     "title": "Popíšte účtovné zobrazenie finančných účtov a zúčtovacích vzťahov v podvojnom účtovníctve s dôrazom na a) odberateľské a dodávateľské vzťahy, b) rozdiely medzi majetkovými a dlhovými cennými papiermi, c) mzdovú agendu, d) priame a nepriame dane. Charakterizujte ich význam a prínos z hľadiska manažmentu podnikových procesov (zachytenie vzťahov v rámci interného prostredia a vzťahy s externým prostredím podniku).",
     "blocks": [
       {
-        "type": "heading",
-        "text": "V podvojnom účtovníctve sa každá operácia účtuje na dvoch účtoch, na strane MD a D. Finančné účty a zúčtovacie vzťahy zachytávajú:"
-      },
-      {
-        "type": "li",
-        "text": "pohyb peňažných prostriedkov,"
-      },
-      {
-        "type": "li",
-        "text": "pohľadávky a záväzky,"
-      },
-      {
-        "type": "li",
-        "text": "vzťahy podniku k internému aj externému prostrediu."
+        "type": "p",
+        "text": "Podvojné účtovníctvo je založené na princípe podvojnosti (každá transakcia ovplyvňuje minimálne dva účty). Finančné účty a zúčtovacie vzťahy v ňom definujú „krvný obeh“ podniku – vzťahy s okolím (externé) aj interné finančné toky."
       },
       {
         "type": "heading",
-        "text": "1. Finančné účty= Finančné účty zobrazujú stav a pohyb:"
-      },
-      {
-        "type": "li",
-        "text": "hotovosti,"
-      },
-      {
-        "type": "li",
-        "text": "peňazí na bankových účtoch,"
-      },
-      {
-        "type": "li",
-        "text": "cenín,"
-      },
-      {
-        "type": "li",
-        "text": "krátkodobého finančného majetku."
-      },
-      {
-        "type": "heading",
-        "text": "Patria sem najmä:"
-      },
-      {
-        "type": "li",
-        "text": "pokladnica,"
-      },
-      {
-        "type": "li",
-        "text": "bankové účty,"
-      },
-      {
-        "type": "li",
-        "text": "ceniny,"
-      },
-      {
-        "type": "li",
-        "text": "krátkodobý finančný majetok."
-      },
-      {
-        "type": "heading",
-        "text": "2. Zúčtovacie vzťahy= Zachytávajú pohľadávky a záväzky voči:"
-      },
-      {
-        "type": "li",
-        "text": "odberateľom,"
-      },
-      {
-        "type": "li",
-        "text": "dodávateľom,"
-      },
-      {
-        "type": "li",
-        "text": "zamestnancom,"
-      },
-      {
-        "type": "li",
-        "text": "poisťovniam,"
-      },
-      {
-        "type": "li",
-        "text": "daňovým úradom,"
-      },
-      {
-        "type": "li",
-        "text": "štátu,"
-      },
-      {
-        "type": "li",
-        "text": "ďalším subjektom."
+        "text": "a) Odberateľské a dodávateľské vzťahy (Obchodný styk)"
       },
       {
         "type": "p",
-        "text": "Ich význam je v tom, že ukazujú, kto dlhuje podniku a komu dlhuje podnik."
+        "text": "Tieto vzťahy tvoria základ prevádzkového cash flow."
+      },
+      {
+        "type": "li",
+        "text": "Dodávateľské vzťahy: Zachytávajú záväzky voči dodávateľom (faktúry prijaté). Účtovne sa prejavujú ako nárast záväzkov na strane pasív a nárast nákladov (materiál, služby) alebo majetku na strane aktív."
+      },
+      {
+        "type": "li",
+        "text": "Odberateľské vzťahy: Zachytávajú pohľadávky voči odberateľom (faktúry vystavené). Účtovne znamenajú nárast výnosov (tržieb) a nárast pohľadávok v aktívach."
+      },
+      {
+        "type": "li",
+        "text": "Význam pre manažment: Umožňujú sledovať platobnú disciplínu partnerov a riadiť likviditu (kedy prídu peniaze a kedy musia odísť)."
       },
       {
         "type": "heading",
-        "text": "a) Odberateľské a dodávateľské vzťahy"
-      },
-      {
-        "type": "heading",
-        "text": "Odberateľské vzťahy= Vznikajú pri predaji na faktúru. V účtovníctve vzniká:"
-      },
-      {
-        "type": "li",
-        "text": "pohľadávka voči odberateľovi,"
-      },
-      {
-        "type": "li",
-        "text": "výnos,"
-      },
-      {
-        "type": "li",
-        "text": "prípadne DPH na výstupe."
-      },
-      {
-        "type": "heading",
-        "text": "Typický priebeh:"
-      },
-      {
-        "type": "li",
-        "text": "vystavenie faktúry,"
-      },
-      {
-        "type": "li",
-        "text": "vznik pohľadávky,"
-      },
-      {
-        "type": "li",
-        "text": "úhrada na účet alebo do pokladnice."
-      },
-      {
-        "type": "heading",
-        "text": "Dodávateľské vzťahy= Vznikajú pri nákupe na faktúru. V účtovníctve vzniká:"
-      },
-      {
-        "type": "li",
-        "text": "záväzok voči dodávateľovi,"
-      },
-      {
-        "type": "li",
-        "text": "náklad alebo prírastok majetku,"
-      },
-      {
-        "type": "li",
-        "text": "prípadne DPH na vstupe."
-      },
-      {
-        "type": "heading",
-        "text": "Typický priebeh:"
-      },
-      {
-        "type": "li",
-        "text": "prijatie faktúry,"
-      },
-      {
-        "type": "li",
-        "text": "vznik záväzku,"
-      },
-      {
-        "type": "li",
-        "text": "úhrada z bankového účtu."
-      },
-      {
-        "type": "heading",
-        "text": "Význam pre manažment= Tieto vzťahy sú dôležité pre:"
-      },
-      {
-        "type": "li",
-        "text": "riadenie cash flow,"
-      },
-      {
-        "type": "li",
-        "text": "sledovanie splatnosti pohľadávok a záväzkov,"
-      },
-      {
-        "type": "li",
-        "text": "hodnotenie platobnej disciplíny partnerov,"
-      },
-      {
-        "type": "li",
-        "text": "plánovanie likvidity."
+        "text": "b) Rozdiely medzi majetkovými a dlhovými cennými papiermi"
       },
       {
         "type": "p",
-        "text": "b) Majetkové cenné papiere= Vyjadrujú vlastnícky podiel."
+        "text": "Účtovanie cenných papierov (CP) závisí od účelu ich držby (obchodovanie vs. dlhodobá investícia)."
       },
       {
         "type": "li",
-        "text": "akcie,"
+        "text": "Majetkové CP (akcie): Predstavujú vlastnícky podiel v inej spoločnosti. Účtujú sa ako dlhodobý finančný majetok (ak ide o podielovú účasť) alebo krátkodobý finančný majetok. Výnosom sú dividendy."
       },
       {
         "type": "li",
-        "text": "obchodné podiely."
+        "text": "Dlhové CP (dlhopisy): Predstavujú dlh emitenta voči majiteľovi CP. Účtujú sa podľa doby splatnosti (krátkodobé/dlhodobé). Výnosom je úrok (kupón)."
+      },
+      {
+        "type": "li",
+        "text": "Význam pre manažment: Majetkové CP prinášajú vplyv a strategické partnerstvá, dlhové CP sú nástrojom na zhodnotenie dočasne voľných peňažných prostriedkov s pevným výnosom."
       },
       {
         "type": "heading",
-        "text": "Charakteristika:"
-      },
-      {
-        "type": "li",
-        "text": "vlastník má podiel na majetku a zisku,"
-      },
-      {
-        "type": "li",
-        "text": "výnosom je dividenda,"
-      },
-      {
-        "type": "li",
-        "text": "nesú vyššie riziko,"
-      },
-      {
-        "type": "li",
-        "text": "väčšinou nemajú pevnú splatnosť."
+        "text": "c) Mzdová agenda"
       },
       {
         "type": "p",
-        "text": "Dlhové cenné papiere= Vyjadrujú veriteľský vzťah."
+        "text": "Mzdové účtovníctvo je komplexný proces zúčtovania vzťahov so zamestnancami, štátom (dane) a poisťovňami (odvody)."
       },
       {
         "type": "li",
-        "text": "dlhopisy,"
+        "text": "Zúčtovanie: Nákladom podniku je celková cena práce (hrubá mzda + odvody zamestnávateľa). Zamestnancovi sa vypláca čistá mzda po odpočítaní dane a odvodov zamestnanca."
       },
       {
         "type": "li",
-        "text": "pokladničné poukážky,"
-      },
-      {
-        "type": "li",
-        "text": "zmenky."
-      },
-      {
-        "type": "heading",
-        "text": "Charakteristika:"
-      },
-      {
-        "type": "li",
-        "text": "investor je veriteľ,"
-      },
-      {
-        "type": "li",
-        "text": "má nárok na splatenie menovitej hodnoty a úrok,"
-      },
-      {
-        "type": "li",
-        "text": "majú stanovenú splatnosť."
-      },
-      {
-        "type": "heading",
-        "text": "Základný rozdiel"
-      },
-      {
-        "type": "li",
-        "text": "majetkový CP = vlastnícky vzťah,"
-      },
-      {
-        "type": "li",
-        "text": "dlhový CP = veriteľský vzťah."
-      },
-      {
-        "type": "heading",
-        "text": "Význam pre manažment Podnik ich využíva:"
-      },
-      {
-        "type": "li",
-        "text": "na investovanie voľných peňazí,"
-      },
-      {
-        "type": "li",
-        "text": "na získanie kapitálu,"
-      },
-      {
-        "type": "li",
-        "text": "na riadenie finančného majetku."
-      },
-      {
-        "type": "heading",
-        "text": "c) Mzdová agenda= Mzdová agenda zachytáva vzťahy medzi podnikom a:"
-      },
-      {
-        "type": "li",
-        "text": "zamestnancami,"
-      },
-      {
-        "type": "li",
-        "text": "Sociálnou poisťovňou,"
-      },
-      {
-        "type": "li",
-        "text": "zdravotnými poisťovňami,"
-      },
-      {
-        "type": "li",
-        "text": "daňovým úradom."
-      },
-      {
-        "type": "heading",
-        "text": "Zahŕňa:"
-      },
-      {
-        "type": "li",
-        "text": "výpočet hrubej mzdy,"
-      },
-      {
-        "type": "li",
-        "text": "odvody a zrážky,"
-      },
-      {
-        "type": "li",
-        "text": "preddavok na daň,"
-      },
-      {
-        "type": "li",
-        "text": "čistú mzdu,"
-      },
-      {
-        "type": "li",
-        "text": "záväzky voči zamestnancom a inštitúciám."
-      },
-      {
-        "type": "heading",
-        "text": "V účtovníctve vznikajú:"
-      },
-      {
-        "type": "li",
-        "text": "mzdové náklady,"
-      },
-      {
-        "type": "li",
-        "text": "záväzky voči zamestnancom,"
-      },
-      {
-        "type": "li",
-        "text": "záväzky voči poisťovniam,"
-      },
-      {
-        "type": "li",
-        "text": "záväzky voči daňovému úradu."
-      },
-      {
-        "type": "heading",
-        "text": "Význam pre manažment= Mzdová agenda slúži na:"
-      },
-      {
-        "type": "li",
-        "text": "riadenie personálnych nákladov,"
-      },
-      {
-        "type": "li",
-        "text": "plánovanie pracovnej sily,"
-      },
-      {
-        "type": "li",
-        "text": "kontrolu odvodového zaťaženia,"
-      },
-      {
-        "type": "li",
-        "text": "hodnotenie efektívnosti zamestnávania."
+        "text": "Význam pre manažment: Mzdové náklady tvoria často najväčšiu položku v štruktúre nákladov. Účtovné dáta umožňujú analyzovať produktivitu práce a efektivitu personálnych nákladov."
       },
       {
         "type": "heading",
         "text": "d) Priame a nepriame dane"
       },
       {
+        "type": "p",
+        "text": "Účtovníctvo musí presne odlíšiť dane, ktoré zaťažujú výsledok hospodárenia, od tých, kde podnik pôsobí len ako výberca."
+      },
+      {
+        "type": "li",
+        "text": "Priame dane: Daň z príjmov právnických osôb. Priamo znižuje čistý zisk podniku."
+      },
+      {
+        "type": "li",
+        "text": "Nepriame dane: DPH (daň z pridanej hodnoty) a spotrebné dane. Podnik ich vyberá od zákazníka a odvádza štátu. Účtovne sú to priebežné položky, ktoré by nemali ovplyvňovať zisk (podnik si uplatňuje odpočet na vstupe a priznáva daň na výstupe)."
+      },
+      {
+        "type": "li",
+        "text": "Význam pre manažment: Optimalizácia daňových povinností a dodržiavanie zákonných lehôt je kritické pre predchádzanie sankciám a efektívne riadenie cash flow."
+      },
+      {
         "type": "heading",
-        "text": "Priame dane= Sú viazané priamo na príjem alebo majetok subjektu.Pre podnik sú najdôležitejšie:"
-      },
-      {
-        "type": "li",
-        "text": "daň z príjmov právnických osôb,"
-      },
-      {
-        "type": "li",
-        "text": "preddavky na daň zo závislej činnosti,"
-      },
-      {
-        "type": "li",
-        "text": "miestne dane, napr. daň z nehnuteľností."
-      },
-      {
-        "type": "heading",
-        "text": "Nepriame dane= Sú zahrnuté v cene tovarov a služieb.Patria sem:"
-      },
-      {
-        "type": "li",
-        "text": "DPH,"
-      },
-      {
-        "type": "li",
-        "text": "spotrebné dane."
+        "text": "Manažérsky prínos: Zachytenie vzťahov"
       },
       {
         "type": "p",
-        "text": "Podnik ich väčšinou len vyberá a odvádza štátu, pričom ekonomicky ich nesie konečný spotrebiteľ."
-      },
-      {
-        "type": "heading",
-        "text": "DPH= Pri DPH podnik:"
+        "text": "Účtovníctvo v tomto smere plní dve základné funkcie:"
       },
       {
         "type": "li",
-        "text": "pri predaji účtuje DPH na výstupe,"
+        "text": "Interné prostredie: Zabezpečuje kontrolu efektívnosti. Ak manažér vidí v účtovníctve vysoké pohľadávky po splatnosti, vie, že obchodné oddelenie musí zlepšiť výber platieb. Ak vidí vysoké mzdové náklady pri nízkych tržbách, musí prehodnotiť efektivitu procesov."
       },
       {
         "type": "li",
-        "text": "pri nákupe si uplatňuje DPH na vstupe,"
-      },
-      {
-        "type": "li",
-        "text": "rozdiel odvádza štátu alebo si ho nárokuje."
-      },
-      {
-        "type": "heading",
-        "text": "Význam pre manažment= Dane ovplyvňujú:"
-      },
-      {
-        "type": "li",
-        "text": "náklady,"
-      },
-      {
-        "type": "li",
-        "text": "ceny,"
-      },
-      {
-        "type": "li",
-        "text": "cash flow,"
-      },
-      {
-        "type": "li",
-        "text": "rentabilitu,"
-      },
-      {
-        "type": "li",
-        "text": "daňové plánovanie"
-      },
-      {
-        "type": "li",
-        "text": "."
-      },
-      {
-        "type": "heading",
-        "text": "3. Význam pre manažment podnikových procesov"
-      },
-      {
-        "type": "heading",
-        "text": "V internom prostredí"
-      },
-      {
-        "type": "li",
-        "text": "vzťahy k zamestnancom,"
-      },
-      {
-        "type": "li",
-        "text": "mzdové náklady,"
-      },
-      {
-        "type": "li",
-        "text": "pohyb peňazí,"
-      },
-      {
-        "type": "li",
-        "text": "finančná disciplína,"
-      },
-      {
-        "type": "li",
-        "text": "plánovanie a kontrola nákladov."
-      },
-      {
-        "type": "heading",
-        "text": "Vo vzťahu k externému prostrediu"
-      },
-      {
-        "type": "li",
-        "text": "vzťahy s odberateľmi a dodávateľmi,"
-      },
-      {
-        "type": "li",
-        "text": "bankami,"
-      },
-      {
-        "type": "li",
-        "text": "poisťovňami,"
-      },
-      {
-        "type": "li",
-        "text": "investormi,"
-      },
-      {
-        "type": "li",
-        "text": "daňovými orgánmi,"
-      },
-      {
-        "type": "li",
-        "text": "štátom."
-      },
-      {
-        "type": "heading",
-        "text": "Manažérsky prínos"
-      },
-      {
-        "type": "heading",
-        "text": "Tieto účtovné informácie pomáhajú:"
-      },
-      {
-        "type": "li",
-        "text": "riadiť likviditu,"
-      },
-      {
-        "type": "li",
-        "text": "sledovať splatnosť pohľadávok a záväzkov,"
-      },
-      {
-        "type": "li",
-        "text": "kontrolovať obchodné riziká,"
-      },
-      {
-        "type": "li",
-        "text": "plánovať financovanie,"
-      },
-      {
-        "type": "li",
-        "text": "správne rozhodovať o nákupoch, predaji, zamestnávaní a daniach."
+        "text": "Externé prostredie: Slúži ako \"vizitka\" podniku. Pre banky sú presné zúčtovacie vzťahy dôkazom, že firma vie riadiť svoje záväzky, čo priamo ovplyvňuje cenu úverov, ktoré firma získava."
       },
       {
         "type": "heading",
@@ -7586,14 +7162,14 @@
       }
     ],
     "id": "ekonomia-25",
-    "wordCount": 596,
+    "wordCount": 473,
     "tableCount": 0,
     "imageCount": 0,
-    "cue": "V podvojnom účtovníctve sa každá operácia účtuje na dvoch účtoch, na strane MD a D. Finančné účty a zúčtovacie vzťahy zachytávajú: pohyb peňažných prostriedkov, vzťahy podniku k internému aj externému prostrediu.",
+    "cue": "Podvojné účtovníctvo zachytáva každú transakciu najmenej na dvoch účtoch. Otázka spája odberateľsko-dodávateľské vzťahy, cenné papiere, mzdy a dane s riadením likvidity, nákladov a vzťahov podniku s okolím.",
     "emergencyStart": [
-      "V podvojnom účtovníctve sa každá operácia účtuje na dvoch účtoch, na strane MD a D. Finančné účty a zúčtovacie vzťahy zachytávajú: pohyb peňažných prostriedkov, vzťahy podniku k internému aj externému prostrediu. pohyb peňažných prostriedkov.",
-      "Kľúčové body tejto témy sú: Finančné účty= Finančné účty zobrazujú stav a pohyb, Patria sem najmä, Zúčtovacie vzťahy= Zachytávajú pohľadávky a záväzky voči a a) Odberateľské a dodávateľské vzťahy.",
-      "Pre manažéra je táto téma dôležitá, pretože ovplyvňuje rozhodovanie podniku, náklady, ceny, dopyt, riziko a finančné výsledky."
+      "Podvojné účtovníctvo je založené na princípe podvojnosti, takže každá hospodárska operácia ovplyvňuje najmenej dva účty. Finančné účty a zúčtovacie vzťahy zachytávajú interné aj externé finančné toky podniku.",
+      "Medzi hlavné oblasti patria pohľadávky voči odberateľom, záväzky voči dodávateľom, majetkové a dlhové cenné papiere, mzdová agenda a priame či nepriame dane.",
+      "Pre manažment sú tieto informácie dôležité pri riadení likvidity, kontrole nákladov, hodnotení platobnej disciplíny partnerov a dodržiavaní povinností voči zamestnancom, poisťovniam a štátu."
     ]
   },
   {
@@ -7655,15 +7231,15 @@
       },
       {
         "type": "li",
-        "text": "bežná likvidita,"
+        "text": "Bežná likvidita – obežný majetok / krátkodobé záväzky."
       },
       {
         "type": "li",
-        "text": "pohotová likvidita,"
+        "text": "Pohotová likvidita – obežný majetok bez zásob / krátkodobé záväzky."
       },
       {
         "type": "li",
-        "text": "okamžitá likvidita."
+        "text": "Okamžitá likvidita – peniaze / krátkodobé záväzky."
       },
       {
         "type": "p",
@@ -7715,15 +7291,15 @@
       },
       {
         "type": "li",
-        "text": "ROA,"
+        "text": "ROA – zisk z celkového majetku."
       },
       {
         "type": "li",
-        "text": "ROE,"
+        "text": "ROE – zisk z kapitálu vlastníkov."
       },
       {
         "type": "li",
-        "text": "ROS."
+        "text": "ROS – zisk z tržieb."
       },
       {
         "type": "p",
@@ -7943,7 +7519,7 @@
       }
     ],
     "id": "ekonomia-26",
-    "wordCount": 754,
+    "wordCount": 787,
     "tableCount": 0,
     "imageCount": 0,
     "cue": "Finančná analýza je sústava metód, pomocou ktorých hodnotíme finančné zdravie, výkonnosť a stabilitu podniku na základe účtovných výkazov a ďalších informácií. Jej cieľom je zistiť, ako je podnik ziskový, likvidný, zadlžený, efektívny a či vytvára hodnotu pre vlastníkov. V praxi slúži manažmentu, investorom, bankám aj obchodným partnerom. 2. Využitie finančnej analýzy pri rizikách, príležitostiach a benchmarkingu Fin",
