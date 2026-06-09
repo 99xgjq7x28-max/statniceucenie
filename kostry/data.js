@@ -10,6 +10,7 @@ window.__SKELETONS__ = [
       "Ponuka: koľko chcú výrobcovia predať; pri vyššej cene zvyčajne rastie.",
       "Rovnováha vzniká, keď sa dopyt rovná ponuke; inak vzniká prebytok alebo nedostatok.",
       "Manažér sleduje cenu, dopyt, náklady, konkurenciu a makroekonomické premenné.",
+      "Makroekonomické premenné sú najmä HDP, inflácia, nezamestnanosť, úroky a výmenný kurz.",
       "Časový rad rozkladáme na trend, sezónnosť, cyklus a náhodnú zložku."
     ]
   },
@@ -24,6 +25,7 @@ window.__SKELETONS__ = [
       "Elastický dopyt reaguje výrazne; neelastický reaguje slabo.",
       "Krížová elasticita sleduje vzťah substitútov a komplementov.",
       "Dôchodková elasticita sleduje reakciu dopytu na zmenu príjmu.",
+      "Pri cene manažér zohľadňuje aj náklady, konkurenciu, cieľ firmy a vnímanú hodnotu.",
       "Korelácia meria silu vzťahu; regresia ho vyjadrí rovnicou a umožní odhad."
     ]
   },
@@ -52,6 +54,7 @@ window.__SKELETONS__ = [
       "Výdavková metóda: C + I + G + čistý export.",
       "Platobná bilancia zachytáva ekonomické vzťahy so zahraničím.",
       "Má bežný, kapitálový a finančný účet.",
+      "Vývoj SR za poslednú dekádu ovplyvnili rast pred pandémiou, prepad v roku 2020 a následné oživenie s infláciou.",
       "HDP neukazuje rozdelenie bohatstva, zdravie, voľný čas ani životné prostredie."
     ]
   },
@@ -65,8 +68,10 @@ window.__SKELETONS__ = [
       "Nezamestnanosť môže byť frikčná, štrukturálna alebo cyklická.",
       "Inflácia znamená rast všeobecnej cenovej hladiny a pokles kúpnej sily.",
       "Phillipsova krivka krátkodobo ukazuje nepriamy vzťah inflácie a nezamestnanosti.",
+      "Menová, fiškálna a štrukturálna politika ovplyvňujú infláciu aj zamestnanosť.",
       "Aktívna politika vytvára prácu a vzdeláva; pasívna vypláca dávky.",
-      "CPI a HICP sledujú spotrebiteľské ceny, PPI ceny výrobcov, deflátor celé HDP."
+      "CPI a HICP sledujú spotrebiteľské ceny, PPI ceny výrobcov, deflátor celé HDP.",
+      "V SR nezamestnanosť dlhodobo klesala, pandémia ju dočasne zvýšila a po roku 2021 prudko rástla inflácia."
     ]
   },
   {
@@ -147,9 +152,10 @@ window.__SKELETONS__ = [
     "start": "Medzinárodný obchod prepája krajiny, ale zároveň vytvára závislosť a tlak na ochranu trhu.",
     "points": [
       "Liberalizmus odstraňuje bariéry; protekcionizmus chráni domácich výrobcov.",
+      "Trendmi sú globálne hodnotové reťazce, obchod so službami, digitalizácia a väčšia geopolitická neistota.",
       "Nástroje sú clá, kvóty, subvencie, normy a obchodné dohody.",
       "WTO vytvára pravidlá, rieši spory a podporuje liberalizáciu.",
-      "Rozvinuté aj rozvojové štáty kombinujú otvorenosť s ochranou citlivých odvetví.",
+      "Rozvinuté aj rozvojové štáty kombinujú otvorenosť s ochranou citlivých odvetví; rozvojové žiadajú priestor chrániť vznikajúci priemysel.",
       "SR je malá, veľmi otvorená a exportne závislá ekonomika v rámci EÚ."
     ]
   },
@@ -176,6 +182,8 @@ window.__SKELETONS__ = [
     "points": [
       "Agenda 2030 obsahuje 17 cieľov udržateľného rozvoja OSN.",
       "Zelená dohoda má viesť EÚ ku klimatickej neutralite do roku 2050.",
+      "Vznikli ako reakcia na klimatickú zmenu, chudobu, nerovnosť a neudržateľnú spotrebu zdrojov.",
+      "Štáty zaväzujú plánovať, prijímať opatrenia, financovať zmenu a pravidelne hodnotiť pokrok.",
       "Prínosom sú inovácie, úspory energií a nové odvetvia.",
       "Nákladom sú vysoké investície a transformácia energetiky a priemyslu.",
       "SR ich realizuje stratégiou Slovensko 2030, plánom obnovy, energetickými a klimatickými politikami."
@@ -191,6 +199,7 @@ window.__SKELETONS__ = [
       "Funkcie: prostriedok výmeny, účtovná jednotka a uchovávateľ hodnoty.",
       "Formy: hotovostné, bezhotovostné a elektronické peniaze.",
       "Peniaze sú širší pojem; mena je konkrétna národná alebo menová jednotka.",
+      "Menová sústava určuje menovú jednotku, emisiu, obeh, kurzové pravidlá a úlohu centrálnej banky.",
       "Eurosystém tvorí ECB a centrálne banky krajín používajúcich euro.",
       "CBDC je digitálna mena centrálnej banky; digitálne euro zatiaľ nie je zavedené."
     ]
@@ -217,6 +226,7 @@ window.__SKELETONS__ = [
     "start": "Bankový systém zabezpečuje platby, úvery, vklady a prenos menovej politiky.",
     "points": [
       "Dvojstupňový systém tvorí centrálna banka a obchodné banky.",
+      "SR prešla od jednostupňového systému cez transformáciu a privatizáciu k stabilnému systému v Eurosystéme.",
       "Nebankové inštitúcie sú poisťovne, fondy, obchodníci s cennými papiermi a leasingové firmy.",
       "Banky podporujú ekonomiku, ale problémy bánk môžu ohroziť celý systém.",
       "Riziká: úverové, trhové, likviditné, operačné a úrokové.",
@@ -275,6 +285,7 @@ window.__SKELETONS__ = [
       "Financovanie: vlastné alebo cudzie zdroje.",
       "Investovanie: výber majetku a projektov s vhodným výnosom a rizikom.",
       "Riadenie pracovného kapitálu: zásoby, pohľadávky, hotovosť a záväzky.",
+      "Hlavným cieľom je finančná stabilita a dlhodobé zvyšovanie hodnoty podniku.",
       "Finančné prostredie tvoria trhy, banky, poisťovne, nástroje a produkty.",
       "Financie prepájajú výrobu, marketing, ľudské zdroje a účtovníctvo."
     ]
@@ -289,6 +300,7 @@ window.__SKELETONS__ = [
       "Priame priradíme výrobku; nepriame sú spoločná réžia.",
       "Fixné sa s objemom nemenia; variabilné sa menia s výrobou.",
       "Automatizácia zvyšuje odpisy a réžiu, outsourcing mení fixné náklady na externé služby.",
+      "Agentúrna práca zvyšuje pružnosť personálnych nákladov a internacionalizácia pridáva dopravu, kurzové a koordinačné náklady.",
       "Tradičná kalkulácia rozdeľuje réžiu jednou základňou.",
       "ABC priraďuje náklady najprv činnostiam a potom produktom podľa cost driverov."
     ]
@@ -303,6 +315,7 @@ window.__SKELETONS__ = [
       "Dlhodobý majetok slúži dlhšie; obežný sa rýchlo spotrebuje alebo premieňa.",
       "Oceňovanie môže vychádzať z historickej alebo reálnej ceny.",
       "Odpisy rozkladajú hodnotu dlhodobého majetku do viacerých období.",
+      "Účtovné odpisy vyjadrujú reálne opotrebenie, daňové odpisy určuje zákon pre výpočet dane.",
       "Kolobeh: peniaze – zásoby – výroba – pohľadávky – peniaze.",
       "Pracovný kapitál je obežný majetok mínus krátkodobé záväzky; cieľom je likvidita bez zbytočného viazania peňazí."
     ]
@@ -318,6 +331,7 @@ window.__SKELETONS__ = [
       "Vlastníci majú reziduálny nárok a výnos cez zisk alebo rast hodnoty.",
       "Veritelia majú prednostný nárok a dohodnutú istinu s úrokom.",
       "Kapitálová štruktúra je pomer vlastného a cudzieho kapitálu.",
+      "Zisk možno vyplatiť vlastníkom, uložiť do fondov alebo ponechať v podniku na ďalší rozvoj.",
       "Sledujeme zadlženosť, samofinancovanie, finančnú páku a úrokové krytie."
     ]
   },
@@ -329,7 +343,9 @@ window.__SKELETONS__ = [
     "start": "Účtovné výkazy ukazujú majetok, financovanie, výsledok hospodárenia a pohyb peňazí.",
     "points": [
       "Súvaha ukazuje aktíva a pasíva k určitému dátumu.",
+      "Výkazy používajú manažéri, vlastníci, banky, investori, dodávatelia aj štát.",
       "Výsledovka porovnáva výnosy a náklady a určuje zisk alebo stratu.",
+      "Náklady sú spotreba zdrojov, výnosy ekonomický prospech; ich rozdiel tvorí výsledok hospodárenia.",
       "Cash flow ukazuje skutočné príjmy a výdavky.",
       "Výnos nie je vždy prijatá hotovosť a náklad nie je vždy okamžitý výdavok.",
       "Firma môže byť zisková, ale skrachovať pre nedostatok hotovosti."
@@ -346,7 +362,8 @@ window.__SKELETONS__ = [
       "Odberateľ: dlhuje podniku, vzniká pohľadávka.",
       "Akcia znamená vlastnícky podiel a dividendu; dlhopis dlh a úrok.",
       "Mzdy spájajú hrubú mzdu, odvody, daň a čistú mzdu.",
-      "Priama daň znižuje zisk; nepriamu daň podnik vyberie a odvedie štátu."
+      "Priama daň znižuje zisk; nepriamu daň podnik vyberie a odvedie štátu.",
+      "Pre manažment účtovníctvo kontroluje internú efektívnosť aj vzťahy s bankami, štátom a obchodnými partnermi."
     ]
   },
   {
@@ -358,6 +375,7 @@ window.__SKELETONS__ = [
     "points": [
       "Likvidita: schopnosť zaplatiť krátkodobé záväzky.",
       "Zadlženosť: podiel cudzieho kapitálu a finančné riziko.",
+      "Aktivita sleduje využitie majetku; ukazovatele odhaľujú riziká, príležitosti a umožňujú benchmarking.",
       "Rentabilita: ROA je zisk z majetku, ROE z kapitálu vlastníkov, ROS z tržieb.",
       "FCF je voľná hotovosť; ROIC výnos z investovaného kapitálu.",
       "EVA a MVA merajú tvorbu hodnoty; DuPont vysvetlí, z čoho vzniká ROE."
@@ -402,6 +420,7 @@ window.__SKELETONS__ = [
       "Portfólio spája viac aktív a jeho riziko závisí aj od ich vzájomného pohybu.",
       "Diverzifikácia znižuje špecifické, nie systematické trhové riziko.",
       "CAPM spája požadovaný výnos s bezrizikovou sadzbou, betou a trhovou prémiou.",
+      "Úspory odkladajú spotrebu a chránia rezervu; investície prijímajú riziko s cieľom výnosu.",
       "Na Slovensku možno investovať do vkladov, fondov, akcií, dlhopisov, nehnuteľností či dôchodkového sporenia."
     ]
   },
@@ -444,6 +463,7 @@ window.__SKELETONS__ = [
       "Behaviorálny prístup zdôrazňuje človeka, motiváciu a skupiny.",
       "Systémový prístup chápe organizáciu ako prepojený celok.",
       "Situačný prístup volí spôsob riadenia podľa okolností.",
+      "Malá firma potrebuje pružnosť, veľká viac pravidiel; výroba štandardizáciu, tvorivá firma voľnejšiu spoluprácu.",
       "Digitalizácia mení manažéra z kontrolóra na koordinátora, kouča a prácu s dátami."
     ]
   },
@@ -485,6 +505,7 @@ window.__SKELETONS__ = [
       "Funkčná štruktúra delí firmu podľa odborností.",
       "Divizionálna podľa produktov, regiónov alebo zákazníkov.",
       "Maticová spája funkčné a projektové riadenie, ale má dvojitú autoritu.",
+      "Pri tvorbe sa rozhoduje o špecializácii, centralizácii, formalizácii, rozpätí riadenia a deľbe právomocí.",
       "Plochá štruktúra zrýchľuje komunikáciu, vysoká posilňuje kontrolu.",
       "Formálna komunikácia ide určenými kanálmi, neformálna vzniká medzi ľuďmi."
     ]
@@ -598,7 +619,8 @@ window.__SKELETONS__ = [
       "Herzberg: hygienické faktory bránia nespokojnosti, motivátory zvyšujú výkon.",
       "Vroom: človek sa snaží, ak verí vo výkon, odmenu a jej hodnotu.",
       "Adams: ľudia porovnávajú spravodlivosť svojho vkladu a odmeny.",
-      "Manažér kombinuje mzdu, uznanie, zodpovednosť, rast a férové podmienky."
+      "Manažér kombinuje mzdu, uznanie, zodpovednosť, rast a férové podmienky.",
+      "Príklad: výkonový bonus podporí očakávanie odmeny, pochvala a samostatná úloha pôsobia ako Herzbergove motivátory."
     ]
   },
   {
@@ -654,7 +676,8 @@ window.__SKELETONS__ = [
       "CPM nájde kritickú cestu, ktorej oneskorenie posunie celý projekt.",
       "PERT používa optimistický, najpravdepodobnejší a pesimistický odhad času.",
       "Participatívne plánovanie zapája členov tímu do odhadov a rozhodnutí.",
-      "Zapojenie zvyšuje presnosť plánu, prijatie zodpovednosti a odhaľuje riziká."
+      "Zapojenie zvyšuje presnosť plánu, prijatie zodpovednosti a odhaľuje riziká.",
+      "Príklad: projektový manažér s tímom rozloží projekt na úlohy, Product Owner určí priority a odborníci odhadnú trvanie."
     ]
   },
   {
@@ -724,7 +747,9 @@ window.__SKELETONS__ = [
       "Segmentácia rozdelí trh na podobné skupiny.",
       "STP: segmentácia, výber cieľového segmentu a pozicionovanie v mysli zákazníka.",
       "Segmenty pomáhajú upraviť produktový mix pre rôzne potreby.",
-      "Štruktúrované dáta sú tabuľky a CRM; neštruktúrované texty, obrázky, recenzie a sociálne siete."
+      "Príklad Volvo: rodinám ponúkne bezpečné SUV, ekologickým zákazníkom elektrické modely a firmám flotilové riešenia.",
+      "Štruktúrované dáta sú tabuľky a CRM; neštruktúrované texty, obrázky, recenzie a sociálne siete.",
+      "Spracovanie: štatistika a databázové dotazy pri štruktúrovaných dátach, textová či sentimentálna analýza pri neštruktúrovaných."
     ]
   },
   {
@@ -738,7 +763,8 @@ window.__SKELETONS__ = [
       "Proces B2C: potreba, informácie, hodnotenie, kúpa a správanie po kúpe.",
       "B2B má viac účastníkov, formálne kritériá, vyššiu hodnotu a dlhší proces.",
       "Spotrebiteľa možno vysvetliť Maslowom, emóciami a vnímanou hodnotou.",
-      "Nákupné oddelenie motivuje cena, kvalita, riziko, spoľahlivosť a osobná zodpovednosť."
+      "Nákupné oddelenie motivuje cena, kvalita, riziko, spoľahlivosť a osobná zodpovednosť.",
+      "Vroom vysvetľuje očakávaný výsledok nákupu a Adams potrebu férového porovnania ponúk a podmienok."
     ]
   },
   {
@@ -750,6 +776,7 @@ window.__SKELETONS__ = [
     "points": [
       "4P: produkt, cena, distribúcia a komunikácia.",
       "Pri službách sa pridávajú ľudia, procesy a materiálne prostredie, teda 7P.",
+      "Príklad McDonald’s: produkt je menu, cena balíčky, distribúcia prevádzky a rozvoz, komunikácia reklama a aplikácia.",
       "Výrobný podnik zdôrazňuje hmotný produkt, zásoby, výrobu a distribúciu.",
       "Služba je nehmotná, vzniká často pri kontakte so zákazníkom a nedá sa skladovať.",
       "Preto sú pri službách mimoriadne dôležití zamestnanci, proces a dôkaz kvality."
@@ -805,6 +832,7 @@ window.__SKELETONS__ = [
     "start": "Marketingová komunikácia prenáša správu od firmy k príjemcovi a spätnou väzbou overuje účinok.",
     "points": [
       "Prvky: odosielateľ, kódovanie, správa, médium, dekódovanie, príjemca, reakcia, spätná väzba a šum.",
+      "Príklad Kofola: firma zakóduje emóciu do vianočnej reklamy, šíri ju médiami a reakcie sleduje cez predaj a sociálne siete.",
       "Integrovaná komunikácia znamená jednotné posolstvo vo všetkých kanáloch.",
       "Externá komunikácia musí byť v súlade s tým, čo vedia a robia zamestnanci.",
       "Internet je globálna sieť umožňujúca digitálnu výmenu informácií.",
@@ -821,7 +849,8 @@ window.__SKELETONS__ = [
       "Reklama je platená neosobná komunikácia na budovanie povedomia a značky.",
       "Podpora predaja dáva krátkodobý stimul, napríklad zľavu, kupón alebo vzorku.",
       "PR buduje dôveru a vzťahy s verejnosťou cez médiá, udalosti a reputáciu.",
-      "Efektívna komunikácia určí cieľ, publikum, správu, kanál, rozpočet a meranie.",
+      "Pri reklame sa určuje cieľ, rozpočet, správa, médium a meranie účinku.",
+      "Pri podpore predaja sa volí stimul, cieľová skupina, dĺžka akcie a podmienky; PR používa médiá, podujatia, sponzoring a krízovú komunikáciu.",
       "Pri CSR musia byť tvrdenia pravdivé, transparentné a doložené, inak vzniká greenwashing."
     ]
   },
