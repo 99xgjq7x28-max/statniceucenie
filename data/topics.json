@@ -12603,8 +12603,12 @@
         "text": "Biznis model (Monetizácia): Logika, akým spôsobom bude nápad reálne generovať tržby a zisk (predaj kusov, predplatné, licencie, reklama)."
       },
       {
-        "type": "li",
-        "text": "Biznis model je strategický opis toho, ako firma vytvára, odovzdáva a získava hodnotu. Zjednodušene povedané, je to logický plán, ktorý vysvetľuje, ako bude podnik fungovať, kto sú jeho zákazníci, čo im ponúka a ako na tom zarobí peniaze (monetizácia). V modernej praxi sa na jeho rýchle načrtnutie používa celosvetovo uznávaný nástroj Business Model Canvas, ktorý na jednom liste papiera zachytáva 9 základných stavebných prvkov podnikania:"
+        "type": "p",
+        "text": "Biznis model je strategický opis toho, ako firma vytvára, odovzdáva a získava hodnotu. Zjednodušene povedané, je to logický plán, ktorý vysvetľuje, ako bude podnik fungovať, kto sú jeho zákazníci, čo im ponúka a ako na tom zarobí peniaze (monetizácia)."
+      },
+       {
+        "type": "p",
+        "text": "V modernej praxi sa na jeho rýchle načrtnutie používa celosvetovo uznávaný nástroj Business Model Canvas, ktorý na jednom liste papiera zachytáva 9 základných stavebných prvkov podnikania:"
       },
       {
         "type": "li",
