@@ -232,34 +232,6 @@ button.is-done,
 .subject-line { color: var(--accent); font-size: 13px; font-weight: 900; text-transform: uppercase; }
 .question-head h2 { margin: 0; font-size: 24px; line-height: 1.22; }
 .cue { margin: 0; color: var(--muted); font-size: 15px; }
-.emergency-start {
-  border: 1px solid #e7c889;
-  border-radius: 8px;
-  background: #fff8e8;
-  overflow: hidden;
-  box-shadow: inset 4px 0 0 #d89b1f;
-}
-.emergency-start summary {
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 12px;
-  cursor: pointer;
-  color: #7a4d00;
-  font-weight: 900;
-  line-height: 1.25;
-}
-.emergency-start summary::after { content: "+"; color: #9a6700; font-size: 18px; }
-.emergency-start[open] summary::after { content: "-"; }
-.emergency-start p {
-  margin: 0;
-  padding: 0 14px 10px 14px;
-  color: #3b2b12;
-  line-height: 1.55;
-}
-.emergency-start p:first-of-type { padding-top: 2px; }
-.emergency-start p:last-child { padding-bottom: 14px; }
 .study-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
 .study-mode .is-active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 900; }
 .study-mode-link {
@@ -375,6 +347,57 @@ th { background: #f1eee7; font-weight: 900; }
 .figure { margin: 13px 0; border: 1px solid var(--line); border-radius: 6px; background: #fff; padding: 8px; }
 .figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 .figcap { margin-top: 6px; color: var(--muted); font-size: 12px; text-align: center; }
+.related-panel {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+}
+.related-head h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.related-head p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.related-fact {
+  margin: 0;
+  border: 1px solid #cfe1dc;
+  border-radius: 8px;
+  background: #f4fbf9;
+  padding: 12px 14px;
+  line-height: 1.55;
+}
+.related-links {
+  display: grid;
+  gap: 8px;
+}
+.related-link {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.related-link:hover {
+  border-color: var(--accent);
+}
+.related-link strong {
+  display: block;
+  font-size: 15px;
+}
+.related-link span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
 
 .topic-browser { margin-top: 12px; }
 .browser-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 10px; }

@@ -1,4 +1,4 @@
-const EXAM_DATE = new Date('2026-06-12T09:00:00');
+const EXAM_DATE = new Date('2026-08-17T09:00:00');
 const STORE_KEY = 'statnice-progress-v2';
 const PLAN_KEY = 'statnice-plan-v1';
 
@@ -9,12 +9,70 @@ const planState = {
 };
 
 const planDays = [
-  { date: '2026-06-07', label: '7.6.', goal: 'Prvý kontakt 1/3', ranges: [['Ekonómia a financie', 1, 10], ['Manažment', 1, 10]] },
-  { date: '2026-06-08', label: '8.6.', goal: 'Prvý kontakt 2/3', ranges: [['Ekonómia a financie', 11, 20], ['Manažment', 11, 20]] },
-  { date: '2026-06-09', label: '9.6.', goal: 'Dokonči prvý kontakt', ranges: [['Ekonómia a financie', 21, 30], ['Manažment', 21, 30]] },
-  { date: '2026-06-10', label: '10.6.', goal: 'Slabé otázky + simulácia', mode: 'review' },
-  { date: '2026-06-11', label: '11.6.', goal: 'Iba dopoludnia', mode: 'limited' },
-  { date: '2026-06-12', label: '12.6.', goal: 'Štátnice - bez učenia', mode: 'exam' }
+  { date: '2026-06-15', label: '15.6.', goal: 'Prvý prejazd: E 1-3', ranges: [['Ekonómia a financie', 1, 3]] },
+  { date: '2026-06-16', label: '16.6.', goal: 'Prvý prejazd: M 1-3', ranges: [['Manažment', 1, 3]] },
+  { date: '2026-06-17', label: '17.6.', goal: 'Prvý prejazd: E 4-6', ranges: [['Ekonómia a financie', 4, 6]] },
+  { date: '2026-06-18', label: '18.6.', goal: 'Prvý prejazd: M 4-6', ranges: [['Manažment', 4, 6]] },
+  { date: '2026-06-19', label: '19.6.', goal: 'Prvý prejazd: E 7-9', ranges: [['Ekonómia a financie', 7, 9]] },
+  { date: '2026-06-20', label: '20.6.', goal: 'Prvý prejazd: M 7-9', ranges: [['Manažment', 7, 9]] },
+  { date: '2026-06-21', label: '21.6.', goal: 'Týždenné opakovanie', mode: 'weekly-review', count: 8 },
+  { date: '2026-06-22', label: '22.6.', goal: 'Prvý prejazd: E 10-12', ranges: [['Ekonómia a financie', 10, 12]] },
+  { date: '2026-06-23', label: '23.6.', goal: 'Prvý prejazd: M 10-12', ranges: [['Manažment', 10, 12]] },
+  { date: '2026-06-24', label: '24.6.', goal: 'Prvý prejazd: E 13-15', ranges: [['Ekonómia a financie', 13, 15]] },
+  { date: '2026-06-25', label: '25.6.', goal: 'Prvý prejazd: M 13-15', ranges: [['Manažment', 13, 15]] },
+  { date: '2026-06-26', label: '26.6.', goal: 'Prvý prejazd: E 16-18', ranges: [['Ekonómia a financie', 16, 18]] },
+  { date: '2026-06-27', label: '27.6.', goal: 'Prvý prejazd: M 16-18', ranges: [['Manažment', 16, 18]] },
+  { date: '2026-06-28', label: '28.6.', goal: 'Týždenné opakovanie', mode: 'weekly-review', count: 10 },
+  { date: '2026-06-29', label: '29.6.', goal: 'Prvý prejazd: E 19-21', ranges: [['Ekonómia a financie', 19, 21]] },
+  { date: '2026-06-30', label: '30.6.', goal: 'Prvý prejazd: M 19-21', ranges: [['Manažment', 19, 21]] },
+  { date: '2026-07-01', label: '1.7.', goal: 'Prvý prejazd: E 22-24', ranges: [['Ekonómia a financie', 22, 24]] },
+  { date: '2026-07-02', label: '2.7.', goal: 'Prvý prejazd: M 22-24', ranges: [['Manažment', 22, 24]] },
+  { date: '2026-07-03', label: '3.7.', goal: 'Prvý prejazd: E 25-27', ranges: [['Ekonómia a financie', 25, 27]] },
+  { date: '2026-07-04', label: '4.7.', goal: 'Prvý prejazd: M 25-27', ranges: [['Manažment', 25, 27]] },
+  { date: '2026-07-05', label: '5.7.', goal: 'Týždenné opakovanie', mode: 'weekly-review', count: 12 },
+  { date: '2026-07-06', label: '6.7.', goal: 'Prvý prejazd: E 28-30', ranges: [['Ekonómia a financie', 28, 30]] },
+  { date: '2026-07-07', label: '7.7.', goal: 'Prvý prejazd: M 28-30', ranges: [['Manažment', 28, 30]] },
+  { date: '2026-07-08', label: '8.7.', goal: 'Druhý prejazd: E 1-5', ranges: [['Ekonómia a financie', 1, 5]] },
+  { date: '2026-07-09', label: '9.7.', goal: 'Druhý prejazd: E 6-10', ranges: [['Ekonómia a financie', 6, 10]] },
+  { date: '2026-07-10', label: '10.7.', goal: 'Druhý prejazd: E 11-15', ranges: [['Ekonómia a financie', 11, 15]] },
+  { date: '2026-07-11', label: '11.7.', goal: 'Druhý prejazd: E 16-20', ranges: [['Ekonómia a financie', 16, 20]] },
+  { date: '2026-07-12', label: '12.7.', goal: 'Slabé Eko + krátke hovorenie', mode: 'subject-review', subject: 'Ekonómia a financie', count: 8 },
+  { date: '2026-07-13', label: '13.7.', goal: 'Druhý prejazd: E 21-25', ranges: [['Ekonómia a financie', 21, 25]] },
+  { date: '2026-07-14', label: '14.7.', goal: 'Druhý prejazd: E 26-30', ranges: [['Ekonómia a financie', 26, 30]] },
+  { date: '2026-07-15', label: '15.7.', goal: 'Druhý prejazd: M 1-5', ranges: [['Manažment', 1, 5]] },
+  { date: '2026-07-16', label: '16.7.', goal: 'Druhý prejazd: M 6-10', ranges: [['Manažment', 6, 10]] },
+  { date: '2026-07-17', label: '17.7.', goal: 'Druhý prejazd: M 11-15', ranges: [['Manažment', 11, 15]] },
+  { date: '2026-07-18', label: '18.7.', goal: 'Druhý prejazd: M 16-20', ranges: [['Manažment', 16, 20]] },
+  { date: '2026-07-19', label: '19.7.', goal: 'Slabý Manažment + hovorenie', mode: 'subject-review', subject: 'Manažment', count: 8 },
+  { date: '2026-07-20', label: '20.7.', goal: 'Druhý prejazd: M 21-25', ranges: [['Manažment', 21, 25]] },
+  { date: '2026-07-21', label: '21.7.', goal: 'Druhý prejazd: M 26-30', ranges: [['Manažment', 26, 30]] },
+  { date: '2026-07-22', label: '22.7.', goal: 'Mix slabých otázok', mode: 'mixed-review', count: 10 },
+  { date: '2026-07-23', label: '23.7.', goal: 'Mix nových príkladov a prepájania', mode: 'mixed-review', count: 10 },
+  { date: '2026-07-24', label: '24.7.', goal: 'Hovorenie nahlas: E 1-10 + M 1-10', ranges: [['Ekonómia a financie', 1, 10], ['Manažment', 1, 10]] },
+  { date: '2026-07-25', label: '25.7.', goal: 'Hovorenie nahlas: E 11-20 + M 11-20', ranges: [['Ekonómia a financie', 11, 20], ['Manažment', 11, 20]] },
+  { date: '2026-07-26', label: '26.7.', goal: 'Hovorenie nahlas: E 21-30 + M 21-30', ranges: [['Ekonómia a financie', 21, 30], ['Manažment', 21, 30]] },
+  { date: '2026-07-27', label: '27.7.', goal: 'Slabé otázky: blok 1', mode: 'mixed-review', count: 12 },
+  { date: '2026-07-28', label: '28.7.', goal: 'Slabé otázky: blok 2', mode: 'mixed-review', count: 12 },
+  { date: '2026-07-29', label: '29.7.', goal: 'Slabé otázky: blok 3', mode: 'mixed-review', count: 12 },
+  { date: '2026-07-30', label: '30.7.', goal: 'Párovanie tém a príkladov', mode: 'mixed-review', count: 10 },
+  { date: '2026-07-31', label: '31.7.', goal: 'Skúšobné odpovede: náhodný mix', mode: 'mixed-review', count: 10 },
+  { date: '2026-08-01', label: '1.8.', goal: 'Voľnejší deň alebo dobiehanie', mode: 'light-review', count: 6 },
+  { date: '2026-08-02', label: '2.8.', goal: 'Tichý reset a krátke opakovanie', mode: 'light-review', count: 6 },
+  { date: '2026-08-03', label: '3.8.', goal: 'Simulácia: E 1-15', ranges: [['Ekonómia a financie', 1, 15]] },
+  { date: '2026-08-04', label: '4.8.', goal: 'Simulácia: E 16-30', ranges: [['Ekonómia a financie', 16, 30]] },
+  { date: '2026-08-05', label: '5.8.', goal: 'Simulácia: M 1-15', ranges: [['Manažment', 1, 15]] },
+  { date: '2026-08-06', label: '6.8.', goal: 'Simulácia: M 16-30', ranges: [['Manažment', 16, 30]] },
+  { date: '2026-08-07', label: '7.8.', goal: 'Skúška na čas: 6 náhodných otázok', mode: 'mixed-review', count: 6 },
+  { date: '2026-08-08', label: '8.8.', goal: 'Skúška na čas: 6 slabých otázok', mode: 'mixed-review', count: 6 },
+  { date: '2026-08-09', label: '9.8.', goal: 'Voľnejší deň alebo dobiehanie', mode: 'light-review', count: 6 },
+  { date: '2026-08-10', label: '10.8.', goal: 'Finále: 12 najslabších', mode: 'mixed-review', count: 12 },
+  { date: '2026-08-11', label: '11.8.', goal: 'Finále: 12 ďalších slabých', mode: 'mixed-review', count: 12 },
+  { date: '2026-08-12', label: '12.8.', goal: 'Finále: ekonomické jadro', mode: 'subject-review', subject: 'Ekonómia a financie', count: 8 },
+  { date: '2026-08-13', label: '13.8.', goal: 'Finále: manažérske jadro', mode: 'subject-review', subject: 'Manažment', count: 8 },
+  { date: '2026-08-14', label: '14.8.', goal: 'Krátke odpovede nahlas', mode: 'mixed-review', count: 8 },
+  { date: '2026-08-15', label: '15.8.', goal: 'Len zopakovať kostry a kľúčové vzťahy', mode: 'light-review', count: 6 },
+  { date: '2026-08-16', label: '16.8.', goal: 'Pokojný deň, minimum učenia', mode: 'light-review', count: 4 },
+  { date: '2026-08-17', label: '17.8.', goal: 'Štátnice - bez učenia', mode: 'exam' }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -139,8 +197,12 @@ function topicsForDay(day) {
       planState.topics.filter((topic) => topic.subject === subject && topic.number >= from && topic.number <= to)
     );
   }
-  if (day.mode === 'review') return byWeakness(['C', '', 'B']).slice(0, 16);
-  if (day.mode === 'limited') return byWeakness(['C', 'B', '']).slice(0, 8);
+  if (day.mode === 'weekly-review') return byWeakness(['C', 'B', '']).slice(0, day.count || 8);
+  if (day.mode === 'mixed-review') return byWeakness(['C', 'B', '']).slice(0, day.count || 10);
+  if (day.mode === 'subject-review') {
+    return byWeakness(['C', 'B', '']).filter((topic) => topic.subject === day.subject).slice(0, day.count || 8);
+  }
+  if (day.mode === 'light-review') return byWeakness(['C', 'B', '']).slice(0, day.count || 6);
   if (day.mode === 'exam') return [];
   return [];
 }
@@ -161,8 +223,10 @@ function dayDescription(day, topics) {
 }
 
 function fallbackForMode(mode) {
-  if (mode === 'review') return 'Prejdi 16 najslabších otázok a aspoň 8 z nich povedz nahlas ako na skúške.';
-  if (mode === 'limited') return 'Dopoludnia najviac 8 slabých otázok. Po obede už iba povinnosti, pokoj a skorší spánok.';
+  if (mode === 'weekly-review') return 'Prejdi najslabšie alebo nové otázky z posledných dní a skús ich aspoň stručne povedať nahlas.';
+  if (mode === 'mixed-review') return 'Vyber najmä C a B otázky, prepoj ich s príkladom a povedz ich bez čítania.';
+  if (mode === 'subject-review') return 'Zameraj sa len na jeden predmet a upevni tie otázky, kde sa ešte zasekávaš.';
+  if (mode === 'light-review') return 'Stačí krátke opakovanie kostier, kľúčových vzťahov a 3 až 6 otázok bez veľkého tlaku.';
   if (mode === 'exam') return 'Dnes sa už neuč. Jedlo, voda, doklady, presun a pokoj pred štátnicami.';
   return 'Oddych alebo dobiehanie.';
 }

@@ -10,435 +10,7 @@
       location.replace(`offline.html${location.search}`);
     }
   </script>
-  <style>
-
-:root {
-  color-scheme: light;
-  --bg: #f3efe7;
-  --panel: #fffdf8;
-  --panel-strong: #ffffff;
-  --ink: #18211f;
-  --muted: #66726d;
-  --line: #d8d1c6;
-  --accent: #0f766e;
-  --accent-dark: #0b5f59;
-  --danger: #b42318;
-  --warning: #9a6700;
-  --success: #16703b;
-  --shadow: 0 16px 44px rgba(24, 33, 31, 0.08);
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.52;
-  letter-spacing: 0;
-}
-button, input, select, textarea { font: inherit; }
-button {
-  min-height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-strong);
-  color: var(--ink);
-  padding: 8px 12px;
-  cursor: pointer;
-}
-button:hover { border-color: #b9b0a3; }
-button:active { transform: translateY(1px); }
-a.button-link {
-  min-height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-strong);
-  color: var(--ink);
-  padding: 8px 12px;
-  text-decoration: none;
-  cursor: pointer;
-}
-a.button-link:hover { border-color: #b9b0a3; }
-select, input {
-  width: 100%;
-  min-height: 42px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-strong);
-  color: var(--ink);
-  padding: 9px 10px;
-}
-textarea {
-  width: 100%;
-  min-height: 86px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel-strong);
-  color: var(--ink);
-  padding: 9px 10px;
-  resize: vertical;
-}
-label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weight: 700; }
-
-.app-shell { min-height: 100vh; display: grid; grid-template-columns: 336px minmax(0, 1fr); }
-.plan-shell { min-height: 100vh; padding: 22px; }
-.plan-hero {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  align-items: flex-start;
-  max-width: 1180px;
-  margin: 0 auto 16px;
-}
-.plan-hero h1 { margin: 0; font-size: 34px; line-height: 1.05; }
-.plan-hero p { margin: 8px 0 0; max-width: 680px; color: var(--muted); }
-.plan-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.plan-metrics {
-  max-width: 1180px;
-  margin: 0 auto 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-.plan-layout {
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  gap: 16px;
-  align-items: start;
-}
-.plan-main-band { border-top: 1px solid var(--line); padding: 16px 0; }
-.plan-main-band:first-child { border-top: 0; padding-top: 0; }
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.section-head h2 { margin: 0; font-size: 22px; }
-.section-head p { margin: 3px 0 0; color: var(--muted); }
-.plan-topic-grid { display: grid; gap: 8px; }
-.plan-topic {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 12px;
-}
-.plan-topic strong { display: block; line-height: 1.3; }
-.plan-topic span { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; }
-.plan-topic-actions { display: flex; gap: 6px; align-items: center; }
-.plan-topic-actions button { min-width: 42px; padding-inline: 10px; }
-button.is-done,
-.plan-topic-actions .is-active.success { background: #eaf8ef; border-color: var(--success); color: var(--success); font-weight: 900; }
-.plan-topic-actions .is-active.warning { background: #fff7df; border-color: var(--warning); color: var(--warning); font-weight: 900; }
-.plan-topic-actions .is-active.danger { background: #fff0ee; border-color: var(--danger); color: var(--danger); font-weight: 900; }
-.grade-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.grade-summary div { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
-.grade-summary span { display: block; color: var(--muted); font-size: 13px; font-weight: 800; }
-.grade-summary strong { display: block; margin-top: 3px; font-size: 28px; line-height: 1; }
-.plan-days-list { display: grid; gap: 8px; }
-.plan-day { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
-.plan-day.is-today { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
-.plan-day.is-complete { background: #edf8f0; }
-.plan-day-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
-.plan-day-head strong { font-size: 18px; }
-.plan-day-head span { color: var(--accent); font-weight: 900; }
-.plan-day p { margin: 6px 0; }
-.plan-day small { color: var(--muted); }
-.plan-side { position: sticky; top: 18px; display: grid; gap: 12px; }
-.compact-copy { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
-.sidebar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: auto;
-  padding: 18px;
-  border-right: 1px solid var(--line);
-  background: #ede7dd;
-}
-.brand-block { margin-bottom: 16px; }
-.brand-kicker { color: var(--accent); font-size: 12px; font-weight: 900; text-transform: uppercase; }
-.brand-block h1 { margin: 0; font-size: 30px; line-height: 1.05; }
-.brand-block p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
-
-.metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-.metric { border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.65); padding: 10px; }
-.metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 700; }
-.metric strong { display: block; margin-top: 2px; font-size: 20px; line-height: 1.1; }
-.panel { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; margin-top: 12px; }
-.controls { display: grid; gap: 10px; }
-.segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.segmented .is-active { background: var(--accent); border-color: var(--accent); color: #fff; }
-.panel-title-row { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
-.panel h2 { margin: 0 0 4px; font-size: 17px; }
-.panel-title-row p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.3; }
-.today-list { display: grid; gap: 7px; max-height: 220px; overflow: auto; padding-right: 2px; }
-.today-item { width: 100%; text-align: left; display: grid; gap: 2px; background: #fbf8f0; padding: 10px; }
-.today-item strong { font-size: 13px; }
-.today-item span { color: var(--muted); font-size: 12px; }
-.method-panel { padding: 0; overflow: hidden; }
-.method-panel summary {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 900;
-}
-.method-panel summary::after { content: "+"; color: var(--muted); font-size: 20px; line-height: 1; }
-.method-panel[open] summary::after { content: "-"; }
-.method-panel ol { margin: 0; padding: 0 16px 14px 34px; }
-.method-panel li { margin: 8px 0; font-size: 14px; }
-.method-guide {
-  margin: 0 auto;
-  padding: 0 14px 14px;
-  max-width: 230px;
-}
-.method-guide a { display: block; }
-.method-guide img {
-  display: block;
-  width: 100%;
-  max-height: 320px;
-  height: auto;
-  object-fit: contain;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-}
-.method-guide figcaption {
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 12px;
-  text-align: center;
-}
-.study-disclaimer {
-  margin: 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.workspace { width: min(1120px, 100%); margin: 0 auto; padding: 22px; }
-.topbar { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; }
-.topbar > div { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.pill { display: inline-flex; align-items: center; min-height: 32px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink); padding: 5px 10px; font-size: 13px; font-weight: 700; }
-.muted-pill { color: var(--muted); }
-.text-danger { color: var(--danger); }
-.primary-button { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 800; }
-.primary-button:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
-
-.study-card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
-.question-head { display: grid; gap: 10px; padding: 18px; border-bottom: 1px solid var(--line); }
-.subject-line { color: var(--accent); font-size: 13px; font-weight: 900; text-transform: uppercase; }
-.question-head h2 { margin: 0; font-size: 24px; line-height: 1.22; }
-.cue { margin: 0; color: var(--muted); font-size: 15px; }
-.emergency-start {
-  border: 1px solid #e7c889;
-  border-radius: 8px;
-  background: #fff8e8;
-  overflow: hidden;
-  box-shadow: inset 4px 0 0 #d89b1f;
-}
-.emergency-start summary {
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 12px;
-  cursor: pointer;
-  color: #7a4d00;
-  font-weight: 900;
-  line-height: 1.25;
-}
-.emergency-start summary::after { content: "+"; color: #9a6700; font-size: 18px; }
-.emergency-start[open] summary::after { content: "-"; }
-.emergency-start p {
-  margin: 0;
-  padding: 0 14px 10px 14px;
-  color: #3b2b12;
-  line-height: 1.55;
-}
-.emergency-start p:first-of-type { padding-top: 2px; }
-.emergency-start p:last-child { padding-bottom: 14px; }
-.study-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 4px; }
-.study-mode .is-active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 900; }
-.study-mode-link {
-  min-height: 40px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #fff;
-  color: var(--ink);
-  padding: 8px 12px;
-  text-decoration: none;
-  font-weight: 800;
-}
-.study-mode-link:hover { border-color: var(--accent); color: var(--accent); }
-.study-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
-.timer { min-width: 86px; font-variant-numeric: tabular-nums; font-size: 30px; line-height: 1; font-weight: 900; }
-.answer-actions { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
-.grade-buttons { display: grid; grid-template-columns: repeat(3, minmax(80px, 1fr)); gap: 8px; }
-.grade-buttons [data-grade="C"].is-active { border-color: var(--danger); color: var(--danger); background: #fff0ee; font-weight: 900; }
-.grade-buttons [data-grade="B"].is-active { border-color: var(--warning); color: var(--warning); background: #fff7df; font-weight: 900; }
-.grade-buttons [data-grade="A"].is-active { border-color: var(--success); color: var(--success); background: #eaf8ef; font-weight: 900; }
-
-.answer { display: none; padding: 16px 20px 22px; }
-.answer.is-visible { display: block; }
-.answer-inner { max-width: 860px; }
-.practice-panel { max-width: 760px; display: grid; gap: 12px; }
-.practice-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; }
-.practice-head strong { color: var(--ink); font-size: 17px; }
-.flashcard, .quiz-card { width: 100%; min-height: 230px; display: grid; align-content: center; gap: 12px; text-align: left; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 22px; }
-.flashcard { cursor: pointer; }
-.flashcard.is-flipped { background: #fbf8f0; }
-.flash-label { color: var(--accent); font-size: 12px; font-weight: 900; text-transform: uppercase; }
-.flash-text { font-size: 21px; line-height: 1.35; font-weight: 800; }
-.flash-text ul, .quiz-answer ul { margin: 0; padding-left: 20px; font-size: 16px; font-weight: 400; }
-.flash-text li, .quiz-answer li { margin: 6px 0; }
-.quiz-card h3 { margin: 0; font-size: 22px; line-height: 1.3; }
-.quiz-hint { margin: 0; color: var(--muted); }
-.practice-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.practice-actions button { flex: 1 1 auto; }
-.reader-panel { max-width: 760px; display: grid; gap: 12px; }
-.reader-context {
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 800;
-  min-height: 22px;
-}
-.reader-word {
-  min-height: 190px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 22px;
-  text-align: center;
-  font-size: clamp(34px, 8vw, 72px);
-  font-weight: 900;
-  line-height: 1.05;
-}
-.reader-progress {
-  height: 8px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #e7e0d5;
-}
-.reader-progress span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--accent);
-}
-.reader-controls {
-  display: grid;
-  grid-template-columns: 1.3fr repeat(4, 1fr);
-  gap: 8px;
-  align-items: end;
-}
-.reader-controls label { font-size: 12px; }
-.reader-note { margin: 0; color: var(--muted); font-size: 13px; }
-.app-footer { margin-top: 18px; padding: 14px 2px 0; border-top: 1px solid var(--line); }
-.global-footer {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 16px 22px 22px;
-}
-.plan-footer { max-width: 1180px; margin-left: auto; margin-right: auto; }
-.file-warning {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 16px;
-}
-.file-warning h2 { margin: 0 0 8px; font-size: 20px; }
-.file-warning p { margin: 8px 0; color: var(--muted); }
-.file-warning code {
-  background: #f1eee7;
-  border-radius: 4px;
-  padding: 2px 4px;
-}
-
-.answer p { margin: 0; }
-.answer .para { padding: 5px 0; }
-.answer-heading { margin: 18px 0 6px; font-size: 17px; line-height: 1.32; font-weight: 900; }
-.listitem { position: relative; padding: 3px 0 3px 22px; }
-.listitem::before { content: ""; position: absolute; left: 7px; top: 14px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
-.table-wrap { overflow: auto; margin: 13px 0; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
-table { width: 100%; min-width: 540px; border-collapse: collapse; }
-th, td { border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); padding: 8px 9px; text-align: left; vertical-align: top; }
-th:last-child, td:last-child { border-right: 0; }
-tr:last-child td { border-bottom: 0; }
-th { background: #f1eee7; font-weight: 900; }
-.figure { margin: 13px 0; border: 1px solid var(--line); border-radius: 6px; background: #fff; padding: 8px; }
-.figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
-.figcap { margin-top: 6px; color: var(--muted); font-size: 12px; text-align: center; }
-
-.topic-browser { margin-top: 12px; }
-.browser-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 10px; }
-.browser-head h2 { margin: 0; font-size: 17px; }
-.browser-head p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 800; white-space: nowrap; }
-.topic-list { display: grid; gap: 7px; max-height: 34vh; overflow: auto; padding-right: 2px; }
-.topic-item { width: 100%; display: grid; gap: 4px; text-align: left; background: #fbf8f0; padding: 10px; }
-.topic-item.is-active { border-color: var(--accent); outline: 2px solid rgba(15,118,110,.15); }
-.topic-item strong { font-size: 13px; line-height: 1.32; }
-.topic-item span { color: var(--muted); font-size: 12px; }
-
-@media (max-width: 900px) {
-  .app-shell { display: block; }
-  .plan-shell { padding: 14px; }
-  .plan-hero { display: grid; }
-  .plan-metrics { grid-template-columns: 1fr 1fr; }
-  .plan-layout { display: block; }
-  .plan-side { position: static; }
-  .plan-topic { grid-template-columns: 1fr; }
-  .plan-topic-actions { flex-wrap: wrap; }
-  .grade-summary { grid-template-columns: 1fr 1fr; }
-  .sidebar { position: relative; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-  .workspace { padding: 14px; }
-  .answer-actions { grid-template-columns: 1fr; }
-  .question-head h2 { font-size: 21px; }
-  .topic-list { max-height: 320px; }
-  .method-guide { max-width: min(420px, 100%); }
-  .method-guide img { max-height: none; }
-}
-@media (max-width: 520px) {
-  .sidebar { padding: 14px; }
-  .plan-hero h1 { font-size: 28px; }
-  .section-head { display: grid; }
-  .plan-topic-actions .button-link { flex: 1 1 100%; }
-  .plan-topic-actions button { flex: 1 1 0; }
-  .workspace { padding: 12px; }
-  .question-head, .answer { padding-left: 14px; padding-right: 14px; }
-  .study-mode { grid-template-columns: 1fr 1fr; }
-  .study-toolbar button { flex: 1 1 42%; }
-  .timer { flex: 1 0 100%; }
-  .flashcard, .quiz-card { min-height: 210px; padding: 16px; }
-  .flash-text, .quiz-card h3 { font-size: 18px; }
-  .reader-controls { grid-template-columns: 1fr 1fr; }
-  .reader-controls label { grid-column: 1 / -1; }
-  .reader-word { min-height: 160px; }
-  .grade-buttons { grid-template-columns: 1fr; }
-  .topbar { align-items: flex-start; }
-  .browser-head { display: flex; }
-}
-
-</style>
+  <link rel="stylesheet" href="src/styles.css?v=20">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -446,7 +18,7 @@ th { background: #f1eee7; font-weight: 900; }
       <header class="brand-block">
         <div class="brand-kicker">Štátnice</div>
         <h1>Učenie</h1>
-        <p>Tvoje otázky, slabé miesta a denný rytmus do 12. júna.</p>
+        <p>Tvoje otázky, slabé miesta a dlhodobejší rytmus učenia do 17. augusta.</p>
       </header>
 
       <section class="metric-grid" aria-label="Prehľad progresu">
@@ -518,7 +90,7 @@ th { background: #f1eee7; font-weight: 900; }
           <span id="currentMedia" class="pill muted-pill"></span>
         </div>
         <div class="top-actions">
-          <a class="button-link" href="plan.html">Plán do 12.6.</a>
+          <a class="button-link" href="plan.html">Plán do 17.8.</a>
           <button id="resetProgress" class="text-danger" type="button">Vymazať progres</button>
         </div>
       </nav>
@@ -528,10 +100,6 @@ th { background: #f1eee7; font-weight: 900; }
           <div id="subjectLine" class="subject-line"></div>
           <h2 id="questionTitle"></h2>
           <p id="questionCue" class="cue"></p>
-          <details id="emergencyStart" class="emergency-start">
-            <summary>Núdzový štart - 30 sekúnd</summary>
-            <div id="emergencyStartBody"></div>
-          </details>
 
           <div class="study-mode" role="group" aria-label="Režim učenia">
             <button id="modeAnswer" class="is-active" data-study-mode="answer" type="button">Odpoveď</button>
@@ -13314,7 +12882,7 @@ th { background: #f1eee7; font-weight: 900; }
   }
 ];
 
-const EXAM_DATE = new Date('2026-06-12T09:00:00');
+const EXAM_DATE = new Date('2026-08-17T09:00:00');
 const STORE_KEY = 'statnice-progress-v2';
 const TODAY_KEY = 'statnice-today-v1';
 
@@ -13372,7 +12940,7 @@ function showFileModeMessage() {
       <h2>Učivo sa nenačítalo</h2>
       <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
       <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
-      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=19</code>.</p>
+      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=20</code>.</p>
     </div>
   `;
   const topicList = $('#topicList');
@@ -13551,30 +13119,15 @@ function renderQuestion() {
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
   $('#questionTitle').textContent = titleWithNumber(topic);
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
-  renderEmergencyStart(topic);
   renderStudyModeButtons();
   renderStudyBody(topic);
   renderGradeButtons(topic);
 }
 
-function renderEmergencyStart(topic) {
-  const lines = topic.emergencyStart || [];
-  const box = $('#emergencyStart');
-  const body = $('#emergencyStartBody');
-  if (!box || !body) return;
-  if (!lines.length) {
-    box.style.display = 'none';
-    return;
-  }
-  box.style.display = '';
-  box.open = false;
-  body.innerHTML = lines.slice(0, 3).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
-}
-
 function renderStudyBody(topic) {
   if (state.studyMode === 'answer') {
     $('#answer').className = `answer${state.answerOpen ? ' is-visible' : ''}`;
-    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}</div>`;
+    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}${renderRelatedSection(topic)}</div>`;
     $('#toggleAnswer').style.display = '';
     $('#toggleAnswer').textContent = state.answerOpen ? 'Skryť odpoveď' : 'Ukázať odpoveď';
     return;
@@ -13815,6 +13368,155 @@ function renderBlock(block) {
 function renderTable(rows) {
   if (!rows.length) return '';
   return `<div class="table-wrap"><table>${rows.map((row, index) => `<tr>${row.map((cell) => index === 0 ? `<th>${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+}
+
+function renderRelatedSection(topic) {
+  const related = buildRelatedResources(topic);
+  if (!related.links.length && !related.fact) return '';
+  return `<section class="related-panel">
+    <div class="related-head">
+      <h3>Súvisiace zdroje a zaujímavosti</h3>
+      <p>${escapeHtml(related.intro)}</p>
+    </div>
+    ${related.fact ? `<p class="related-fact"><strong>Vedeli ste, že...</strong> ${escapeHtml(related.fact)}</p>` : ''}
+    <div class="related-links">
+      ${related.links.map((link) => `
+        <a class="related-link" href="${escapeAttr(link.url)}" target="_blank" rel="noopener">
+          <strong>${escapeHtml(link.label)}</strong>
+          <span>${escapeHtml(link.note)}</span>
+        </a>
+      `).join('')}
+    </div>
+  </section>`;
+}
+
+function buildRelatedResources(topic) {
+  const rawTitle = compactTitle(topic.title);
+  const title = normalizeTopicText(rawTitle);
+  const isEconomics = topic.subject === 'Ekonómia a financie';
+  const generalQuery = `${rawTitle} ${topic.subject}`;
+  const officialDomains = isEconomics
+    ? 'site:nbs.sk OR site:ecb.europa.eu OR site:ec.europa.eu OR site:oecd.org'
+    : 'site:pmi.org OR site:scrumguides.org OR site:atlassian.com OR site:hbr.org';
+
+  let fact = isEconomics
+    ? 'Pri ekonomických témach sa v praxi skoro nikdy nesleduje iba jeden ukazovateľ. Zmysel dáva až kombinácia trendu, príčiny a dopadu na firmu alebo domácnosti.'
+    : 'Pri manažérskych témach zvyčajne neexistuje len jedno správne riešenie. Dôležité je vedieť pomenovať situáciu, zvoliť prístup a obhájiť dôsledky pre ľudí aj výsledok.';
+
+  let focusedLinks = isEconomics
+    ? [
+        { label: 'Oficiálne zdroje k téme', url: googleSearchUrl(`${rawTitle} ${officialDomains}`), note: 'NBS, ECB, Eurostat alebo OECD podľa konkrétnej otázky.' },
+        { label: 'Rýchly prehľad pojmov', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:wikipedia.org`), note: 'Na rýchle dovysvetlenie definícií, vzťahov a príkladov.' }
+      ]
+    : [
+        { label: 'Odborné zdroje k téme', url: googleSearchUrl(`${rawTitle} ${officialDomains}`), note: 'PMI, Scrum Guide, Atlassian Agile Coach alebo Harvard Business Review.' },
+        { label: 'Rýchly prehľad pojmov', url: googleSearchUrl(`${rawTitle} site:wikipedia.org OR site:mindtools.com`), note: 'Na rýchle dovysvetlenie modelov, pojmov a praktických príkladov.' }
+      ];
+
+  if (title.includes('hdp') || title.includes('hnp') || title.includes('inflac') || title.includes('nezamest') || title.includes('platobn') || title.includes('is lm') || title.includes('fiskal') || title.includes('menov')) {
+    fact = 'HDP môže rásť aj v období, keď ľudia necítia zlepšenie životnej úrovne. Preto sa spolu s rastom sledujú aj inflácia, mzdy, produktivita a nezamestnanosť.';
+    focusedLinks = [
+      { label: 'Makro dáta v Eurostate', url: 'https://ec.europa.eu/eurostat', note: 'HDP, inflácia, nezamestnanosť a porovnania medzi krajinami EÚ.' },
+      { label: 'Makro prehľady NBS', url: googleSearchUrl(`${rawTitle} site:nbs.sk`), note: 'Komentáre a analýzy k slovenskému hospodárstvu.' },
+      { label: 'OECD Data', url: 'https://data.oecd.org/', note: 'Dlhšie časové rady a medzinárodné porovnania.' }
+    ];
+  } else if (title.includes('dopyt') || title.includes('ponuk') || title.includes('elastic') || title.includes('trhov') || title.includes('monopol') || title.includes('oligopol') || title.includes('cena')) {
+    fact = 'Malá zmena ceny môže mať na rôznych trhoch úplne iný efekt. Presne preto manažér potrebuje rozumieť elasticite a typu trhu, na ktorom firma predáva.';
+    focusedLinks = [
+      { label: 'Vysvetlenia k trhu a elasticite', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:wikipedia.org`), note: 'Krátke vysvetlenia pojmov a jednoduché príklady.' },
+      { label: 'OECD a konkurencia', url: googleSearchUrl(`${rawTitle} site:oecd.org competition`), note: 'Širší pohľad na fungovanie trhov a konkurencie.' },
+      { label: 'Praktické príklady', url: googleSearchUrl(`${rawTitle} priklad`), note: 'Hľadaj konkrétne príklady z firiem alebo odvetví.' }
+    ];
+  } else if (title.includes('eu') || title.includes('europsk') || title.includes('integrac') || title.includes('medzinar') || title.includes('global') || title.includes('obchod')) {
+    fact = 'Medzinárodná ekonomika nie je len o obchode. Menové kurzy, clá, logistika, regulácia a geopolitika menia rozhodnutia firiem rýchlejšie než samotná teória.';
+    focusedLinks = [
+      { label: 'Európska únia - oficiálny portál', url: 'https://european-union.europa.eu/index_sk', note: 'Základy fungovania EÚ, politiky a inštitúcie.' },
+      { label: 'Eurostat - EÚ v číslach', url: googleSearchUrl(`${rawTitle} site:ec.europa.eu/eurostat`), note: 'Dáta o obchode, raste, obyvateľstve a integrácii.' },
+      { label: 'World Bank Data', url: 'https://data.worldbank.org/', note: 'Medzinárodné porovnania a globálny kontext.' }
+    ];
+  } else if (title.includes('ecb') || title.includes('nbs') || title.includes('banka') || title.includes('peniaz') || title.includes('uver') || title.includes('urok')) {
+    fact = 'Centrálne banky priamo neurčujú všetky ceny v ekonomike, ale cez úrokové sadzby a očakávania vedia silno ovplyvniť správanie bánk, firiem aj domácností.';
+    focusedLinks = [
+      { label: 'Národná banka Slovenska', url: 'https://nbs.sk/', note: 'Domáce vysvetlenia, štatistiky a dohľad nad finančným trhom.' },
+      { label: 'ECB explainers', url: 'https://www.ecb.europa.eu/ecb/educational/explainers/html/index.en.html', note: 'Krátke vysvetlenia menovej politiky a úlohy ECB.' },
+      { label: 'Hľadať v ECB', url: googleSearchUrl(`${rawTitle} site:ecb.europa.eu`), note: 'Doplnenie konkrétnej témy, napríklad sadzieb, inflácie alebo eura.' }
+    ];
+  } else if (title.includes('uctov') || title.includes('majetok') || title.includes('pasiv') || title.includes('aktiv') || title.includes('naklad') || title.includes('vynos') || title.includes('odpis')) {
+    fact = 'Podnik môže vykázať účtovný zisk a zároveň mať problém s peniazmi na účte. Preto sa účtovníctvo vždy oplatí prepájať s cash flow a likviditou.';
+    focusedLinks = [
+      { label: 'IFRS Foundation', url: 'https://www.ifrs.org/', note: 'Štandardy a širší rámec finančného výkazníctva.' },
+      { label: 'Vysvetlenia k účtovným pojmom', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:accountingcoach.com`), note: 'Jednoduché vysvetlenia pojmov a účtovných súvislostí.' },
+      { label: 'Slovenský kontext', url: googleSearchUrl(`${rawTitle} site:financnasprava.sk OR site:slov-lex.sk`), note: 'Legislatívny alebo praktický domáci rámec.' }
+    ];
+  } else if (title.includes('financn') || title.includes('likvid') || title.includes('rentabil') || title.includes('roe') || title.includes('roa') || title.includes('ros') || title.includes('eva') || title.includes('mva') || title.includes('dupont') || title.includes('investic') || title.includes('rizik')) {
+    fact = 'Veľa firiem nepadá preto, že by dlhodobo nezarábali, ale preto, že nezvládnu likviditu, riziko alebo zlé investičné rozhodnutie v zlom čase.';
+    focusedLinks = [
+      { label: 'Prehľad finančných ukazovateľov', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:corporatefinanceinstitute.com`), note: 'Rýchle definície a interpretačné rámce.' },
+      { label: 'Damodaran on valuation', url: 'https://pages.stern.nyu.edu/~adamodar/', note: 'Silný zdroj k oceňovaniu, riziku a finančnému rozhodovaniu.' },
+      { label: 'Praktické porovnania', url: googleSearchUrl(`${rawTitle} benchmarking priklad`), note: 'Hľadaj jednoduchý príklad výpočtu alebo benchmarkingu.' }
+    ];
+  } else if (title.includes('kultur') || title.includes('hofstede')) {
+    fact = 'Firemná kultúra nie je len atmosféra. Ovplyvňuje ochotu ľudí niesť riziko, hovoriť o chybách a navrhovať nové riešenia.';
+    focusedLinks = [
+      { label: 'Hofstede Insights', url: 'https://www.hofstede-insights.com/', note: 'Prehľad kultúrnych dimenzií a ich porovnanie.' },
+      { label: 'Kultúra a inovácie', url: googleSearchUrl(`${rawTitle} site:oecd.org OR site:hbr.org`), note: 'Ako kultúra súvisí s podnikavosťou a inovatívnosťou.' },
+      { label: 'Praktické príklady', url: googleSearchUrl(`${rawTitle} priklad firmy`), note: 'Konkrétne prípady firemnej kultúry v praxi.' }
+    ];
+  } else if (title.includes('projekt') || title.includes('scrum') || title.includes('agile') || title.includes('product owner')) {
+    fact = 'V agilnom riadení často nerozhoduje ten, kto najviac kontroluje, ale ten, kto najlepšie udrží prioritu, spätnú väzbu a tok práce.';
+    focusedLinks = [
+      { label: 'Scrum Guides', url: 'https://scrumguides.org/', note: 'Základný text k Scrum rolám, udalostiam a artefaktom.' },
+      { label: 'PMI - project management', url: 'https://www.pmi.org/', note: 'Klasickejší projektový manažment a jeho rámce.' },
+      { label: 'Agile Coach', url: googleSearchUrl(`${rawTitle} site:atlassian.com/agile`), note: 'Praktické vysvetlenia agilných pojmov a situácií.' }
+    ];
+  } else if (title.includes('motivac') || title.includes('vedeni') || title.includes('lider') || title.includes('tim') || title.includes('konflikt') || title.includes('komunik')) {
+    fact = 'Silný líder nemusí hovoriť najviac. Často je výkon tímu vyšší tam, kde ľudia rozumejú cieľu, dostávajú spätnú väzbu a cítia bezpečie hovoriť otvorene.';
+    focusedLinks = [
+      { label: 'CIPD - people management', url: 'https://www.cipd.org/', note: 'Ľudia, vedenie, motivácia a pracovné vzťahy.' },
+      { label: 'MindTools', url: googleSearchUrl(`${rawTitle} site:mindtools.com`), note: 'Stručné manažérske modely a praktické tipy.' },
+      { label: 'Praktické príklady tímov', url: googleSearchUrl(`${rawTitle} priklad tim`), note: 'Konflikty, motivácia a komunikácia v konkrétnych situáciách.' }
+    ];
+  } else if (title.includes('strateg') || title.includes('inov') || title.includes('podnikav') || title.includes('marketing') || title.includes('podnik')) {
+    fact = 'Dobrá stratégia nie je dlhý dokument. Je to hlavne séria rozhodnutí, čo firma bude robiť, čo nebude robiť a prečo má zákazník veriť práve jej.';
+    focusedLinks = [
+      { label: 'OECD a podnikanie', url: googleSearchUrl(`${rawTitle} site:oecd.org OR site:europa.eu`), note: 'Podnikavosť, inovácie a širší ekonomický kontext.' },
+      { label: 'HBR k stratégii', url: googleSearchUrl(`${rawTitle} site:hbr.org`), note: 'Eseje a príklady zo strategického riadenia.' },
+      { label: 'Príklady z firiem', url: googleSearchUrl(`${rawTitle} case study`), note: 'Skús si pozrieť reálnu firmu alebo konkrétnu situáciu.' }
+    ];
+  }
+
+  const links = dedupeLinks([
+    ...focusedLinks,
+    { label: 'Google Scholar k téme', url: `https://scholar.google.com/scholar?q=${encodeURIComponent(generalQuery)}`, note: 'Keď chceš odbornejší článok, PDF alebo definíciu z akademického zdroja.' }
+  ]).slice(0, 4);
+
+  return {
+    intro: 'Na konci učenia si otvor aspoň jeden zdroj alebo jednu zaujímavosť. Pomôže ti to prepojiť pojem s praxou, príkladom alebo širším kontextom.',
+    fact,
+    links
+  };
+}
+
+function dedupeLinks(links) {
+  const seen = new Set();
+  return links.filter((link) => {
+    if (!link?.url || seen.has(link.url)) return false;
+    seen.add(link.url);
+    return true;
+  });
+}
+
+function googleSearchUrl(query) {
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function normalizeTopicText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, ' ')
+    .toLowerCase()
+    .trim();
 }
 
 function formatLearningText(text) {

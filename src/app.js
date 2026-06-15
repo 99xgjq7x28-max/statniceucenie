@@ -1,5 +1,5 @@
 
-const EXAM_DATE = new Date('2026-06-12T09:00:00');
+const EXAM_DATE = new Date('2026-08-17T09:00:00');
 const STORE_KEY = 'statnice-progress-v2';
 const TODAY_KEY = 'statnice-today-v1';
 
@@ -57,7 +57,7 @@ function showFileModeMessage() {
       <h2>Učivo sa nenačítalo</h2>
       <p>Táto verzia appky potrebuje lokálny server alebo GitHub Pages, lebo načítava dáta zo súboru <code>data/topics.json</code>.</p>
       <p>Ak chceš appku otvoriť dvojklikom zo súboru, použi <strong>offline.html</strong>.</p>
-      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=19</code>.</p>
+      <p>Ak ju spúšťaš cez server, otvor napríklad <code>http://localhost:8766/index.html?v=20</code>.</p>
     </div>
   `;
   const topicList = $('#topicList');
@@ -236,30 +236,15 @@ function renderQuestion() {
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
   $('#questionTitle').textContent = titleWithNumber(topic);
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
-  renderEmergencyStart(topic);
   renderStudyModeButtons();
   renderStudyBody(topic);
   renderGradeButtons(topic);
 }
 
-function renderEmergencyStart(topic) {
-  const lines = topic.emergencyStart || [];
-  const box = $('#emergencyStart');
-  const body = $('#emergencyStartBody');
-  if (!box || !body) return;
-  if (!lines.length) {
-    box.style.display = 'none';
-    return;
-  }
-  box.style.display = '';
-  box.open = false;
-  body.innerHTML = lines.slice(0, 3).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
-}
-
 function renderStudyBody(topic) {
   if (state.studyMode === 'answer') {
     $('#answer').className = `answer${state.answerOpen ? ' is-visible' : ''}`;
-    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}</div>`;
+    $('#answer').innerHTML = `<div class="answer-inner">${topic.blocks.map(renderBlock).join('')}${renderRelatedSection(topic)}</div>`;
     $('#toggleAnswer').style.display = '';
     $('#toggleAnswer').textContent = state.answerOpen ? 'Skryť odpoveď' : 'Ukázať odpoveď';
     return;
@@ -500,6 +485,155 @@ function renderBlock(block) {
 function renderTable(rows) {
   if (!rows.length) return '';
   return `<div class="table-wrap"><table>${rows.map((row, index) => `<tr>${row.map((cell) => index === 0 ? `<th>${escapeHtml(cell)}</th>` : `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+}
+
+function renderRelatedSection(topic) {
+  const related = buildRelatedResources(topic);
+  if (!related.links.length && !related.fact) return '';
+  return `<section class="related-panel">
+    <div class="related-head">
+      <h3>Súvisiace zdroje a zaujímavosti</h3>
+      <p>${escapeHtml(related.intro)}</p>
+    </div>
+    ${related.fact ? `<p class="related-fact"><strong>Vedeli ste, že...</strong> ${escapeHtml(related.fact)}</p>` : ''}
+    <div class="related-links">
+      ${related.links.map((link) => `
+        <a class="related-link" href="${escapeAttr(link.url)}" target="_blank" rel="noopener">
+          <strong>${escapeHtml(link.label)}</strong>
+          <span>${escapeHtml(link.note)}</span>
+        </a>
+      `).join('')}
+    </div>
+  </section>`;
+}
+
+function buildRelatedResources(topic) {
+  const rawTitle = compactTitle(topic.title);
+  const title = normalizeTopicText(rawTitle);
+  const isEconomics = topic.subject === 'Ekonómia a financie';
+  const generalQuery = `${rawTitle} ${topic.subject}`;
+  const officialDomains = isEconomics
+    ? 'site:nbs.sk OR site:ecb.europa.eu OR site:ec.europa.eu OR site:oecd.org'
+    : 'site:pmi.org OR site:scrumguides.org OR site:atlassian.com OR site:hbr.org';
+
+  let fact = isEconomics
+    ? 'Pri ekonomických témach sa v praxi skoro nikdy nesleduje iba jeden ukazovateľ. Zmysel dáva až kombinácia trendu, príčiny a dopadu na firmu alebo domácnosti.'
+    : 'Pri manažérskych témach zvyčajne neexistuje len jedno správne riešenie. Dôležité je vedieť pomenovať situáciu, zvoliť prístup a obhájiť dôsledky pre ľudí aj výsledok.';
+
+  let focusedLinks = isEconomics
+    ? [
+        { label: 'Oficiálne zdroje k téme', url: googleSearchUrl(`${rawTitle} ${officialDomains}`), note: 'NBS, ECB, Eurostat alebo OECD podľa konkrétnej otázky.' },
+        { label: 'Rýchly prehľad pojmov', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:wikipedia.org`), note: 'Na rýchle dovysvetlenie definícií, vzťahov a príkladov.' }
+      ]
+    : [
+        { label: 'Odborné zdroje k téme', url: googleSearchUrl(`${rawTitle} ${officialDomains}`), note: 'PMI, Scrum Guide, Atlassian Agile Coach alebo Harvard Business Review.' },
+        { label: 'Rýchly prehľad pojmov', url: googleSearchUrl(`${rawTitle} site:wikipedia.org OR site:mindtools.com`), note: 'Na rýchle dovysvetlenie modelov, pojmov a praktických príkladov.' }
+      ];
+
+  if (title.includes('hdp') || title.includes('hnp') || title.includes('inflac') || title.includes('nezamest') || title.includes('platobn') || title.includes('is lm') || title.includes('fiskal') || title.includes('menov')) {
+    fact = 'HDP môže rásť aj v období, keď ľudia necítia zlepšenie životnej úrovne. Preto sa spolu s rastom sledujú aj inflácia, mzdy, produktivita a nezamestnanosť.';
+    focusedLinks = [
+      { label: 'Makro dáta v Eurostate', url: 'https://ec.europa.eu/eurostat', note: 'HDP, inflácia, nezamestnanosť a porovnania medzi krajinami EÚ.' },
+      { label: 'Makro prehľady NBS', url: googleSearchUrl(`${rawTitle} site:nbs.sk`), note: 'Komentáre a analýzy k slovenskému hospodárstvu.' },
+      { label: 'OECD Data', url: 'https://data.oecd.org/', note: 'Dlhšie časové rady a medzinárodné porovnania.' }
+    ];
+  } else if (title.includes('dopyt') || title.includes('ponuk') || title.includes('elastic') || title.includes('trhov') || title.includes('monopol') || title.includes('oligopol') || title.includes('cena')) {
+    fact = 'Malá zmena ceny môže mať na rôznych trhoch úplne iný efekt. Presne preto manažér potrebuje rozumieť elasticite a typu trhu, na ktorom firma predáva.';
+    focusedLinks = [
+      { label: 'Vysvetlenia k trhu a elasticite', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:wikipedia.org`), note: 'Krátke vysvetlenia pojmov a jednoduché príklady.' },
+      { label: 'OECD a konkurencia', url: googleSearchUrl(`${rawTitle} site:oecd.org competition`), note: 'Širší pohľad na fungovanie trhov a konkurencie.' },
+      { label: 'Praktické príklady', url: googleSearchUrl(`${rawTitle} priklad`), note: 'Hľadaj konkrétne príklady z firiem alebo odvetví.' }
+    ];
+  } else if (title.includes('eu') || title.includes('europsk') || title.includes('integrac') || title.includes('medzinar') || title.includes('global') || title.includes('obchod')) {
+    fact = 'Medzinárodná ekonomika nie je len o obchode. Menové kurzy, clá, logistika, regulácia a geopolitika menia rozhodnutia firiem rýchlejšie než samotná teória.';
+    focusedLinks = [
+      { label: 'Európska únia - oficiálny portál', url: 'https://european-union.europa.eu/index_sk', note: 'Základy fungovania EÚ, politiky a inštitúcie.' },
+      { label: 'Eurostat - EÚ v číslach', url: googleSearchUrl(`${rawTitle} site:ec.europa.eu/eurostat`), note: 'Dáta o obchode, raste, obyvateľstve a integrácii.' },
+      { label: 'World Bank Data', url: 'https://data.worldbank.org/', note: 'Medzinárodné porovnania a globálny kontext.' }
+    ];
+  } else if (title.includes('ecb') || title.includes('nbs') || title.includes('banka') || title.includes('peniaz') || title.includes('uver') || title.includes('urok')) {
+    fact = 'Centrálne banky priamo neurčujú všetky ceny v ekonomike, ale cez úrokové sadzby a očakávania vedia silno ovplyvniť správanie bánk, firiem aj domácností.';
+    focusedLinks = [
+      { label: 'Národná banka Slovenska', url: 'https://nbs.sk/', note: 'Domáce vysvetlenia, štatistiky a dohľad nad finančným trhom.' },
+      { label: 'ECB explainers', url: 'https://www.ecb.europa.eu/ecb/educational/explainers/html/index.en.html', note: 'Krátke vysvetlenia menovej politiky a úlohy ECB.' },
+      { label: 'Hľadať v ECB', url: googleSearchUrl(`${rawTitle} site:ecb.europa.eu`), note: 'Doplnenie konkrétnej témy, napríklad sadzieb, inflácie alebo eura.' }
+    ];
+  } else if (title.includes('uctov') || title.includes('majetok') || title.includes('pasiv') || title.includes('aktiv') || title.includes('naklad') || title.includes('vynos') || title.includes('odpis')) {
+    fact = 'Podnik môže vykázať účtovný zisk a zároveň mať problém s peniazmi na účte. Preto sa účtovníctvo vždy oplatí prepájať s cash flow a likviditou.';
+    focusedLinks = [
+      { label: 'IFRS Foundation', url: 'https://www.ifrs.org/', note: 'Štandardy a širší rámec finančného výkazníctva.' },
+      { label: 'Vysvetlenia k účtovným pojmom', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:accountingcoach.com`), note: 'Jednoduché vysvetlenia pojmov a účtovných súvislostí.' },
+      { label: 'Slovenský kontext', url: googleSearchUrl(`${rawTitle} site:financnasprava.sk OR site:slov-lex.sk`), note: 'Legislatívny alebo praktický domáci rámec.' }
+    ];
+  } else if (title.includes('financn') || title.includes('likvid') || title.includes('rentabil') || title.includes('roe') || title.includes('roa') || title.includes('ros') || title.includes('eva') || title.includes('mva') || title.includes('dupont') || title.includes('investic') || title.includes('rizik')) {
+    fact = 'Veľa firiem nepadá preto, že by dlhodobo nezarábali, ale preto, že nezvládnu likviditu, riziko alebo zlé investičné rozhodnutie v zlom čase.';
+    focusedLinks = [
+      { label: 'Prehľad finančných ukazovateľov', url: googleSearchUrl(`${rawTitle} site:investopedia.com OR site:corporatefinanceinstitute.com`), note: 'Rýchle definície a interpretačné rámce.' },
+      { label: 'Damodaran on valuation', url: 'https://pages.stern.nyu.edu/~adamodar/', note: 'Silný zdroj k oceňovaniu, riziku a finančnému rozhodovaniu.' },
+      { label: 'Praktické porovnania', url: googleSearchUrl(`${rawTitle} benchmarking priklad`), note: 'Hľadaj jednoduchý príklad výpočtu alebo benchmarkingu.' }
+    ];
+  } else if (title.includes('kultur') || title.includes('hofstede')) {
+    fact = 'Firemná kultúra nie je len atmosféra. Ovplyvňuje ochotu ľudí niesť riziko, hovoriť o chybách a navrhovať nové riešenia.';
+    focusedLinks = [
+      { label: 'Hofstede Insights', url: 'https://www.hofstede-insights.com/', note: 'Prehľad kultúrnych dimenzií a ich porovnanie.' },
+      { label: 'Kultúra a inovácie', url: googleSearchUrl(`${rawTitle} site:oecd.org OR site:hbr.org`), note: 'Ako kultúra súvisí s podnikavosťou a inovatívnosťou.' },
+      { label: 'Praktické príklady', url: googleSearchUrl(`${rawTitle} priklad firmy`), note: 'Konkrétne prípady firemnej kultúry v praxi.' }
+    ];
+  } else if (title.includes('projekt') || title.includes('scrum') || title.includes('agile') || title.includes('product owner')) {
+    fact = 'V agilnom riadení často nerozhoduje ten, kto najviac kontroluje, ale ten, kto najlepšie udrží prioritu, spätnú väzbu a tok práce.';
+    focusedLinks = [
+      { label: 'Scrum Guides', url: 'https://scrumguides.org/', note: 'Základný text k Scrum rolám, udalostiam a artefaktom.' },
+      { label: 'PMI - project management', url: 'https://www.pmi.org/', note: 'Klasickejší projektový manažment a jeho rámce.' },
+      { label: 'Agile Coach', url: googleSearchUrl(`${rawTitle} site:atlassian.com/agile`), note: 'Praktické vysvetlenia agilných pojmov a situácií.' }
+    ];
+  } else if (title.includes('motivac') || title.includes('vedeni') || title.includes('lider') || title.includes('tim') || title.includes('konflikt') || title.includes('komunik')) {
+    fact = 'Silný líder nemusí hovoriť najviac. Často je výkon tímu vyšší tam, kde ľudia rozumejú cieľu, dostávajú spätnú väzbu a cítia bezpečie hovoriť otvorene.';
+    focusedLinks = [
+      { label: 'CIPD - people management', url: 'https://www.cipd.org/', note: 'Ľudia, vedenie, motivácia a pracovné vzťahy.' },
+      { label: 'MindTools', url: googleSearchUrl(`${rawTitle} site:mindtools.com`), note: 'Stručné manažérske modely a praktické tipy.' },
+      { label: 'Praktické príklady tímov', url: googleSearchUrl(`${rawTitle} priklad tim`), note: 'Konflikty, motivácia a komunikácia v konkrétnych situáciách.' }
+    ];
+  } else if (title.includes('strateg') || title.includes('inov') || title.includes('podnikav') || title.includes('marketing') || title.includes('podnik')) {
+    fact = 'Dobrá stratégia nie je dlhý dokument. Je to hlavne séria rozhodnutí, čo firma bude robiť, čo nebude robiť a prečo má zákazník veriť práve jej.';
+    focusedLinks = [
+      { label: 'OECD a podnikanie', url: googleSearchUrl(`${rawTitle} site:oecd.org OR site:europa.eu`), note: 'Podnikavosť, inovácie a širší ekonomický kontext.' },
+      { label: 'HBR k stratégii', url: googleSearchUrl(`${rawTitle} site:hbr.org`), note: 'Eseje a príklady zo strategického riadenia.' },
+      { label: 'Príklady z firiem', url: googleSearchUrl(`${rawTitle} case study`), note: 'Skús si pozrieť reálnu firmu alebo konkrétnu situáciu.' }
+    ];
+  }
+
+  const links = dedupeLinks([
+    ...focusedLinks,
+    { label: 'Google Scholar k téme', url: `https://scholar.google.com/scholar?q=${encodeURIComponent(generalQuery)}`, note: 'Keď chceš odbornejší článok, PDF alebo definíciu z akademického zdroja.' }
+  ]).slice(0, 4);
+
+  return {
+    intro: 'Na konci učenia si otvor aspoň jeden zdroj alebo jednu zaujímavosť. Pomôže ti to prepojiť pojem s praxou, príkladom alebo širším kontextom.',
+    fact,
+    links
+  };
+}
+
+function dedupeLinks(links) {
+  const seen = new Set();
+  return links.filter((link) => {
+    if (!link?.url || seen.has(link.url)) return false;
+    seen.add(link.url);
+    return true;
+  });
+}
+
+function googleSearchUrl(query) {
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function normalizeTopicText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, ' ')
+    .toLowerCase()
+    .trim();
 }
 
 function formatLearningText(text) {

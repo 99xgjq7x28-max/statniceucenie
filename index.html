@@ -10,7 +10,7 @@
       location.replace(`offline.html${location.search}`);
     }
   </script>
-  <link rel="stylesheet" href="src/styles.css?v=19">
+  <link rel="stylesheet" href="src/styles.css?v=20">
 </head>
 <body>
   <div id="app" class="app-shell" aria-live="polite">
@@ -18,7 +18,7 @@
       <header class="brand-block">
         <div class="brand-kicker">Štátnice</div>
         <h1>Učenie</h1>
-        <p>Tvoje otázky, slabé miesta a denný rytmus do 12. júna.</p>
+        <p>Tvoje otázky, slabé miesta a dlhodobejší rytmus učenia do 17. augusta.</p>
       </header>
 
       <section class="metric-grid" aria-label="Prehľad progresu">
@@ -90,7 +90,7 @@
           <span id="currentMedia" class="pill muted-pill"></span>
         </div>
         <div class="top-actions">
-          <a class="button-link" href="plan.html">Plán do 12.6.</a>
+          <a class="button-link" href="plan.html">Plán do 17.8.</a>
           <button id="resetProgress" class="text-danger" type="button">Vymazať progres</button>
         </div>
       </nav>
@@ -100,10 +100,6 @@
           <div id="subjectLine" class="subject-line"></div>
           <h2 id="questionTitle"></h2>
           <p id="questionCue" class="cue"></p>
-          <details id="emergencyStart" class="emergency-start">
-            <summary>Núdzový štart - 30 sekúnd</summary>
-            <div id="emergencyStartBody"></div>
-          </details>
 
           <div class="study-mode" role="group" aria-label="Režim učenia">
             <button id="modeAnswer" class="is-active" data-study-mode="answer" type="button">Odpoveď</button>
@@ -140,6 +136,6 @@
     <p class="study-disclaimer"><strong>Upozornenie:</strong> Táto appka je len doplnok k učeniu. Uč sa na vlastnú zodpovednosť, pripravuj si aj vlastné poznámky a overuj si správnosť materiálov. Autor appky nezodpovedá za úplnosť ani správnosť poznámok.</p>
   </footer>
 
-  <script src="src/app.js?v=19" defer></script>
+  <script src="src/app.js?v=20" defer></script>
 </body>
 </html>
