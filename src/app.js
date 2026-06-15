@@ -176,14 +176,21 @@ function setCurrent(id, shouldFocusStudy = false) {
 }
 
 function renderMetrics() {
-  const done = state.topics.filter((topic) => gradeOf(topic)).length;
-  const mastered = state.topics.filter((topic) => gradeOf(topic) === 'A').length;
+  const counts = countGrades(state.topics);
+  const done = counts.done;
+  const mastered = counts.A;
   const weak = state.topics.length - mastered;
   const days = Math.max(1, Math.ceil((EXAM_DATE - new Date()) / 86400000));
   $('#metricDone').textContent = `${done}/${state.topics.length}`;
   $('#metricWeak').textContent = String(weak);
   $('#metricDays').textContent = String(days);
   $('#metricDaily').textContent = String(Math.ceil(weak / days));
+  $('#metricA').textContent = String(counts.A);
+  $('#metricB').textContent = String(counts.B);
+  $('#metricC').textContent = String(counts.C);
+  $('#metricKnowCount').textContent = `${mastered}/${state.topics.length}`;
+  $('#metricKnowPercent').textContent = `${Math.round((mastered / Math.max(state.topics.length, 1)) * 100)}%`;
+  applyKnowProgress($('#metricKnow'), mastered, state.topics.length);
 }
 
 function renderToday() {
@@ -236,6 +243,7 @@ function renderQuestion() {
   $('#currentMedia').style.display = media.length ? 'inline-flex' : 'none';
   $('#questionTitle').textContent = titleWithNumber(topic);
   $('#questionCue').textContent = topic.cue || 'Skús najprv povedať kostru odpovede bez pozerania.';
+  $('#skeletonLink').href = `kostry/index.html?topic=${encodeURIComponent(topic.id)}`;
   renderStudyModeButtons();
   renderStudyBody(topic);
   renderGradeButtons(topic);
@@ -654,6 +662,27 @@ function renderGradeButtons(topic) {
   $$('.grade-buttons button').forEach((button) => {
     button.classList.toggle('is-active', button.dataset.grade === grade);
   });
+}
+
+function countGrades(topics) {
+  const counts = { A: 0, B: 0, C: 0, none: 0, done: 0 };
+  topics.forEach((topic) => {
+    const grade = gradeOf(topic);
+    if (grade) counts.done += 1;
+    if (grade === 'A') counts.A += 1;
+    else if (grade === 'B') counts.B += 1;
+    else if (grade === 'C') counts.C += 1;
+    else counts.none += 1;
+  });
+  return counts;
+}
+
+function applyKnowProgress(element, known, total) {
+  if (!element) return;
+  const ratio = total ? known / total : 0;
+  const hue = Math.round(ratio * 120);
+  element.style.backgroundColor = `hsl(${hue} 65% 92%)`;
+  element.style.borderColor = `hsl(${hue} 45% 72%)`;
 }
 
 function renderTopicList() {

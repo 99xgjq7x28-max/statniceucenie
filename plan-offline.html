@@ -33,6 +33,12 @@
       <div class="metric"><span>A viem</span><strong id="planA">0</strong></div>
       <div class="metric"><span>B/C riešiť</span><strong id="planWeak">0</strong></div>
     </section>
+    <section class="plan-progress-row" aria-label="Úroveň zvládnutia">
+      <div id="planKnowCard" class="plan-know-card">
+        <span>Viem <small id="planKnowPercent">0%</small></span>
+        <strong id="planKnowCount">0/60</strong>
+      </div>
+    </section>
 
     <main class="plan-layout">
       <section class="plan-main-band">
@@ -12961,15 +12967,19 @@ function renderPlanMetrics() {
   $('#planDone').textContent = `${grades.done}/${planState.topics.length}`;
   $('#planA').textContent = String(grades.A);
   $('#planWeak').textContent = String(grades.B + grades.C + grades.none);
+  $('#planKnowCount').textContent = `${grades.A}/${planState.topics.length}`;
+  $('#planKnowPercent').textContent = `${Math.round((grades.A / Math.max(planState.topics.length, 1)) * 100)}%`;
+  applyKnowProgress($('#planKnowCard'), grades.A, planState.topics.length);
 }
 
 function renderTodayPlan() {
   const day = currentPlanDay();
-  const topics = topicsForDay(day);
+  const carryover = carryoverDays(day);
+  const topics = topicsForVisibleDay(day);
   const isExamDay = day.mode === 'exam';
   $('#todayPlanLabel').textContent = isExamDay
     ? `${day.label} - ${day.goal}`
-    : `${day.label} - ${day.goal} (${topics.length || 'podľa progresu'} otázok)`;
+    : `${day.label} - ${day.goal} (${topics.length || 'podľa progresu'} otázok${carryover.length ? `, z toho ${carryover.length} rozrobené dni` : ''})`;
   $('#markTodayDone').style.display = isExamDay ? 'none' : '';
   $('#markTodayDone').textContent = planState.plan.completedDays[day.date] ? 'Deň hotový' : 'Označiť deň hotový';
   $('#markTodayDone').classList.toggle('is-done', Boolean(planState.plan.completedDays[day.date]));
@@ -13012,9 +13022,10 @@ function renderCalendar() {
     const topics = topicsForDay(day);
     const done = Boolean(planState.plan.completedDays[day.date]);
     const today = day.date === todayKey();
+    const overdue = day.date < todayKey() && !done && day.mode !== 'exam';
     const counts = countGrades(topics);
     return `
-      <article class="plan-day ${today ? 'is-today' : ''} ${done ? 'is-complete' : ''}">
+      <article class="plan-day ${today ? 'is-today' : ''} ${done ? 'is-complete' : ''} ${overdue ? 'is-overdue' : ''}">
         <div class="plan-day-head">
           <strong>${day.label}</strong>
           <span>${escapeHtml(day.goal)}</span>
@@ -13042,6 +13053,22 @@ function topicsForDay(day) {
   return [];
 }
 
+function topicsForVisibleDay(day) {
+  return uniqueTopics([
+    ...carryoverDays(day).flatMap((carryDay) => topicsForDay(carryDay)),
+    ...topicsForDay(day)
+  ]);
+}
+
+function carryoverDays(day) {
+  return planDays.filter((candidate) =>
+    candidate.date < day.date &&
+    candidate.date <= todayKey() &&
+    !planState.plan.completedDays[candidate.date] &&
+    candidate.mode !== 'exam'
+  );
+}
+
 function byWeakness(order) {
   const rank = new Map(order.map((grade, index) => [grade, index]));
   return [...planState.topics]
@@ -13067,7 +13094,9 @@ function fallbackForMode(mode) {
 }
 
 function nextMilestoneText() {
-  const firstUnfinished = planDays.find((day) => !planState.plan.completedDays[day.date]);
+  const today = todayKey();
+  const firstUnfinished = planDays.find((day) => day.date <= today && !planState.plan.completedDays[day.date] && day.mode !== 'exam')
+    || planDays.find((day) => !planState.plan.completedDays[day.date]);
   if (!firstUnfinished) return 'Plán je odškrtnutý. Teraz už len opakovanie a pokoj.';
   return `${firstUnfinished.label}: ${firstUnfinished.goal}. ${dayDescription(firstUnfinished, topicsForDay(firstUnfinished))}`;
 }
@@ -13075,6 +13104,15 @@ function nextMilestoneText() {
 function currentPlanDay() {
   const key = todayKey();
   return planDays.find((day) => day.date === key) || planDays.find((day) => day.date > key) || planDays[planDays.length - 1];
+}
+
+function uniqueTopics(items) {
+  const seen = new Set();
+  return items.filter((topic) => {
+    if (!topic || seen.has(topic.id)) return false;
+    seen.add(topic.id);
+    return true;
+  });
 }
 
 function bindGradeButtons() {
@@ -13142,6 +13180,14 @@ function escapeHtml(value) {
 
 function escapeAttr(value) {
   return escapeHtml(value).replace(/`/g, '&#96;');
+}
+
+function applyKnowProgress(element, known, total) {
+  if (!element) return;
+  const ratio = total ? known / total : 0;
+  const hue = Math.round(ratio * 120);
+  element.style.backgroundColor = `hsl(${hue} 65% 92%)`;
+  element.style.borderColor = `hsl(${hue} 45% 72%)`;
 }
 
 </script>

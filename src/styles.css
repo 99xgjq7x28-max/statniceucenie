@@ -92,6 +92,37 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
+.plan-progress-row {
+  max-width: 1180px;
+  margin: 0 auto 16px;
+}
+.plan-know-card {
+  min-height: 72px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 12px 14px;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.plan-know-card span {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+.plan-know-card small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.plan-know-card strong {
+  font-size: 24px;
+  line-height: 1;
+}
 .plan-layout {
   max-width: 1180px;
   margin: 0 auto;
@@ -138,6 +169,7 @@ button.is-done,
 .plan-day { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
 .plan-day.is-today { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
 .plan-day.is-complete { background: #edf8f0; }
+.plan-day.is-overdue { border-color: #e5b6b1; box-shadow: inset 4px 0 0 var(--danger); background: #fff8f7; }
 .plan-day-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
 .plan-day-head strong { font-size: 18px; }
 .plan-day-head span { color: var(--accent); font-weight: 900; }
@@ -163,6 +195,43 @@ button.is-done,
 .metric { border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.65); padding: 10px; }
 .metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 700; }
 .metric strong { display: block; margin-top: 2px; font-size: 20px; line-height: 1.1; }
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.metric-chip {
+  min-height: 56px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.65);
+  padding: 8px 10px;
+}
+.metric-chip span {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.metric-chip small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.metric-chip strong {
+  font-size: 17px;
+  line-height: 1.1;
+}
+.metric-chip-a { background: #eaf8ef; }
+.metric-chip-b { background: #fff7df; }
+.metric-chip-c { background: #fff0ee; }
+.metric-chip-know { transition: background-color .2s ease, border-color .2s ease; }
 .panel { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; margin-top: 12px; }
 .controls { display: grid; gap: 10px; }
 .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -414,6 +483,7 @@ th { background: #f1eee7; font-weight: 900; }
   .plan-shell { padding: 14px; }
   .plan-hero { display: grid; }
   .plan-metrics { grid-template-columns: 1fr 1fr; }
+  .plan-progress-row { margin-bottom: 14px; }
   .plan-layout { display: block; }
   .plan-side { position: static; }
   .plan-topic { grid-template-columns: 1fr; }
@@ -426,6 +496,7 @@ th { background: #f1eee7; font-weight: 900; }
   .topic-list { max-height: 320px; }
   .method-guide { max-width: min(420px, 100%); }
   .method-guide img { max-height: none; }
+  .metric-strip { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 520px) {
   .sidebar { padding: 14px; }
@@ -446,4 +517,5 @@ th { background: #f1eee7; font-weight: 900; }
   .grade-buttons { grid-template-columns: 1fr; }
   .topbar { align-items: flex-start; }
   .browser-head { display: flex; }
+  .metric-chip strong { font-size: 15px; }
 }

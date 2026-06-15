@@ -2,7 +2,7 @@ const items = window.__SKELETONS__ || [];
 const state = {
   subject: 'all',
   query: '',
-  currentId: new URLSearchParams(location.search).get('topic') || items[0]?.id,
+  currentId: normalizeTopicId(new URLSearchParams(location.search).get('topic')) || items[0]?.id,
 };
 const transitions = ['Najprv', 'Ďalej', 'Potom', 'Následne', 'Dôležité', 'V praxi', 'Pre manažéra'];
 
@@ -42,6 +42,14 @@ function ensureCurrent() {
   if (!visible.some((item) => item.id === state.currentId)) {
     state.currentId = visible[0]?.id;
   }
+}
+
+function normalizeTopicId(topicId) {
+  if (!topicId) return '';
+  return String(topicId)
+    .replace(/^ekono[míi]a a financie-/i, 'ekonomia-')
+    .replace(/^ekono[míi]a-/i, 'ekonomia-')
+    .replace(/^manažment-/i, 'manazment-');
 }
 
 function label(item) {
