@@ -24,6 +24,9 @@ Nahraj celý priečinok do GitHub repozitára a v nastaveniach Pages vyber deplo
 index.html              hlavná stránka
 src/app.js              logika aplikácie
 src/styles.css          vizuál a responzívne layouty
+hra.html                jednoduchá vedomostná plošinovka
+src/game.js             logika hry
+src/game.css            vizuál hry
 data/topics.json        všetky otázky, odpovede, tabuľky a referencie na obrázky
 kostry/                 stručné hovorené kostry všetkých 60 otázok
 assets/images/          obrázky extrahované z Word dokumentov

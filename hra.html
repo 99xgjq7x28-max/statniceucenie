@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ebe4d5">
+  <title>Štátnice hra</title>
+  <script>
+    if (location.protocol === 'file:' && !location.pathname.endsWith('/hra-offline.html')) {
+      location.replace(`hra-offline.html${location.search}`);
+    }
+  </script>
+  <link rel="stylesheet" href="src/game.css?v=1">
+</head>
+<body>
+  <div class="game-shell">
+    <header class="game-header">
+      <div>
+        <div class="game-kicker">Štátnice</div>
+        <h1>Hra vedomostí</h1>
+        <p>Old school cesta cez budovu. Dvere, mosty a rozpadnuté podlahy pustia ďalej len po správnej odpovedi.</p>
+      </div>
+      <nav class="game-nav" aria-label="Navigácia">
+        <a class="game-link" href="index.html">Učenie</a>
+        <a class="game-link" href="plan.html">Plán</a>
+        <a class="game-link" href="kostry/index.html">Kostry</a>
+      </nav>
+    </header>
+
+    <section class="game-toolbar" aria-label="Nastavenia hry">
+      <label>
+        Predmet
+        <select id="gameSubject">
+          <option value="all">Všetko</option>
+          <option value="Ekonómia a financie">Ekonómia a financie</option>
+          <option value="Manažment">Manažment</option>
+        </select>
+      </label>
+      <label>
+        Náročnosť
+        <select id="gameFocus">
+          <option value="mixed">Mix otázok</option>
+          <option value="weak">Najprv slabé a nové</option>
+          <option value="fresh">Len nové</option>
+        </select>
+      </label>
+      <button id="restartGame" type="button">Nová výprava</button>
+    </section>
+
+    <main class="game-layout">
+      <section class="board-panel">
+        <div class="board-head">
+          <div class="status-row">
+            <div class="status-card"><span>Pozícia</span><strong id="statPosition">1 / 12</strong></div>
+            <div class="status-card"><span>Srdcia</span><strong id="statHearts">3</strong></div>
+            <div class="status-card"><span>Správne</span><strong id="statCorrect">0</strong></div>
+            <div class="status-card"><span>Téma</span><strong id="statSubject">Mix</strong></div>
+          </div>
+          <p id="encounterText" class="encounter-text">Pred tebou sú prvé dvere. Odomkni ich správnou odpoveďou.</p>
+        </div>
+
+        <div class="board-scene">
+          <div id="boardGrid" class="board-grid" aria-label="Herná plocha"></div>
+          <div class="legend">
+            <span><i class="legend-door"></i>Dvere</span>
+            <span><i class="legend-gap"></i>Rozpadnutá podlaha</span>
+            <span><i class="legend-bridge"></i>Most</span>
+            <span><i class="legend-gate"></i>Brána</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="question-panel">
+        <div class="question-meta">
+          <span id="questionLabel" class="question-label">E1</span>
+          <a id="fullAnswerLink" class="full-answer-link" href="index.html">Úplná odpoveď</a>
+        </div>
+        <h2 id="questionTitle">Načítavam otázku...</h2>
+        <p id="questionPrompt" class="question-prompt"></p>
+        <div id="answers" class="answer-grid"></div>
+        <div class="question-footer">
+          <p id="feedback" class="feedback">Vyber správnu možnosť A, B, C alebo D.</p>
+          <button id="continueButton" class="continue-button" type="button" hidden>Pokračovať ďalej</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="game-footer">
+      <p><strong>Tip:</strong> Keď sa zasekneš, otvor úplnú odpoveď a potom sa vráť späť do hry.</p>
+    </footer>
+  </div>
+
+  <script src="src/game.js?v=1" defer></script>
+</body>
+</html>
