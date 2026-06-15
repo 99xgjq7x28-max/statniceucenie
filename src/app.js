@@ -186,7 +186,6 @@ function renderMetrics() {
   $('#metricDays').textContent = String(days);
   $('#metricDaily').textContent = String(Math.ceil(weak / days));
   $('#metricA').textContent = `${counts.A}/${state.topics.length}`;
-  $('#metricAPercent').textContent = `${Math.round((counts.A / Math.max(state.topics.length, 1)) * 100)}%`;
   $('#metricB').textContent = String(counts.B);
   $('#metricC').textContent = String(counts.C);
 }

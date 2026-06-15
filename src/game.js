@@ -1,232 +1,255 @@
-const GAME_STORE_KEY = 'statnice-hra-v1';
-const TILE_TYPES = ['door', 'gap', 'bridge', 'gate', 'door', 'gap', 'bridge', 'gate', 'door', 'bridge', 'gap', 'gate'];
+const GAME_STORE_KEY = 'statnice-house-game-v2';
+const HOUSE_THEMES = [
+  { key: 'horror', name: 'Domček 1', subtitle: 'Hororová vila', className: 'theme-horror' },
+  { key: 'economy', name: 'Domček 2', subtitle: 'Rozpadajúca sa ekonomika', className: 'theme-economy' },
+  { key: 'archive', name: 'Domček 3', subtitle: 'Archív manažéra', className: 'theme-archive' },
+  { key: 'bank', name: 'Domček 4', subtitle: 'Banka v kríze', className: 'theme-bank' },
+  { key: 'final', name: 'Domček 5', subtitle: 'Finálne ministerstvo', className: 'theme-final' }
+];
+const ROOM_TYPES = ['door', 'gap', 'bridge', 'gate', 'door', 'bridge', 'gap', 'gate', 'door', 'gap', 'bridge', 'gate'];
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-const gameState = {
+const state = {
   topics: [],
-  queue: [],
-  subject: 'all',
-  focus: 'mixed',
-  index: 0,
-  hearts: 3,
-  correct: 0,
-  currentChallenge: null
+  houses: [],
+  currentHouse: 0,
+  currentRoom: 0,
+  question: null,
+  progress: readJson(GAME_STORE_KEY, { unlockedHouse: 0, solvedByHouse: {} })
 };
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
-bootGame();
+boot();
 
-async function bootGame() {
+async function boot() {
   if (location.protocol === 'file:' && !window.__TOPICS__) {
-    showFileWarning();
+    renderFileWarning();
     return;
   }
-  gameState.topics = window.__TOPICS__ || await fetch('data/topics.json').then((res) => res.json());
-  bindGameEvents();
-  startNewGame();
+  state.topics = window.__TOPICS__ || await fetch('data/topics.json').then((res) => res.json());
+  state.houses = buildHouses(state.topics);
+  state.currentHouse = Math.min(state.progress.unlockedHouse || 0, state.houses.length - 1);
+  bindEvents();
+  loadCurrentQuestion();
+  render();
 }
 
-function showFileWarning() {
-  const shell = document.querySelector('.game-shell');
-  if (!shell) return;
-  shell.innerHTML = `
+function renderFileWarning() {
+  $('.game-shell').innerHTML = `
     <div class="board-panel">
       <h1>Hra sa nenačítala</h1>
       <p>Ak chceš hrať dvojklikom zo súboru, otvor <strong>hra-offline.html</strong>.</p>
-      <p>Ak ideš cez GitHub Pages alebo server, otvor <strong>hra.html</strong>.</p>
     </div>
   `;
 }
 
-function bindGameEvents() {
-  $('#gameSubject').addEventListener('change', (event) => {
-    gameState.subject = event.target.value;
-    startNewGame();
-  });
-  $('#gameFocus').addEventListener('change', (event) => {
-    gameState.focus = event.target.value;
-    startNewGame();
-  });
-  $('#restartGame').addEventListener('click', startNewGame);
-  $('#continueButton').addEventListener('click', continueAfterAnswer);
-}
-
-function startNewGame() {
-  gameState.queue = buildQueue();
-  gameState.index = 0;
-  gameState.hearts = 3;
-  gameState.correct = 0;
-  gameState.currentChallenge = null;
-  writeGameState();
-  loadChallenge();
-  renderGame();
-}
-
-function buildQueue() {
-  const progress = readJson('statnice-progress-v2', {});
-  let pool = [...gameState.topics];
-  if (gameState.subject !== 'all') {
-    pool = pool.filter((topic) => topic.subject === gameState.subject);
+function buildHouses(topics) {
+  const perHouse = 12;
+  const houses = [];
+  for (let index = 0; index < topics.length; index += perHouse) {
+    const theme = HOUSE_THEMES[houses.length] || HOUSE_THEMES[HOUSE_THEMES.length - 1];
+    houses.push({
+      id: `house-${houses.length + 1}`,
+      ...theme,
+      topics: topics.slice(index, index + perHouse)
+    });
   }
-  if (gameState.focus === 'weak') {
-    pool = pool.sort((a, b) => weaknessRank(progress[a.id]?.grade) - weaknessRank(progress[b.id]?.grade) || a.number - b.number);
-  } else if (gameState.focus === 'fresh') {
-    pool = pool.filter((topic) => !progress[topic.id]?.grade);
-    if (!pool.length) {
-      pool = [...gameState.topics].filter((topic) => gameState.subject === 'all' || topic.subject === gameState.subject);
-    }
-  } else {
-    pool = shuffle(pool);
-  }
-  return shuffle(pool).slice(0, Math.max(12, Math.min(pool.length, 24)));
+  return houses;
 }
 
-function weaknessRank(grade) {
-  if (grade === 'C') return 0;
-  if (!grade) return 1;
-  if (grade === 'B') return 2;
-  return 3;
+function bindEvents() {
+  $('#restartGame').addEventListener('click', resetGame);
+  $('#continueButton').addEventListener('click', nextStep);
 }
 
-function loadChallenge() {
-  const topic = gameState.queue[gameState.index];
-  if (!topic) {
-    gameState.currentChallenge = null;
+function resetGame() {
+  if (!confirm('Naozaj chceš vymazať postup v hre a začať od prvého domčeka?')) return;
+  state.progress = { unlockedHouse: 0, solvedByHouse: {} };
+  state.currentHouse = 0;
+  state.currentRoom = 0;
+  writeProgress();
+  loadCurrentQuestion();
+  render();
+}
+
+function houseProgress(houseIndex) {
+  return state.progress.solvedByHouse[state.houses[houseIndex].id] || [];
+}
+
+function isHouseUnlocked(houseIndex) {
+  return houseIndex <= (state.progress.unlockedHouse || 0);
+}
+
+function isHouseComplete(houseIndex) {
+  return houseProgress(houseIndex).length >= state.houses[houseIndex].topics.length;
+}
+
+function loadCurrentQuestion() {
+  const house = state.houses[state.currentHouse];
+  if (!house) {
+    state.question = null;
     return;
   }
-  gameState.currentChallenge = buildChallenge(topic);
+  if (houseProgress(state.currentHouse).length >= house.topics.length) {
+    state.currentRoom = house.topics.length - 1;
+    state.question = null;
+    return;
+  }
+  const solvedIds = new Set(houseProgress(state.currentHouse));
+  const unsolvedIndex = house.topics.findIndex((topic) => !solvedIds.has(topic.id));
+  const fallbackRoom = unsolvedIndex === -1 ? house.topics.length - 1 : unsolvedIndex;
+  if (solvedIds.has(house.topics[state.currentRoom]?.id)) {
+    state.currentRoom = fallbackRoom;
+  }
+  const topic = house.topics[state.currentRoom];
+  state.question = topic ? buildQuestion(topic) : null;
 }
 
-function buildChallenge(topic) {
-  const correct = topicKeyPoint(topic);
-  const distractors = buildDistractors(topic, correct);
+function buildQuestion(topic) {
+  const correct = extractCoreText(topic);
+  const distractors = pickDistractors(topic, correct);
   const options = shuffle([
     { text: correct, correct: true },
     ...distractors.map((text) => ({ text, correct: false }))
   ]).map((option, index) => ({ ...option, letter: LETTERS[index] }));
-  return {
-    topic,
-    encounter: encounterForIndex(gameState.index),
-    prompt: encounterPrompt(encounterForIndex(gameState.index), topic),
-    options,
-    solved: false,
-    answered: false
-  };
+  return { topic, options, answered: false, solved: false };
 }
 
-function topicKeyPoint(topic) {
-  const blocks = topic.blocks || [];
-  for (const block of blocks) {
-    if ((block.type === 'heading' || block.type === 'li' || block.type === 'p') && String(block.text || '').trim()) {
-      const compact = compactText(block.text);
-      if (compact.split(' ').length >= 4) return compact;
+function extractCoreText(topic) {
+  for (const block of topic.blocks || []) {
+    if ((block.type === 'li' || block.type === 'p' || block.type === 'heading') && String(block.text || '').trim()) {
+      const text = shorten(String(block.text).replace(/^[•\-–]\s+/, '').trim(), 120);
+      if (text.split(' ').length >= 4) return text;
     }
   }
-  return compactText(compactTitle(topic.title));
+  return shorten(compactTitle(topic.title), 120);
 }
 
-function buildDistractors(topic, correct) {
-  const sameSubject = gameState.topics
-    .filter((candidate) => candidate.id !== topic.id && candidate.subject === topic.subject)
-    .map((candidate) => topicKeyPoint(candidate))
+function pickDistractors(topic, correct) {
+  const candidates = state.topics
+    .filter((candidate) => candidate.id !== topic.id)
+    .map((candidate) => extractCoreText(candidate))
     .filter((text) => text && text !== correct);
-  return shuffle(uniqueTexts(sameSubject)).slice(0, 3);
+  return uniqueTexts(shuffle(candidates)).slice(0, 3);
 }
 
-function uniqueTexts(items) {
-  const seen = new Set();
-  return items.filter((item) => {
-    const key = item.toLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
+function render() {
+  renderHouseList();
+  renderStatus();
+  renderHouseScene();
+  renderQuestion();
+}
+
+function renderHouseList() {
+  $('#houseList').innerHTML = state.houses.map((house, index) => {
+    const unlocked = isHouseUnlocked(index);
+    const complete = isHouseComplete(index);
+    const solved = houseProgress(index).length;
+    return `
+      <button class="house-button ${index === state.currentHouse ? 'is-current' : ''} ${complete ? 'is-complete' : ''} ${!unlocked ? 'is-locked' : ''}" data-house="${index}" type="button" ${unlocked ? '' : 'disabled'}>
+        <strong>${house.name}</strong>
+        <span>${house.subtitle}</span>
+        <span>${solved}/${house.topics.length} otázok</span>
+      </button>
+    `;
+  }).join('');
+  $$('#houseList .house-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const houseIndex = Number(button.dataset.house);
+      if (!isHouseUnlocked(houseIndex)) return;
+      state.currentHouse = houseIndex;
+      state.currentRoom = firstOpenRoom(houseIndex);
+      loadCurrentQuestion();
+      render();
+    });
   });
 }
 
-function encounterForIndex(index) {
-  return TILE_TYPES[index % TILE_TYPES.length];
+function firstOpenRoom(houseIndex) {
+  const house = state.houses[houseIndex];
+  const solved = new Set(houseProgress(houseIndex));
+  const index = house.topics.findIndex((topic) => !solved.has(topic.id));
+  return index === -1 ? house.topics.length - 1 : index;
 }
 
-function encounterPrompt(type, topic) {
-  const label = shortLabel(topic);
-  if (type === 'door') return `Pred tebou sú zavreté dvere. Ktorá možnosť najlepšie patrí k otázke ${label}?`;
-  if (type === 'gap') return `Podlaha je rozbitá. Vyber správnu možnosť a položíš dosku cez priepasť pri otázke ${label}.`;
-  if (type === 'bridge') return `Most je nestabilný. Spevni ho správnou odpoveďou k otázke ${label}.`;
-  return `Brána sa otvorí len po správnej odpovedi. Ktorá možnosť sedí k otázke ${label}?`;
+function renderStatus() {
+  const house = state.houses[state.currentHouse];
+  $('#gameHouseStatus').textContent = `${house.name} z ${state.houses.length} · ${house.subtitle}`;
+  $('#gameHouseHint').textContent = isHouseComplete(state.currentHouse)
+    ? 'Tento domček je hotový. Môžeš sa sem kedykoľvek vrátiť.'
+    : 'Dokonči všetky izby v tomto domčeku a odomkneš ďalší level.';
+  $('#statPosition').textContent = `${state.currentRoom + 1} / ${house.topics.length}`;
+  $('#statSolved').textContent = `${houseProgress(state.currentHouse).length} / ${house.topics.length}`;
+  $('#statHouse').textContent = `${state.currentHouse + 1} / ${state.houses.length}`;
+  $('#statTheme').textContent = house.subtitle;
+  $('#encounterText').textContent = encounterText();
 }
 
-function renderGame() {
-  renderStats();
-  renderBoard();
-  renderChallenge();
-}
-
-function renderStats() {
-  const totalSteps = Math.min(12, gameState.queue.length || 12);
-  $('#statPosition').textContent = `${Math.min(gameState.index + 1, totalSteps)} / ${totalSteps}`;
-  $('#statHearts').textContent = '❤'.repeat(Math.max(gameState.hearts, 0)) || '0';
-  $('#statCorrect').textContent = String(gameState.correct);
-  $('#statSubject').textContent = gameState.subject === 'all' ? 'Mix' : (gameState.subject === 'Manažment' ? 'Manažment' : 'Ekonómia');
-  $('#encounterText').textContent = boardHint();
-}
-
-function boardHint() {
-  if (!gameState.currentChallenge) return 'Výprava je hotová. Spusti novú hru.';
-  const type = gameState.currentChallenge.encounter;
+function encounterText() {
+  if (!state.question) return 'Tento domček je hotový.';
+  const type = ROOM_TYPES[state.currentRoom % ROOM_TYPES.length];
   if (type === 'door') return 'Pred tebou sú dvere. Správna odpoveď ich odomkne.';
-  if (type === 'gap') return 'Rozpadnutú podlahu preklenieš len správnou odpoveďou.';
-  if (type === 'bridge') return 'Most treba spevniť. Vyber správny bod.';
-  return 'Brána pustí ďalej len po správnej odpovedi.';
+  if (type === 'gap') return 'Podlaha je rozbitá. Správna odpoveď postaví bezpečný prechod.';
+  if (type === 'bridge') return 'Most drží len napoly. Správna odpoveď ho spevní.';
+  return 'Brána sa otvorí len tomu, kto odpovie správne.';
 }
 
-function renderBoard() {
-  const stepCount = Math.min(12, Math.max(gameState.queue.length, 12));
-  $('#boardGrid').innerHTML = Array.from({ length: stepCount }, (_, index) => {
-    const type = encounterForIndex(index);
-    const current = index === gameState.index && gameState.currentChallenge;
-    const cleared = index < gameState.index;
+function renderHouseScene() {
+  const house = state.houses[state.currentHouse];
+  const solvedIds = new Set(houseProgress(state.currentHouse));
+  const scene = $('#houseScene');
+  scene.className = `board-scene ${house.className}`;
+  $('#boardGrid').innerHTML = house.topics.map((topic, index) => {
+    const floor = 2 - Math.floor(index / 4);
+    const solved = solvedIds.has(topic.id);
+    const current = index === state.currentRoom;
+    const type = ROOM_TYPES[index % ROOM_TYPES.length];
     return `
-      <div class="board-tile ${current ? 'current' : ''} ${cleared ? 'cleared' : ''}">
-        <div class="tile-top">
-          <span class="tile-index">${index + 1}</span>
-          <span class="tile-type">${tileTypeLabel(type)}</span>
+      <div class="room-tile floor-${floor} ${solved ? 'solved' : ''} ${current ? 'current' : ''}">
+        <div class="room-ceiling"></div>
+        <div class="room-meta">
+          <span class="room-index">${shortLabel(topic)}</span>
+          <span class="room-type">${tileLabel(type)}</span>
         </div>
-        <div class="tile-art ${type}"></div>
-        ${current ? '<div class="player"><div class="player-shadow"></div></div>' : ''}
+        <div class="room-art ${type}"></div>
+        ${current ? '<div class="player"><div class="player-arms"></div><div class="player-legs"></div></div>' : ''}
       </div>
     `;
   }).join('');
 }
 
-function tileTypeLabel(type) {
+function tileLabel(type) {
   if (type === 'door') return 'Dvere';
   if (type === 'gap') return 'Pád';
   if (type === 'bridge') return 'Most';
   return 'Brána';
 }
 
-function renderChallenge() {
-  const challenge = gameState.currentChallenge;
+function renderQuestion() {
+  const question = state.question;
   const continueButton = $('#continueButton');
-  if (!challenge) {
-    $('#questionLabel').textContent = 'FINÁLE';
-    $('#questionTitle').textContent = 'Došiel si na koniec výpravy.';
-    $('#questionPrompt').textContent = `Správne si zvládol ${gameState.correct} prekážok. Spusti novú výpravu a prejdi ďalšie otázky.`;
+  if (!question) {
+    const nextUnlocked = isHouseUnlocked(state.currentHouse + 1);
+    $('#questionLabel').textContent = 'HOTOVO';
+    $('#questionTitle').textContent = 'Tento domček je dokončený.';
+    $('#questionPrompt').textContent = nextUnlocked
+      ? 'Môžeš sa vrátiť sem alebo pokračovať do ďalšieho odomknutého domčeka.'
+      : 'Práve si odomkol ďalší domček. Vyber si ho hore v zozname levelov.';
     $('#answers').innerHTML = '';
-    $('#feedback').textContent = 'Výprava je hotová.';
+    $('#feedback').textContent = 'Výborne. Všetky otázky v tomto domčeku sú zvládnuté.';
     $('#feedback').className = 'feedback is-good';
     $('#fullAnswerLink').href = 'index.html';
     continueButton.hidden = true;
     return;
   }
 
-  $('#questionLabel').textContent = shortLabel(challenge.topic);
-  $('#questionTitle').textContent = compactTitle(challenge.topic.title);
-  $('#questionPrompt').textContent = challenge.prompt;
-  $('#fullAnswerLink').href = `index.html?topic=${encodeURIComponent(challenge.topic.id)}`;
-  $('#answers').innerHTML = challenge.options.map((option) => `
+  $('#questionLabel').textContent = shortLabel(question.topic);
+  $('#questionTitle').textContent = compactTitle(question.topic.title);
+  $('#questionPrompt').textContent = promptForRoom(question.topic, state.currentRoom);
+  $('#fullAnswerLink').href = `index.html?topic=${encodeURIComponent(question.topic.id)}`;
+  $('#answers').innerHTML = question.options.map((option) => `
     <button class="answer-option" data-letter="${option.letter}" type="button">
       <strong>${option.letter}</strong>
       <span>${escapeHtml(option.text)}</span>
@@ -237,79 +260,121 @@ function renderChallenge() {
   continueButton.hidden = true;
 
   $$('#answers .answer-option').forEach((button) => {
-    button.addEventListener('click', () => answerChallenge(button.dataset.letter));
+    button.addEventListener('click', () => answerQuestion(button.dataset.letter));
   });
 }
 
-function answerChallenge(letter) {
-  const challenge = gameState.currentChallenge;
-  if (!challenge || challenge.answered) return;
-  challenge.answered = true;
+function promptForRoom(topic, roomIndex) {
+  const type = ROOM_TYPES[roomIndex % ROOM_TYPES.length];
+  const label = shortLabel(topic);
+  if (type === 'door') return `Odomkni dvere pri otázke ${label}. Ktorá možnosť patrí k tejto téme?`;
+  if (type === 'gap') return `Rozpadnutú podlahu prejdeš len správnou odpoveďou pri otázke ${label}.`;
+  if (type === 'bridge') return `Postav most cez medzeru pri otázke ${label}. Vyber správny bod.`;
+  return `Otvor bránu na ďalšie poschodie. Ktorá možnosť sedí k otázke ${label}?`;
+}
 
-  const picked = challenge.options.find((option) => option.letter === letter);
-  const correct = challenge.options.find((option) => option.correct);
-  const buttons = $$('#answers .answer-option');
-  buttons.forEach((button) => {
-    const option = challenge.options.find((item) => item.letter === button.dataset.letter);
+function answerQuestion(letter) {
+  if (!state.question || state.question.answered) return;
+  state.question.answered = true;
+  const picked = state.question.options.find((option) => option.letter === letter);
+  const correct = state.question.options.find((option) => option.correct);
+
+  $$('#answers .answer-option').forEach((button) => {
+    const option = state.question.options.find((item) => item.letter === button.dataset.letter);
     button.disabled = true;
     if (option.correct) button.classList.add('is-correct');
     if (button.dataset.letter === letter && !option.correct) button.classList.add('is-wrong');
   });
 
   if (picked?.correct) {
-    gameState.correct += 1;
-    challenge.solved = true;
-    $('#feedback').textContent = 'Správne. Prekážka je za tebou, môžeš pokračovať.';
+    state.question.solved = true;
+    markSolved(state.currentHouse, state.question.topic.id);
+    $('#feedback').textContent = 'Správne. Izba je vyčistená a môžeš ísť vyššie.';
     $('#feedback').className = 'feedback is-good';
-    $('#continueButton').hidden = false;
+    $('#continueButton').textContent = nextButtonText();
   } else {
-    gameState.hearts -= 1;
-    $('#feedback').textContent = `Nesprávne. Správna odpoveď bola ${correct.letter}. Na tejto prekážke ešte zostávaš.`;
+    $('#feedback').textContent = `Nesprávne. Správna odpoveď bola ${correct.letter}. Na tej istej izbe zostávaš a skúsiš ju znovu.`;
     $('#feedback').className = 'feedback is-bad';
-    $('#continueButton').hidden = false;
+    $('#continueButton').textContent = 'Skúsiť znovu';
   }
-
-  if (gameState.hearts <= 0) {
-    $('#feedback').textContent = `Došli ti srdcia. Správna odpoveď bola ${correct.letter}. Spúšťam novú výpravu.`;
-    $('#feedback').className = 'feedback is-bad';
-    $('#continueButton').textContent = 'Nová výprava';
-  } else {
-    $('#continueButton').textContent = picked?.correct ? 'Ďalšia prekážka' : 'Skúsiť znovu';
-  }
-
-  renderStats();
-  writeGameState();
+  $('#continueButton').hidden = false;
+  renderStatus();
+  renderHouseList();
 }
 
-function continueAfterAnswer() {
-  if (gameState.hearts <= 0) {
-    startNewGame();
+function nextButtonText() {
+  const house = state.houses[state.currentHouse];
+  const solved = houseProgress(state.currentHouse).length;
+  if (solved >= house.topics.length) return isHouseUnlocked(state.currentHouse + 1) ? 'Ďalší domček' : 'Odomknúť ďalší domček';
+  return 'Ďalšia izba';
+}
+
+function nextStep() {
+  if (!state.question) return;
+  if (!state.question.solved) {
+    state.question = buildQuestion(state.question.topic);
+    render();
     return;
   }
-  if (gameState.currentChallenge?.solved) {
-    gameState.index += 1;
-    loadChallenge();
-  } else if (gameState.currentChallenge) {
-    gameState.currentChallenge = buildChallenge(gameState.currentChallenge.topic);
+
+  const house = state.houses[state.currentHouse];
+  const solved = new Set(houseProgress(state.currentHouse));
+  const nextRoom = house.topics.findIndex((topic, index) => index > state.currentRoom && !solved.has(topic.id));
+
+  if (nextRoom !== -1) {
+    state.currentRoom = nextRoom;
+    loadCurrentQuestion();
+    render();
+    return;
   }
-  renderGame();
-  writeGameState();
+
+  if (houseProgress(state.currentHouse).length >= house.topics.length) {
+    state.progress.unlockedHouse = Math.max(state.progress.unlockedHouse || 0, Math.min(state.currentHouse + 1, state.houses.length - 1));
+    writeProgress();
+    if (state.currentHouse < state.houses.length - 1 && isHouseUnlocked(state.currentHouse + 1)) {
+      state.currentHouse += 1;
+      state.currentRoom = firstOpenRoom(state.currentHouse);
+      loadCurrentQuestion();
+    } else {
+      state.question = null;
+    }
+    render();
+  }
+}
+
+function markSolved(houseIndex, topicId) {
+  const houseId = state.houses[houseIndex].id;
+  const existing = new Set(state.progress.solvedByHouse[houseId] || []);
+  existing.add(topicId);
+  state.progress.solvedByHouse[houseId] = [...existing];
+  writeProgress();
+}
+
+function writeProgress() {
+  try { localStorage.setItem(GAME_STORE_KEY, JSON.stringify(state.progress)); } catch {}
 }
 
 function compactTitle(title) {
   return String(title || '').replace(/^\d+\s*[.\-]\s*/, '');
 }
 
-function compactText(text) {
-  return String(text || '')
-    .replace(/\s+/g, ' ')
-    .replace(/^[•\-–]\s+/, '')
-    .trim()
-    .replace(/(.{110}).+/, '$1…');
-}
-
 function shortLabel(topic) {
   return `${topic.subject === 'Manažment' ? 'M' : 'E'}${topic.number}`;
+}
+
+function shorten(text, max) {
+  const value = String(text || '').replace(/\s+/g, ' ').trim();
+  return value.length > max ? `${value.slice(0, max - 1)}…` : value;
+}
+
+function uniqueTexts(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = item.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function shuffle(items) {
@@ -324,16 +389,6 @@ function shuffle(items) {
 function readJson(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
   catch { return fallback; }
-}
-
-function writeGameState() {
-  try {
-    localStorage.setItem(GAME_STORE_KEY, JSON.stringify({
-      subject: gameState.subject,
-      focus: gameState.focus,
-      correct: gameState.correct
-    }));
-  } catch {}
 }
 
 function escapeHtml(value) {

@@ -135,10 +135,13 @@ button.is-done,
 .plan-topic-actions .is-active.warning { background: #fff7df; border-color: var(--warning); color: var(--warning); font-weight: 900; }
 .plan-topic-actions .is-active.danger { background: #fff0ee; border-color: var(--danger); color: var(--danger); font-weight: 900; }
 .grade-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.grade-summary div { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
-.grade-summary span { display: block; color: var(--muted); font-size: 13px; font-weight: 800; }
-.grade-summary strong { display: block; margin-top: 3px; font-size: 28px; line-height: 1; }
+.grade-summary div { min-height: 98px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; display: grid; align-content: start; }
+.grade-summary span { display: block; color: var(--muted); font-size: 13px; font-weight: 800; line-height: 1.2; }
+.grade-summary strong { display: block; margin-top: 8px; font-size: 28px; line-height: 1; }
 .grade-summary small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 700; }
+.grade-summary .summary-a strong { color: var(--success); }
+.grade-summary .summary-b strong { color: var(--warning); }
+.grade-summary .summary-c strong { color: var(--danger); }
 .plan-days-list { display: grid; gap: 8px; }
 .plan-day { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
 .plan-day.is-today { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
@@ -171,9 +174,10 @@ button.is-done,
 .metric strong { display: block; margin-top: 2px; font-size: 20px; line-height: 1.1; }
 .metric-strip {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 14px;
+  width: 100%;
 }
 .metric-chip {
   min-height: 56px;
@@ -205,6 +209,9 @@ button.is-done,
 .metric-chip-a { background: #eaf8ef; }
 .metric-chip-b { background: #fff7df; }
 .metric-chip-c { background: #fff0ee; }
+.metric-chip-a strong { color: var(--success); }
+.metric-chip-b strong { color: var(--warning); }
+.metric-chip-c strong { color: var(--danger); }
 .panel { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; margin-top: 12px; }
 .controls { display: grid; gap: 10px; }
 .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }

@@ -9,7 +9,6 @@ const planState = {
 };
 
 const planDays = [
-  { date: '2026-06-15', label: '15.6.', goal: 'Prvý prejazd: E 1-3', ranges: [['Ekonómia a financie', 1, 3]] },
   { date: '2026-06-16', label: '16.6.', goal: 'Prvý prejazd: M 1-3', ranges: [['Manažment', 1, 3]] },
   { date: '2026-06-17', label: '17.6.', goal: 'Prvý prejazd: E 4-6', ranges: [['Ekonómia a financie', 4, 6]] },
   { date: '2026-06-18', label: '18.6.', goal: 'Prvý prejazd: M 4-6', ranges: [['Manažment', 4, 6]] },
@@ -166,9 +165,9 @@ function renderTopicTask(topic) {
 function renderGradeSummary() {
   const grades = gradeCounts();
   $('#gradeSummary').innerHTML = `
-    <div><span>A viem</span><strong>${grades.A}/${planState.topics.length}</strong><small>${Math.round((grades.A / Math.max(planState.topics.length, 1)) * 100)}%</small></div>
-    <div><span>B slabé</span><strong>${grades.B}</strong></div>
-    <div><span>C neviem</span><strong>${grades.C}</strong></div>
+    <div class="summary-a"><span>A viem</span><strong>${grades.A}/${planState.topics.length}</strong></div>
+    <div class="summary-b"><span>B slabé</span><strong>${grades.B}</strong></div>
+    <div class="summary-c"><span>C neviem</span><strong>${grades.C}</strong></div>
     <div><span>Nové</span><strong>${grades.none}</strong></div>
   `;
 }

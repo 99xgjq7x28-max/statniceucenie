@@ -18,49 +18,44 @@
       <div>
         <div class="game-kicker">Štátnice</div>
         <h1>Hra vedomostí</h1>
-        <p>Old school cesta cez budovu. Dvere, mosty a rozpadnuté podlahy pustia ďalej len po správnej odpovedi.</p>
+        <p>Old school profilové domčeky. Z prízemia sa šplháš až na najvyššie poschodie a každý ďalší domček sa odomkne až po správnych odpovediach.</p>
       </div>
       <nav class="game-nav" aria-label="Navigácia">
         <a class="game-link" href="index.html">Učenie</a>
         <a class="game-link" href="plan.html">Plán</a>
         <a class="game-link" href="kostry/index.html">Kostry</a>
+        <a class="game-link" href="hra.html">Hra</a>
       </nav>
     </header>
 
-    <section class="game-toolbar" aria-label="Nastavenia hry">
-      <label>
-        Predmet
-        <select id="gameSubject">
-          <option value="all">Všetko</option>
-          <option value="Ekonómia a financie">Ekonómia a financie</option>
-          <option value="Manažment">Manažment</option>
-        </select>
-      </label>
-      <label>
-        Náročnosť
-        <select id="gameFocus">
-          <option value="mixed">Mix otázok</option>
-          <option value="weak">Najprv slabé a nové</option>
-          <option value="fresh">Len nové</option>
-        </select>
-      </label>
-      <button id="restartGame" type="button">Nová výprava</button>
+    <section class="game-toolbar" aria-label="Stav hry">
+      <div class="toolbar-copy">
+        <strong id="gameHouseStatus">Domček 1 z 5</strong>
+        <span id="gameHouseHint">Dokonči celý domček a odomkneš ďalší level.</span>
+      </div>
+      <button id="restartGame" type="button">Vymazať postup hry</button>
+    </section>
+
+    <section class="house-selector" aria-label="Výber domčeka">
+      <div id="houseList" class="house-list"></div>
     </section>
 
     <main class="game-layout">
       <section class="board-panel">
         <div class="board-head">
           <div class="status-row">
-            <div class="status-card"><span>Pozícia</span><strong id="statPosition">1 / 12</strong></div>
-            <div class="status-card"><span>Srdcia</span><strong id="statHearts">3</strong></div>
-            <div class="status-card"><span>Správne</span><strong id="statCorrect">0</strong></div>
-            <div class="status-card"><span>Téma</span><strong id="statSubject">Mix</strong></div>
+            <div class="status-card"><span>Izba</span><strong id="statPosition">1 / 12</strong></div>
+            <div class="status-card"><span>Dokončené</span><strong id="statSolved">0 / 12</strong></div>
+            <div class="status-card"><span>Domček</span><strong id="statHouse">1 / 5</strong></div>
+            <div class="status-card"><span>Level</span><strong id="statTheme">Horor</strong></div>
           </div>
           <p id="encounterText" class="encounter-text">Pred tebou sú prvé dvere. Odomkni ich správnou odpoveďou.</p>
         </div>
 
-        <div class="board-scene">
-          <div id="boardGrid" class="board-grid" aria-label="Herná plocha"></div>
+        <div id="houseScene" class="board-scene">
+          <div class="house-shell">
+            <div id="boardGrid" class="board-grid" aria-label="Profilový domček"></div>
+          </div>
           <div class="legend">
             <span><i class="legend-door"></i>Dvere</span>
             <span><i class="legend-gap"></i>Rozpadnutá podlaha</span>
