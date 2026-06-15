@@ -121,14 +121,11 @@ function renderPlan() {
 
 function renderPlanMetrics() {
   const grades = gradeCounts();
-  const days = Math.max(0, Math.ceil((EXAM_DATE - new Date()) / 86400000));
-  $('#planDays').textContent = String(days);
-  $('#planDone').textContent = `${grades.done}/${planState.topics.length}`;
-  $('#planA').textContent = String(grades.A);
-  $('#planWeak').textContent = String(grades.B + grades.C + grades.none);
-  $('#planKnowCount').textContent = `${grades.A}/${planState.topics.length}`;
-  $('#planKnowPercent').textContent = `${Math.round((grades.A / Math.max(planState.topics.length, 1)) * 100)}%`;
-  applyKnowProgress($('#planKnowCard'), grades.A, planState.topics.length);
+  const percent = Math.round((grades.A / Math.max(planState.topics.length, 1)) * 100);
+  $('#planReadyValue').textContent = `${percent}% pripravenosť`;
+  $('#planReadyLabel').textContent = readinessLabel(percent);
+  $('#planReadyNote').textContent = readinessNote(percent, grades.A, planState.topics.length);
+  $('#planReadyBar').style.width = `${percent}%`;
 }
 
 function renderTodayPlan() {
@@ -169,7 +166,7 @@ function renderTopicTask(topic) {
 function renderGradeSummary() {
   const grades = gradeCounts();
   $('#gradeSummary').innerHTML = `
-    <div><span>A viem</span><strong>${grades.A}</strong></div>
+    <div><span>A viem</span><strong>${grades.A}/${planState.topics.length}</strong><small>${Math.round((grades.A / Math.max(planState.topics.length, 1)) * 100)}%</small></div>
     <div><span>B slabé</span><strong>${grades.B}</strong></div>
     <div><span>C neviem</span><strong>${grades.C}</strong></div>
     <div><span>Nové</span><strong>${grades.none}</strong></div>
@@ -341,10 +338,18 @@ function escapeAttr(value) {
   return escapeHtml(value).replace(/`/g, '&#96;');
 }
 
-function applyKnowProgress(element, known, total) {
-  if (!element) return;
-  const ratio = total ? known / total : 0;
-  const hue = Math.round(ratio * 120);
-  element.style.backgroundColor = `hsl(${hue} 65% 92%)`;
-  element.style.borderColor = `hsl(${hue} 45% 72%)`;
+function readinessLabel(percent) {
+  if (percent >= 85) return 'Si veľmi blízko, toto už vieš udržať.';
+  if (percent >= 65) return 'Vyzerá to dobre, už sa to skladá do tvaru.';
+  if (percent >= 40) return 'Už máš základ a vieš na čom stavať.';
+  if (percent >= 20) return 'Rozbieha sa to, každý A posúva celý obraz.';
+  return 'Začíname pokojne a systematicky.';
+}
+
+function readinessNote(percent, known, total) {
+  if (percent >= 85) return `Máš ${known} otázok z ${total} označených ako A. Teraz najviac pomáha opakovanie, plynulosť a pokoj.`;
+  if (percent >= 65) return `Máš ${known} otázok z ${total} označených ako A. Slabé miesta sa už dajú cielene dočisťovať.`;
+  if (percent >= 40) return `Máš ${known} otázok z ${total} označených ako A. Pokračuj v premieňaní B a C na stabilné odpovede.`;
+  if (percent >= 20) return `Máš ${known} otázok z ${total} označených ako A. Základ už vzniká, teraz pomáha pravidelný rytmus a návraty.`;
+  return `Máš ${known} otázok z ${total} označených ako A. Prvé pevné body teraz vytvoria najväčší posun.`;
 }

@@ -85,44 +85,17 @@ label { display: grid; gap: 5px; color: var(--muted); font-size: 13px; font-weig
 .plan-hero h1 { margin: 0; font-size: 34px; line-height: 1.05; }
 .plan-hero p { margin: 8px 0 0; max-width: 680px; color: var(--muted); }
 .plan-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.plan-metrics {
-  max-width: 1180px;
-  margin: 0 auto 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
 .plan-progress-row {
   max-width: 1180px;
   margin: 0 auto 16px;
 }
-.plan-know-card {
-  min-height: 72px;
-  display: grid;
-  align-content: center;
-  gap: 4px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 12px 14px;
-  transition: background-color .2s ease, border-color .2s ease;
-}
-.plan-know-card span {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 800;
-}
-.plan-know-card small {
-  font-size: 11px;
-  color: var(--muted);
-}
-.plan-know-card strong {
-  font-size: 24px;
-  line-height: 1;
-}
+.plan-hero-progress { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px 16px; box-shadow: var(--shadow); }
+.plan-progress-copy { display: grid; gap: 4px; }
+.plan-progress-copy span { color: var(--accent); font-size: 12px; font-weight: 900; text-transform: uppercase; }
+.plan-progress-copy strong { font-size: 26px; line-height: 1.05; }
+.plan-progress-copy p { margin: 0; color: var(--muted); font-size: 14px; }
+.plan-progress-track { margin-top: 14px; height: 16px; overflow: hidden; border-radius: 999px; background: #e5ddd0; }
+.plan-progress-track span { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #d64545 0%, #f0b43c 45%, #8bbc4a 100%); transition: width .25s ease; }
 .plan-layout {
   max-width: 1180px;
   margin: 0 auto;
@@ -165,6 +138,7 @@ button.is-done,
 .grade-summary div { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
 .grade-summary span { display: block; color: var(--muted); font-size: 13px; font-weight: 800; }
 .grade-summary strong { display: block; margin-top: 3px; font-size: 28px; line-height: 1; }
+.grade-summary small { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 700; }
 .plan-days-list { display: grid; gap: 8px; }
 .plan-day { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 12px; }
 .plan-day.is-today { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
@@ -231,7 +205,6 @@ button.is-done,
 .metric-chip-a { background: #eaf8ef; }
 .metric-chip-b { background: #fff7df; }
 .metric-chip-c { background: #fff0ee; }
-.metric-chip-know { transition: background-color .2s ease, border-color .2s ease; }
 .panel { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 14px; margin-top: 12px; }
 .controls { display: grid; gap: 10px; }
 .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -482,7 +455,6 @@ th { background: #f1eee7; font-weight: 900; }
   .app-shell { display: block; }
   .plan-shell { padding: 14px; }
   .plan-hero { display: grid; }
-  .plan-metrics { grid-template-columns: 1fr 1fr; }
   .plan-progress-row { margin-bottom: 14px; }
   .plan-layout { display: block; }
   .plan-side { position: static; }
@@ -496,7 +468,7 @@ th { background: #f1eee7; font-weight: 900; }
   .topic-list { max-height: 320px; }
   .method-guide { max-width: min(420px, 100%); }
   .method-guide img { max-height: none; }
-  .metric-strip { grid-template-columns: 1fr 1fr; }
+  .metric-strip { grid-template-columns: 1fr 1fr 1fr; }
 }
 @media (max-width: 520px) {
   .sidebar { padding: 14px; }
@@ -517,5 +489,7 @@ th { background: #f1eee7; font-weight: 900; }
   .grade-buttons { grid-template-columns: 1fr; }
   .topbar { align-items: flex-start; }
   .browser-head { display: flex; }
+  .metric-strip { grid-template-columns: 1fr; }
   .metric-chip strong { font-size: 15px; }
+  .plan-progress-copy strong { font-size: 22px; }
 }

@@ -28,10 +28,9 @@
         <div class="metric"><span>Denne</span><strong id="metricDaily">0</strong></div>
       </section>
       <section class="metric-strip" aria-label="Rozpis progresu">
-        <div class="metric-chip metric-chip-a"><span>A</span><strong id="metricA">0</strong></div>
+        <div class="metric-chip metric-chip-a"><span>A viem <small id="metricAPercent">0%</small></span><strong id="metricA">0/60</strong></div>
         <div class="metric-chip metric-chip-b"><span>B</span><strong id="metricB">0</strong></div>
         <div class="metric-chip metric-chip-c"><span>C</span><strong id="metricC">0</strong></div>
-        <div id="metricKnow" class="metric-chip metric-chip-know"><span>Viem <small id="metricKnowPercent">0%</small></span><strong id="metricKnowCount">0/60</strong></div>
       </section>
 
       <details class="panel method-panel">
@@ -13074,12 +13073,10 @@ function renderMetrics() {
   $('#metricWeak').textContent = String(weak);
   $('#metricDays').textContent = String(days);
   $('#metricDaily').textContent = String(Math.ceil(weak / days));
-  $('#metricA').textContent = String(counts.A);
+  $('#metricA').textContent = `${counts.A}/${state.topics.length}`;
+  $('#metricAPercent').textContent = `${Math.round((counts.A / Math.max(state.topics.length, 1)) * 100)}%`;
   $('#metricB').textContent = String(counts.B);
   $('#metricC').textContent = String(counts.C);
-  $('#metricKnowCount').textContent = `${mastered}/${state.topics.length}`;
-  $('#metricKnowPercent').textContent = `${Math.round((mastered / Math.max(state.topics.length, 1)) * 100)}%`;
-  applyKnowProgress($('#metricKnow'), mastered, state.topics.length);
 }
 
 function renderToday() {
@@ -13566,13 +13563,6 @@ function countGrades(topics) {
   return counts;
 }
 
-function applyKnowProgress(element, known, total) {
-  if (!element) return;
-  const ratio = total ? known / total : 0;
-  const hue = Math.round(ratio * 120);
-  element.style.backgroundColor = `hsl(${hue} 65% 92%)`;
-  element.style.borderColor = `hsl(${hue} 45% 72%)`;
-}
 
 function renderTopicList() {
   const topics = filteredTopics();

@@ -185,12 +185,10 @@ function renderMetrics() {
   $('#metricWeak').textContent = String(weak);
   $('#metricDays').textContent = String(days);
   $('#metricDaily').textContent = String(Math.ceil(weak / days));
-  $('#metricA').textContent = String(counts.A);
+  $('#metricA').textContent = `${counts.A}/${state.topics.length}`;
+  $('#metricAPercent').textContent = `${Math.round((counts.A / Math.max(state.topics.length, 1)) * 100)}%`;
   $('#metricB').textContent = String(counts.B);
   $('#metricC').textContent = String(counts.C);
-  $('#metricKnowCount').textContent = `${mastered}/${state.topics.length}`;
-  $('#metricKnowPercent').textContent = `${Math.round((mastered / Math.max(state.topics.length, 1)) * 100)}%`;
-  applyKnowProgress($('#metricKnow'), mastered, state.topics.length);
 }
 
 function renderToday() {
@@ -677,13 +675,6 @@ function countGrades(topics) {
   return counts;
 }
 
-function applyKnowProgress(element, known, total) {
-  if (!element) return;
-  const ratio = total ? known / total : 0;
-  const hue = Math.round(ratio * 120);
-  element.style.backgroundColor = `hsl(${hue} 65% 92%)`;
-  element.style.borderColor = `hsl(${hue} 45% 72%)`;
-}
 
 function renderTopicList() {
   const topics = filteredTopics();
